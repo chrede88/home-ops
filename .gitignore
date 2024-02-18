@@ -1,0 +1,5 @@
+# Apple stuff
+.DS_Store
+
+# Talos
+cluster/talos/config/
