@@ -26,6 +26,14 @@ Check that all is good.
 kubectl version --client
 ```
 
+### Helm
+
+I'm planing using Cilium for cluster networking and also replacing Kube-proxy. This mean I'll have to supply a helm manifest to Talos so it can install Cilium on boot. Therefore I'll need Helm.
+
+```zsh
+brew install helm
+```
+
 ### fluxcd
 I'm plaing on using fluxcd so I might as well set this up now.
 
@@ -48,7 +56,7 @@ First generate the cluster secrets:
 talosctl gen secrets -o secrets.yaml
 ```
 
-Next I'll generate the configuration files using the freshly created secrets. The default configuration needs to be tweaked a bit, this can be done using patches. I'll need four patches:
+Next I'll generate the configuration files using the freshly created secrets. The default configuration needs to be tweaked, this can be done using patches. I'll need seven patches:
 
 As I only have three nodes I need to be schedule workloads on the control-plane nodes.
 ```yaml
@@ -57,17 +65,23 @@ cluster:
   allowSchedulingOnControlPlanes: true
 ```
 
-All other patches depends on the network interface and install disk names. I can ask talosctl to provide me with this info for each node. First the the network interface. We need to pass the `--insucure` flag because we haven't actually installed anything yet.
-
-```zsh
-talosctl get links -n 10.10.30.x --insecure
-```
-The network interface is called `eth0`.
+All other patches depends on the network interface and install disk names. I can ask talosctl to provide me with this info for each node. First the install disk, I can ask talos to provide me with the disk names:
 
 ```zsh
 talosctl get disks -n 10.10.30.x --insecure
 ```
 The install disk I want to use (500GB SATA SSD) is called `/dev/sda`.
+
+As for the network interface, Talos uses `predictable interface names` which means the network interface may be called something stupid. I want to disable this.
+
+```yaml
+# interface-names.yaml
+machine:
+  install:
+    extraKernelArgs:
+      - net.ifnames=0
+```
+This should mean that the NICs on my machines are all called `eth0`.
 
 Using this information I can setup the remaining patches:
 
@@ -92,7 +106,7 @@ machine:
           ip: 10.10.30.10
 ```
 
-And finally I'll set the install disk and ask Talos to wipe it before installing.
+I'll set the install disk and ask Talos to wipe it before installing.
 
 ```yaml
 # install-disk.yaml
@@ -102,7 +116,53 @@ machine:
     wipe: true
 ```
 
-We can now generate the configuration files using the fice patches.
+The final patches will include a Cilium manifest, so it can be installed at boot.
+
+First the helm manifest!
+
+```zsh
+helm repo add cilium https://helm.cilium.io/
+helm repo update
+```
+
+```zsh
+helm template \
+    cilium \
+    cilium/cilium \
+    --version 1.15.1 \
+    --namespace kube-system \
+    --set ipam.mode=kubernetes \
+    --set=kubeProxyReplacement=true \
+    --set=securityContext.capabilities.ciliumAgent="{CHOWN,KILL,NET_ADMIN,NET_RAW,IPC_LOCK,SYS_ADMIN,SYS_RESOURCE,DAC_OVERRIDE,FOWNER,SETGID,SETUID}" \
+    --set=securityContext.capabilities.cleanCiliumState="{NET_ADMIN,SYS_ADMIN,SYS_RESOURCE}" \
+    --set=cgroup.autoMount.enabled=false \
+    --set=cgroup.hostRoot=/sys/fs/cgroup \
+    --set=k8sServiceHost=localhost \
+    --set=k8sServicePort=7445 > cilium.yaml
+```
+This will generate the helm template and dump it into `cilium.yaml`.
+
+I'll use the template to create my last two patches:
+
+```yaml
+# add-cilium.yaml
+inlineManifests:
+    - name: cilium
+      contents: |
+      -> dump the content of cilium.yaml here (very long)
+```
+
+```yaml
+# disable-cni-proxy.yaml
+cluster:
+  network:
+    cni:
+      name: none
+  proxy:
+    disabled: true
+```
+
+We can now generate the configuration files using the seven patches.
 
 ```zsh
 talosctl gen config asgard https://10.10.30.10:6443 \
@@ -111,7 +171,10 @@ talosctl gen config asgard https://10.10.30.10:6443 \
 --config-patch @patches/dhcp.yaml \
 --config-patch @patches/install-disk.yaml \
 --config-patch @patches/allow-workloads-controlplane.yaml \
---config-patch-control-plane @patches/vip.yaml
+--config-patch @patches/interface-names.yaml \
+--config-patch-control-plane @patches/vip.yaml \
+--config-patch-control-plane @patches/disable-cni-proxy.yaml \
+--config-patch-control-plane @patches/add-cilium.yaml
 ```
 One could ask why I'm seperating out the `dhcp` and `vip` patches, since all my nodes are control-plane it shouldn't make a difference. I do that simply because it then makes it easier to setup an additional worker node later if needed.
 
