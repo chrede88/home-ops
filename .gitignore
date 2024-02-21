@@ -2,4 +2,6 @@
 .DS_Store
 
 # Talos
-cluster/talos/config/
+cluster/talos/config/talosconfig
+cluster/talos/patches/add-cilium.yaml
+cluster/talos/patches/cilium.yaml

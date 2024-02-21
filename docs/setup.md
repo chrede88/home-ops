@@ -48,7 +48,7 @@ flux --version
 ```
 
 ## Talos configuration
-The Talos configuration files can be setup using talosctl. I'm pretty sure all the generated configuration files should not be made public, so I will remember to add the config files to my `.gitignore`.
+The Talos configuration files can be setup using talosctl. I'm pretty sure all the generated configuration files should not be made public! I'll use SOPS with age, but if not then remember to add the config files to `.gitignore`.
 
 First generate the cluster secrets:
 

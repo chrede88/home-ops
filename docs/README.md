@@ -24,3 +24,4 @@ The network setup is very minimal as it is just a Ubiqiuti UDR. The router has a
 This is a list of the documentation I've put together so far (in order):
 
 1) Everything to do with getting Talos and Kubernetes up and running: [setup.md](./setup.md)
+2) Setting up Flux, [fluxcd.md](./fluxcd.md)
