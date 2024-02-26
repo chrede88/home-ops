@@ -1,0 +1,96 @@
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Provider
+metadata:
+    name: slack-bot
+    namespace: flux-systen
+spec:
+    type: slack
+    channel: flux-cd
+    address: https://slack.com/api/chat.postMessage
+    secretRef:
+        name: slack-token
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1nqn46tdx7vazgkjuglseduk52plfrpz60zcqjqk83rfg8gwuv95qd4cem4
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBlQW9za0E4dnlXZURKc1o4
+            N0o3NFZlQTFuVUxjWThma0JaU1ZtUmRsWVZvCmZDMGZUUmtvOHJuR2RFVUF6dVls
+            cnRUYU04eGRoWGZPSjNFeFlNZk9DczQKLS0tIG0xaEFENEYvdmN5NTEwbkhZR09V
+            YjA0OVd1WlJsOEdXdm1uK1dmeGpZSEUK4D3f3vTlmY/aUOlojualuq/904FeW4+K
+            Pn81uCEqrfoZxcy8xLiAcWb1MtDIW/yavBKD0FZkzWJth6zkzUl0DQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-02-26T20:34:09Z"
+    mac: ENC[AES256_GCM,data:Wtga37DPVzUy492r04N7GZu2go2ZJwJ61QiCYrSe/kfe/+iam+lw1rBgH6O5AuL9MIQYKrHFswkGyAGdXEDGCzhg9AvAsyoKsF7jvBRtBepclt+wL7uTY8wcfGsqdescHbXBVN18KkL2krxTcT0QndrlRgtBuzW9+3CWtEITPPA=,iv:IWL/mxdmg6ckxWEsmb+RZl3lPFtlGx3+4zmOIuKMhH4=,tag:Iq7TK4ciGtWY7COB+9xaog==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.8.1
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+    name: slack
+    namespace: flux-systen
+spec:
+    providerRef:
+        name: slack-bot
+    eventSeverity: error
+    eventSources:
+        - kind: GitRepository
+          name: '*'
+        - kind: HelmRelease
+          name: '*'
+        - kind: HelmRepository
+          name: '*'
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1nqn46tdx7vazgkjuglseduk52plfrpz60zcqjqk83rfg8gwuv95qd4cem4
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBlQW9za0E4dnlXZURKc1o4
+            N0o3NFZlQTFuVUxjWThma0JaU1ZtUmRsWVZvCmZDMGZUUmtvOHJuR2RFVUF6dVls
+            cnRUYU04eGRoWGZPSjNFeFlNZk9DczQKLS0tIG0xaEFENEYvdmN5NTEwbkhZR09V
+            YjA0OVd1WlJsOEdXdm1uK1dmeGpZSEUK4D3f3vTlmY/aUOlojualuq/904FeW4+K
+            Pn81uCEqrfoZxcy8xLiAcWb1MtDIW/yavBKD0FZkzWJth6zkzUl0DQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-02-26T20:34:09Z"
+    mac: ENC[AES256_GCM,data:Wtga37DPVzUy492r04N7GZu2go2ZJwJ61QiCYrSe/kfe/+iam+lw1rBgH6O5AuL9MIQYKrHFswkGyAGdXEDGCzhg9AvAsyoKsF7jvBRtBepclt+wL7uTY8wcfGsqdescHbXBVN18KkL2krxTcT0QndrlRgtBuzW9+3CWtEITPPA=,iv:IWL/mxdmg6ckxWEsmb+RZl3lPFtlGx3+4zmOIuKMhH4=,tag:Iq7TK4ciGtWY7COB+9xaog==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.8.1
+---
+apiVersion: v1
+kind: Secret
+metadata:
+    name: slack-token
+    namespace: flux-system
+stringData:
+    token: ENC[AES256_GCM,data:5HssFwsxbW3uQY/TzkpJkA+O26KuPXinhYY/6Tv6TzmaiTXxwzMiuJ2cxzyFPYbLajCbaa6ydHJB,iv:fw2BCetsaen67+bv8SDmUu2YU2sDYHGQ4wrtoR6Akp0=,tag:ov1ad/aam3/cGFriJXp0Yw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1nqn46tdx7vazgkjuglseduk52plfrpz60zcqjqk83rfg8gwuv95qd4cem4
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBlQW9za0E4dnlXZURKc1o4
+            N0o3NFZlQTFuVUxjWThma0JaU1ZtUmRsWVZvCmZDMGZUUmtvOHJuR2RFVUF6dVls
+            cnRUYU04eGRoWGZPSjNFeFlNZk9DczQKLS0tIG0xaEFENEYvdmN5NTEwbkhZR09V
+            YjA0OVd1WlJsOEdXdm1uK1dmeGpZSEUK4D3f3vTlmY/aUOlojualuq/904FeW4+K
+            Pn81uCEqrfoZxcy8xLiAcWb1MtDIW/yavBKD0FZkzWJth6zkzUl0DQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-02-26T20:34:09Z"
+    mac: ENC[AES256_GCM,data:Wtga37DPVzUy492r04N7GZu2go2ZJwJ61QiCYrSe/kfe/+iam+lw1rBgH6O5AuL9MIQYKrHFswkGyAGdXEDGCzhg9AvAsyoKsF7jvBRtBepclt+wL7uTY8wcfGsqdescHbXBVN18KkL2krxTcT0QndrlRgtBuzW9+3CWtEITPPA=,iv:IWL/mxdmg6ckxWEsmb+RZl3lPFtlGx3+4zmOIuKMhH4=,tag:Iq7TK4ciGtWY7COB+9xaog==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.8.1
