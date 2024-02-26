@@ -68,7 +68,7 @@ cluster:
 All other patches depends on the network interface and install disk names. I can ask talosctl to provide me with this info for each node. First the install disk, I can ask talos to provide me with the disk names:
 
 ```zsh
-talosctl get disks -n 10.10.30.x --insecure
+talosctl disks -n 10.10.30.x --insecure
 ```
 The install disk I want to use (500GB SATA SSD) is called `/dev/sda`.
 
@@ -103,7 +103,7 @@ machine:
     interfaces:
       - interface: eth0
         vip:
-          ip: 10.10.30.10
+          ip: 10.10.30.30
 ```
 
 I'll set the install disk and ask Talos to wipe it before installing.
@@ -131,7 +131,7 @@ helm template \
     cilium/cilium \
     --version 1.15.1 \
     --namespace kube-system \
-    --set ipam.mode=kubernetes \
+    --set=ipam.mode=kubernetes \
     --set=kubeProxyReplacement=true \
     --set=securityContext.capabilities.ciliumAgent="{CHOWN,KILL,NET_ADMIN,NET_RAW,IPC_LOCK,SYS_ADMIN,SYS_RESOURCE,DAC_OVERRIDE,FOWNER,SETGID,SETUID}" \
     --set=securityContext.capabilities.cleanCiliumState="{NET_ADMIN,SYS_ADMIN,SYS_RESOURCE}" \
@@ -165,9 +165,9 @@ cluster:
 We can now generate the configuration files using the seven patches.
 
 ```zsh
-talosctl gen config asgard https://10.10.30.10:6443 \
+talosctl gen config asgard https://10.10.30.30:6443 \
 --with-secrets secrets.yaml \
---kubernetes-version 1.29.1 \
+--kubernetes-version 1.29.2 \
 --config-patch @patches/dhcp.yaml \
 --config-patch @patches/install-disk.yaml \
 --config-patch @patches/allow-workloads-controlplane.yaml \
@@ -186,12 +186,29 @@ Three files have been generated:
 
 I'll only need the `controlplane.yaml` as I don't have any worker nodes. We have to come back to the `talosconfig` later.
 
+We need add one more patch! Each nodes needs a hostname. We can create 3 new controlplane configs, one for each node using the following command:
+
+```zsh
+talosctl machineconfig patch controlplane.yaml --patch @patches/odin-hostname.yaml -o controlplane-odin.yaml
+```
+
+where the patch is:
+
+```yaml
+# odin-hostname.yaml
+machine:
+  network:
+    hostname: odin
+```
+
+The other two nodes should get a similar patch, with another hostname. I'll use `thor` and `baldr`.
+
 It's time to add the configuration to the nodes, one at a time.
 
 ```zsh
-talosctl apply-config -f controlplane.yaml -n 10.10.30.2 --insecure
-talosctl apply-config -f controlplane.yaml -n 10.10.30.3 --insecure
-talosctl apply-config -f controlplane.yaml -n 10.10.30.4 --insecure
+talosctl apply-config -f controlplane-odin.yaml -n 10.10.30.2 --insecure
+talosctl apply-config -f controlplane-thor.yaml -n 10.10.30.3 --insecure
+talosctl apply-config -f controlplane-baldr.yaml -n 10.10.30.4 --insecure
 ```
 To setup the talosconfig I need to change the endpoint. It's currently set to localhost.
 
@@ -217,7 +234,7 @@ talosctl bootstrap -n 10.10.30.2
 Only send this command to **one** node. After a bit the `kubeconfig` file can be retreived.
 
 ```zsh
-talosctl kubeconfig
+talosctl kubeconfig -n 10.10.30.2
 ```
 
 Done! 

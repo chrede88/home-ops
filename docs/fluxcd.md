@@ -56,6 +56,7 @@ age-keygen -o flux.agekey
 ```
 
 The key is stored in `~/.config/sops/age/flux.agekey`.
+SOPS will look for private keys in `~/.config/sops/age/keys.txt`. Place all your private keys in this file.
 In order for Flux to be able to decrypt files we need to add a Kubernetes secret with the age key.
 
 ```zsh

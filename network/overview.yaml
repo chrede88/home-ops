@@ -2,6 +2,9 @@ network:
   - name: CJSO Servers
     vlan-id: 30
     gateway: 10.10.30.1
+    subnet-mask: 24
+    dhcp-start: 10.10.30.2
+    dhcp-end: 10.10.30.29
 physical-machines: 3
 servers:
   - name: odin
@@ -9,22 +12,27 @@ servers:
     ip: 10.10.30.2
     cpu: 12c/16t
     ram: 64GB
+    udr-port: 2
   - name: thor
     mac: 48:21:0b:55:e0:97
     ip: 10.10.30.3
     cpu: 12c/16t
     ram: 64GB
+    udr-port: 3
   - name: baldr
-    mac: xx:xx:xx:xx:xx:xx
+    mac: 48:21:0b:58-f0-1f
     ip: 10.10.30.4
     cpu: 12c/16t
     ram: 64GB
+    udr-port: 4
 control-plane:
-  vip: 10.10.30.10
+  vip: 10.10.30.30
 exposed-ips:
-  - name: DNS
-    ip: 10.10.30.80
+  - name: DNS (cluster)
+    ip: 10.10.30.70
+  - name: DNS (rpi)
+    ip: 10.10.30.60
   - name: ingress-internal
-    ip: 10.10.30.81
+    ip: 10.10.30.80
   - name: ingress-external
-    ip: 10.10.30.82
+    ip: 10.10.30.81
