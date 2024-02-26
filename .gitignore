@@ -3,5 +3,11 @@
 
 # Talos
 cluster/talos/config/talosconfig
-cluster/talos/patches/add-cilium.yaml
-cluster/talos/patches/cilium.yaml
+cluster/talos/config/secrets.yaml
+cluster/talos/config/controlplane.yaml
+cluster/talos/config/controlplane-odin.yaml
+cluster/talos/config/controlplane-thor.yaml
+cluster/talos/config/controlplane-baldr.yaml
+cluster/talos/config/worker.yaml
+cluster/talos/config/patches/add-cilium.yaml
+cluster/talos/config/patches/cilium.yaml
