@@ -2,7 +2,7 @@ apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Provider
 metadata:
     name: slack-bot
-    namespace: flux-systen
+    namespace: flux-system
 spec:
     type: slack
     channel: flux-cd
@@ -34,7 +34,7 @@ apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Alert
 metadata:
     name: slack
-    namespace: flux-systen
+    namespace: flux-system
 spec:
     providerRef:
         name: slack-bot
