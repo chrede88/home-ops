@@ -25,3 +25,5 @@ This is a list of the documentation I've put together so far (in order):
 
 1) Everything to do with getting Talos and Kubernetes up and running: [setup.md](./setup.md)
 2) Setting up Flux: [fluxcd.md](./fluxcd.md)
+3) Reconfiguring Cilium: [cilium.md](./cilium.md)
+4) Installing Ceph & Rook: [rook-ceph.md](./rook-ceph.md)

@@ -155,3 +155,94 @@ metadata:
 stringData:
   token: <bot-token>
 ```
+
+The kustomization also have to be updated so flux knows about these new files.
+
+```yaml
+# kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- gotk-components.yaml
+- gotk-sync.yaml
+- notifications.yaml # <- new
+```
+
+And remember to encrypt the secret before pushing to github.
+
+You can check that the alerts were setup correctly by executing:
+
+```zsh
+flux get alerts
+```
+
+## General notes on Kustomization
+Kustomizations are great and I rely heavily on them for my flux setup. It's a great way to tell flux what to look for.
+Flux sets up a `GitRepository` and a main Kustomiation at bootstrap. These are located in `./kubernetes/flux-system/gotk-sync.yaml`.
+The Kustomization defines the general path `./cluster/kubernetes`, so all Kustomizations on this path (including subpaths) are automatically found.
+
+I'm general repository layout is by namespace. So I'll have a folder for each namespace on my cluster. I do however have one extra folder called `flux-resources`. Here I declare the Helm repositories etc. that I use to install stuff. I like to keep them all in one place, so they are easy to find.
+
+Within each namespace folder I'll have the following general layout (I'll use kube-system as an example):
+
+```yaml
+# kustomization.yaml
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Pre Flux-Kustomizations
+  - ./namespace.yaml
+  - ./slack-token.yaml # <- for notifications
+  - ./notifications.yaml
+  # Flux-Kustomizations
+  - ./cilium/ks.yaml # <- new folder for each app in the namespace
+```
+
+```yaml
+# namespace.yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kube-system
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled # <- don't delete stuff in this namespace
+```
+
+For each app I'll have a file that points to the folder containing the helm release or normal kubernetes files.
+
+```yaml
+# ks.yaml
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cilium
+  namespace: flux-system
+spec:
+  targetNamespace: kube-system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: cilium
+  path: ./kubernetes/kube-system/cilium/app
+  prune: false # never should be deleted
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+```
+
+And within `./kubernetes/kube-system/cilium/app` the last Kustomization file:
+
+```yaml
+# Kustomization.yaml
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./helmrelease.yaml
+```

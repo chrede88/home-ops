@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: slack-token
+    namespace: kube-system
+stringData:
+    token: ENC[AES256_GCM,data:grDJi3hYbCzYWnFZpdjmZg7uPaq7iNfdFHFgz0ZBpE4zjVe4oAcGrxI+5fOG4HLZo5MwtUTQyiLb,iv:oSv6YRjFMNzPa974byeMdRirNKMGmntvwEzZwyom4+I=,tag:2ABN/F7j3FqZGoYRXrL7vA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1nqn46tdx7vazgkjuglseduk52plfrpz60zcqjqk83rfg8gwuv95qd4cem4
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAzekRVdCtnRlNJTGFkL1ps
+            cllMOVhQSElmajFXYXprUlk1aUFYQVBMb2tnCmVzQ2c5eWp4OWIyd3BzZ0dLMloy
+            RDBvNUlHNDRhbDlDZ3dDa3MwYmEyVWMKLS0tIGxQY1pEQlNHbVNmeXduRWNsbUlq
+            Y0MzLzUwa2hoa3IxRi9QNlplRkFseEEKj9R/gHavcWaIUBKCX9aKcGMd4QZQeIYZ
+            XAhjuAPJMspQTsj6V8eO1LuHyF8Rp5nAKdCS+De6s5C+lxrEV4z3CQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-02-27T18:06:51Z"
+    mac: ENC[AES256_GCM,data:/cwR8yG6G8cUOVNq/+ii4pgra14Aokwk1eosxmjMkAn/VN/DNLGOJ7T3s9utUj/6BhAOHiD9UsVC6LaTibxb9foqgqNr16GMxJ5vqiZq3sEILjQ2xXR3gqCDVKKIiZmyXQf9JicAue4wL5ZuscBBb4Hmg/9REKOwLDggwYhi6Zg=,iv:6hbNtH2jyGODIJSz7qGTFD+DQo8A+gd3bvwrrFgF/4I=,tag:Cc+FR1XwWX41Q7EI/KrMlA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.8.1

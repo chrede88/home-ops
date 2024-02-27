@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: slack-token
+    namespace: flux-system
+stringData:
+    token: ENC[AES256_GCM,data:9P9OE43Gma2e+s+K74V/t10nAJbo148T/ahjC/MAgIrxsTaiZjdyiFk2c1/FFdxKXM7mSJQmMYTi,iv:6XLrAZJI0VrNeo6QZLtLb9j3KY6bWG8IcDd1ZvQfgqk=,tag:hxB7Jb5O3XqvK2ZMch9ZWg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1nqn46tdx7vazgkjuglseduk52plfrpz60zcqjqk83rfg8gwuv95qd4cem4
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBqUERmeHRBVXdjcjk3Qmtt
+            aEl1OXYvSVc1V2ludEJZUGFKU2plc1M2bHpBCklIOVhVK3lzZHJNclUzWktxWlp2
+            ZUczaU5remRRc1hvTXIxS2RKQm9kNTAKLS0tIG1MR2Z1RlBHYzEvMTdsR0pEd1Y5
+            M3Z1NW1taGpucnJUVklPa0tMb2ZCeXMKMS8uJ+3PnWBLal/Ky15/vk7YkRBynIfM
+            c5zZwuiodbfQ/fe1/8dKQWtonSgCXE6RsKm5xms4XQI0egeilfD8jg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-02-27T18:06:18Z"
+    mac: ENC[AES256_GCM,data:QngHjKfaB03hEW6DT6+gaoTzok5A6iGgkvMSKYznxUaPqZ8jDFZ8euzcX9CSVQOW0WjM50ojm7TzPeaBnZuvv07zRR7H0voLh5gOB/Sm/ZkzM94V4aMh82CUtDhGzVwNIZYPYTDLr6O3NTQaInZSSm840KNL+yX05rSJt+ka+4U=,iv:yPXL8B21+CdmvzkjEb6M0iNJxml6vK5COd8KDj2C9ic=,tag:kUqP+OchluYolg5cqIP0nw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.8.1

@@ -50,6 +50,12 @@ flux --version
 ## Talos configuration
 The Talos configuration files can be setup using talosctl. I'm pretty sure all the generated configuration files should not be made public! I'll use SOPS with age, but if not then remember to add the config files to `.gitignore`.
 
+### What not to do!
+I used `inlineManifests` to install Cilium on boot. This worked nicely, but because all the resources now don't have the correct helm labels Flux can't gracefully take over when Flux is bootstraps to the cluster.
+The best way to do this seems to be to wait for the cluster install to hang because of the missing CNI and then install Cilium manually with Helm.
+
+### Second try
+
 First generate the cluster secrets:
 
 ```zsh
@@ -116,41 +122,7 @@ machine:
     wipe: true
 ```
 
-The final patches will include a Cilium manifest, so it can be installed at boot.
-
-First the helm manifest!
-
-```zsh
-helm repo add cilium https://helm.cilium.io/
-helm repo update
-```
-
-```zsh
-helm template \
-    cilium \
-    cilium/cilium \
-    --version 1.15.1 \
-    --namespace kube-system \
-    --set=ipam.mode=kubernetes \
-    --set=kubeProxyReplacement=true \
-    --set=securityContext.capabilities.ciliumAgent="{CHOWN,KILL,NET_ADMIN,NET_RAW,IPC_LOCK,SYS_ADMIN,SYS_RESOURCE,DAC_OVERRIDE,FOWNER,SETGID,SETUID}" \
-    --set=securityContext.capabilities.cleanCiliumState="{NET_ADMIN,SYS_ADMIN,SYS_RESOURCE}" \
-    --set=cgroup.autoMount.enabled=false \
-    --set=cgroup.hostRoot=/sys/fs/cgroup \
-    --set=k8sServiceHost=localhost \
-    --set=k8sServicePort=7445 > cilium.yaml
-```
-This will generate the helm template and dump it into `cilium.yaml`.
-
-I'll use the template to create my last two patches:
-
-```yaml
-# add-cilium.yaml
-inlineManifests:
-    - name: cilium
-      contents: |
-      -> dump the content of cilium.yaml here (very long)
-```
+Disable CNI, I'll manually install Cilium at the right time.
 
 ```yaml
 # disable-cni-proxy.yaml
@@ -173,8 +145,7 @@ talosctl gen config asgard https://10.10.30.30:6443 \
 --config-patch @patches/allow-workloads-controlplane.yaml \
 --config-patch @patches/interface-names.yaml \
 --config-patch-control-plane @patches/vip.yaml \
---config-patch-control-plane @patches/disable-cni-proxy.yaml \
---config-patch-control-plane @patches/add-cilium.yaml
+--config-patch-control-plane @patches/disable-cni-proxy.yaml
 ```
 One could ask why I'm seperating out the `dhcp` and `vip` patches, since all my nodes are control-plane it shouldn't make a difference. I do that simply because it then makes it easier to setup an additional worker node later if needed.
 
@@ -237,4 +208,28 @@ Only send this command to **one** node. After a bit the `kubeconfig` file can be
 talosctl kubeconfig -n 10.10.30.2
 ```
 
-Done! 
+The install will hang because of the missing CNI. This is the point where I'll install Cilium using Helm. See the [Talos docs](https://www.talos.dev/v1.6/kubernetes-guides/network/deploying-cilium/#method-1-helm-install).
+
+```zsh
+helm install \
+    cilium \
+    cilium/cilium \
+    --version 1.15.1 \
+    --namespace kube-system \
+    --set=ipam.mode=kubernetes \
+    --set=kubeProxyReplacement=true \
+    --set=securityContext.capabilities.ciliumAgent="{CHOWN,KILL,NET_ADMIN,NET_RAW,IPC_LOCK,SYS_ADMIN,SYS_RESOURCE,DAC_OVERRIDE,FOWNER,SETGID,SETUID}" \
+    --set=securityContext.capabilities.cleanCiliumState="{NET_ADMIN,SYS_ADMIN,SYS_RESOURCE}" \
+    --set=cgroup.autoMount.enabled=false \
+    --set=cgroup.hostRoot=/sys/fs/cgroup \
+    --set=k8sServiceHost=localhost \
+    --set=k8sServicePort=7445 \
+    --set=hubble.enabld=false \
+    --set=operator.rollOutPods=true \
+    --set=rollOutCiliumPods=true \
+    --set=kubeProxyReplacementHealthzBindAddr=0.0.0.0:10256 \
+    --set=l2announcements.enabled=true \
+    --set=gatewayAPI.enabled=true
+```
+
+The boot process should now finish!:+1:
