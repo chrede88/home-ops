@@ -3,8 +3,8 @@
 Skeleton repo for my Talos Linux/Kubernetes cluster.
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Talos-v1.6.4-blue" alt="Talos version">
-  <img src="https://img.shields.io/badge/Kubernetes-v1.29.1-blue" alt="Kubernetes version">
+  <img src="https://img.shields.io/badge/Talos-v1.6.5-blue" alt="Talos version">
+  <img src="https://img.shields.io/badge/Kubernetes-v1.29.2-blue" alt="Kubernetes version">
 </p>
 
 ### Directories
