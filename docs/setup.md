@@ -34,6 +34,14 @@ I'm planing using Cilium for cluster networking and also replacing Kube-proxy. T
 brew install helm
 ```
 
+### Helmfile
+
+I need Helmfile for the initial setup of Cilium.
+
+```zsh
+brew install helmfile
+```
+
 ### fluxcd
 I'm plaing on using fluxcd so I might as well set this up now.
 
@@ -210,26 +218,29 @@ talosctl kubeconfig -n 10.10.30.2
 
 The install will hang because of the missing CNI. This is the point where I'll install Cilium using Helm. See the [Talos docs](https://www.talos.dev/v1.6/kubernetes-guides/network/deploying-cilium/#method-1-helm-install).
 
+I'll use `Helmfile` to install cilium. This way I can provide one values file for both the initial install as well as to flux when bootstrapping the Kubernetes cluster.
+
+This is the helmfile I'll use:
+
+```yaml
+# helmfile.yaml
+repositories:
+  - name: cilium
+    url: https://helm.cilium.io
+
+releases:
+  - name: cilium
+    namespace: kube-system
+    chart: cilium/cilium
+    version: 1.15.1
+    values: ["../../kubernetes/kube-system/cilium/app/helm-values.yaml"]
+    wait: true
+```
+
+When it's time to install Cilium, I'll execute:
+
 ```zsh
-helm install \
-    cilium \
-    cilium/cilium \
-    --version 1.15.1 \
-    --namespace kube-system \
-    --set=ipam.mode=kubernetes \
-    --set=kubeProxyReplacement=true \
-    --set=securityContext.capabilities.ciliumAgent="{CHOWN,KILL,NET_ADMIN,NET_RAW,IPC_LOCK,SYS_ADMIN,SYS_RESOURCE,DAC_OVERRIDE,FOWNER,SETGID,SETUID}" \
-    --set=securityContext.capabilities.cleanCiliumState="{NET_ADMIN,SYS_ADMIN,SYS_RESOURCE}" \
-    --set=cgroup.autoMount.enabled=false \
-    --set=cgroup.hostRoot=/sys/fs/cgroup \
-    --set=k8sServiceHost=localhost \
-    --set=k8sServicePort=7445 \
-    --set=hubble.enabld=false \
-    --set=operator.rollOutPods=true \
-    --set=rollOutCiliumPods=true \
-    --set=kubeProxyReplacementHealthzBindAddr=0.0.0.0:10256 \
-    --set=l2announcements.enabled=true \
-    --set=gatewayAPI.enabled=true
+helmfile apply
 ```
 
 The boot process should now finish!:+1:

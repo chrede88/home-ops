@@ -19,6 +19,22 @@ But first, let's use Flux to check if everything will work before running the re
 flux check --pre
 ```
 
+### Bootstrapping with excisting git repo
+I'm bootstrapping using a git repo that already contain yaml manifests that are encrypted with Sops/Age. This means I have a to add the encryption secret to the cluster before bootstrapping Flux!
+
+The namespace doesn't excist, so first I need to create that.
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: flux-system
+```
+
+See section on [Sops/Age](#sops--age). 
+
+## Bootstrap
+
 Start the bootstrap when everything is good.
 
 ```zsh
