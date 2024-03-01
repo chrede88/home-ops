@@ -13,6 +13,19 @@ metadata:
     pod-security.kubernetes.io/warn-version: latest
   name: flux-system
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: flux-system
+  labels:
+    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/version: v2.2.3
+    pod-security.kubernetes.io/warn: restricted
+    pod-security.kubernetes.io/warn-version: latest
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
