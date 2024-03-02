@@ -12,6 +12,7 @@ spec:
   dependsOn:
     - name: cilium-crd
   path: ./cluster/kubernetes/cert-manager/cert-manager/app
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -33,6 +34,7 @@ spec:
   dependsOn:
     - name: cert-manager
   path: ./cluster/kubernetes/cert-manager/cert-manager/issuer
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
