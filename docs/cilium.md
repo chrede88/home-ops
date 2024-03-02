@@ -2,6 +2,19 @@
 
 I installed Cilium at boot, so it could replace Flannel and Kubeproxy. As it was installed using Helm, Flux should be able to take over gracefully.
 
+## Cilium CLI
+It can be useful to have the Cilium CLI tool install on your local dev machine.
+
+```zsh
+CILIUM_CLI_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/main/stable.txt)
+CLI_ARCH=amd64
+if [ "$(uname -m)" = "arm64" ]; then CLI_ARCH=arm64; fi
+curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/download/${CILIUM_CLI_VERSION}/cilium-darwin-${CLI_ARCH}.tar.gz{,.sha256sum}
+shasum -a 256 -c cilium-darwin-${CLI_ARCH}.tar.gz.sha256sum
+sudo tar xzvfC cilium-darwin-${CLI_ARCH}.tar.gz /usr/local/bin
+rm cilium-darwin-${CLI_ARCH}.tar.gz{,.sha256sum}
+```
+
 ## Install
 I shouldn't have to do anything apart from setting up the Cilium helm chart using Flux.
 
@@ -220,4 +233,13 @@ spec:
       stop: 10.10.30.99
 ```
 
-Done! Flux now manages Cilium:tada:
+Flux now manages Cilium:tada:
+
+As I'm planing on using Cilium for Ingress via Gateway API, I need to install the CRDs.
+
+After Flux adds these to the cluster, I'll need to restart Cilium.
+
+```zsh
+kubectl -n kube-system rollout restart deployment/cilium-operator
+kubectl -n kube-system rollout restart ds/cilium
+```
