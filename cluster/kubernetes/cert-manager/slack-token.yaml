@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: slack-token
+    namespace: cert-manager
+stringData:
+    token: ENC[AES256_GCM,data:M7N9uu+SqUD0hF9TMxSdnwxWBwkzprsj3ZCpXQVHSoJKD/1TzunnWg3scNuoOrHkaYL+HSrqFwWo,iv:K7cy/Uz30jbZCLZhER2hyR5GAwaW5LQqjVXAH1OuhWI=,tag:wJaFiq0JrmJzb6rRBnzW0Q==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1nqn46tdx7vazgkjuglseduk52plfrpz60zcqjqk83rfg8gwuv95qd4cem4
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBreUJubnpoeklMQmJBRCtz
+            SGtWZnN3bWQrekNGOUNScmJNUTVBekhRRldzClp1UFdESFoxZ05lNGxIdUYwTFIy
+            YmpmN2YwWUxvVERSendXWkJiS3cvRVkKLS0tIEpBVU56T2JnNkppck5vU2RXUXpQ
+            K2Q3aFVEZlZ2R25LSDVINVBkZWNELzAKujciF7EMcNdN3/8KMWbOdV7GN+wJBjVg
+            BZbEL/DsAPon1BmJaakhd2awSsJDsKZkMVqPDz1ZofifmS1NpY5czA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-03-02T13:19:34Z"
+    mac: ENC[AES256_GCM,data:TUuNLUoBwCezeRVlF3w0h38dnF2SkodT5BMEoDmqp4YfTpu/oib/A8v6cvLBRtScqhJUSF3fk1KpK3ElZ8bas5sHn3vCawSI1hwDqOKhqiCHovNYJUaU5S/To0mGKQo7fCa5UM+5pVCVBpQyjZmo5lDoIOWMroFQrAPV0PSdRdo=,iv:SNW/+cn58Wmrd+YZmkiMy0GGZFClxg5Y/gPPdrgyyL0=,tag:oc0CpjsFVk7pF6cAHh3ghw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.8.1
