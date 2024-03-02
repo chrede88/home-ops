@@ -24,7 +24,16 @@ spec:
     keepHistory: false
   values:
     hubble:
-      enabled: false
+      enabled: true
+      metrics:
+        enabled:
+          - dns:query
+          - drop
+          - tcp
+          - flow
+          - port-distribution
+          - icmp
+          - http
     operator:
       rollOutPods: true
     rollOutCiliumPods: true
