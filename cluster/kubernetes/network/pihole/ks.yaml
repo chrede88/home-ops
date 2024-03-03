@@ -11,7 +11,7 @@ spec:
       app.kubernetes.io/name: pihole
   dependsOn:
     - name: rook-ceph-cluster
-  path: ./cluster/kubernetes/netwotk/pihole/app
+  path: ./cluster/kubernetes/network/pihole/app
   prune: true
   sourceRef:
     kind: GitRepository

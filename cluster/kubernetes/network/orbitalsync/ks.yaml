@@ -11,7 +11,7 @@ spec:
       app.kubernetes.io/name: orbitalsync
   dependsOn:
     - name: pihole
-  path: ./cluster/kubernetes/netwotk/orbitalsync/app
+  path: ./cluster/kubernetes/network/orbitalsync/app
   prune: true
   sourceRef:
     kind: GitRepository
