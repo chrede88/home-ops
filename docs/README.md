@@ -26,4 +26,10 @@ This is a list of the documentation I've put together so far (in order):
 1) Everything to do with getting Talos and Kubernetes up and running: [setup.md](./setup.md)
 2) Setting up Flux: [fluxcd.md](./fluxcd.md)
 3) Reconfiguring Cilium: [cilium.md](./cilium.md)
-4) Installing Ceph & Rook: [rook-ceph.md](./rook-ceph.md)
+4) Installing Cert-manager: [cert-manager.md](./cert-manager.md)
+5) Installing Rook & Ceph: [rook-ceph.md](./rook-ceph.md)
+6) Installing Pihole: [pihole.md](./pihole.md)
+
+### Destroying the cluster
+Sometimes it's just easier to completely burn down the cluster:fire:
+See [destroy-cluster.md](./destroy-cluster.md) for more info.

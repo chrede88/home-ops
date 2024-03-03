@@ -243,3 +243,5 @@ After Flux adds these to the cluster, I'll need to restart Cilium.
 kubectl -n kube-system rollout restart deployment/cilium-operator
 kubectl -n kube-system rollout restart ds/cilium
 ```
+
+The default `GatewayClass` is not deployed when the CRDs are not present when the Helm Chart is installed at boot. It seems that the Helm Chart must be reinstalled to force the creation of the default GatewayClass called `cilium`. I just changed some values in the Helm Chart, enabling `hubble`. This triggered a reinstall, which created the cilium GatewayClass.

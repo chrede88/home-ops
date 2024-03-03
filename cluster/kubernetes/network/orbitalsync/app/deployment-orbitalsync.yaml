@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orbital-sync
+  namespace: network
+spec:
+  selector:
+    matchLabels:
+      app: orbital-sync
+  template:
+    metadata:
+      labels:
+        app: orbital-sync
+    spec:
+      containers:
+      - name: orbital-sync
+        image: mattwebbio/orbital-sync:1.5.7
+        envFrom:
+          - configMapRef:
+              name: orbital-sync-config
+        env:
+          - name: TZ
+            value: Europe/Zurich
+          - name: "PRIMARY_HOST_PASSWORD"
+            valueFrom:
+              secretKeyRef:
+                name: pihole-password
+                key: WEBPASSWORD
+          - name: "SECONDARY_HOST_1_PASSWORD"
+            valueFrom:
+              secretKeyRef:
+                name: pihole-password
+                key: WEBPASSWORD
+          - name: "SECONDARY_HOST_2_PASSWORD"
+            valueFrom:
+              secretKeyRef:
+                name: pihole-password
+                key: WEBPASSWORD

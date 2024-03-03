@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pihole-configmap
+  namespace: network
+data:
+  TZ: "Europe/Zurich"
+  PIHOLE_DNS_: "1.1.1.1;1.0.0.1" # cloudflare and cloudflare backup

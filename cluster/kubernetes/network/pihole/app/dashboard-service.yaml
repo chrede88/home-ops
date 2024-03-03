@@ -1,0 +1,48 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: pihole0-web-svc
+  namespace: netowrk
+spec:
+  selector:
+    app: pihole
+    statefulset.kubernetes.io/pod-name: pihole-0 # main pihole
+  type: ClusterIP
+  ports:
+    - name: svc-80-tcp-web
+      port: 80
+      targetPort: 80
+      protocol: TCP
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: pihole1-web-svc
+  namespace: netowrk
+spec:
+  selector:
+    app: pihole
+    statefulset.kubernetes.io/pod-name: pihole-1 # 2nd pihole
+  type: ClusterIP
+  ports:
+    - name: svc-80-tcp-web
+      port: 80
+      targetPort: 80
+      protocol: TCP
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: pihole2-web-svc
+  namespace: netowrk
+spec:
+  selector:
+    app: pihole
+    statefulset.kubernetes.io/pod-name: pihole-2 # main pihole
+  type: ClusterIP
+  ports:
+    - name: svc-80-tcp-web
+      port: 80
+      targetPort: 80
+      protocol: TCP
