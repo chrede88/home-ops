@@ -24,6 +24,7 @@ metadata:
   name: pihole-dns-tcp-svc
   namespace: network
   annotations:
+    "io.cilium/lb-ipam-ips": "10.10.0.70"
     "io.cilium/lb-ipam-sharing-key": "pihole-dns-key"
 spec:
   selector:
