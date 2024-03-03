@@ -9,6 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: cilium
+  dependsOn:
+    - name: cilium-crd
   path: ./cluster/kubernetes/kube-system/cilium/app
   prune: false # never should be deleted
   sourceRef:
@@ -51,8 +53,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: cilium-crd
-  dependsOn:
-    - name: cilium
   path: ./cluster/kubernetes/kube-system/cilium/crd
   prune: false # never should be deleted
   sourceRef:

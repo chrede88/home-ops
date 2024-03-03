@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: cert-manager
   dependsOn:
-    - name: cilium-crd
+    - name: cilium
   path: ./cluster/kubernetes/cert-manager/cert-manager/app
   prune: true
   sourceRef:
