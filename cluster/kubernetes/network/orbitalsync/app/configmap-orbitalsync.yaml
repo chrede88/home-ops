@@ -5,7 +5,7 @@ metadata:
   name: orbital-sync-config
   namespace: network
 data:
-  PRIMARY_HOST_BASE_URL: "http://pihole-0.pihole.pihole.svc.cluster.local"
-  SECONDARY_HOST_1_BASE_URL: "http://pihole-1.pihole.pihole.svc.cluster.local"
-  SECONDARY_HOST_2_BASE_URL: "http://pihole-2.pihole.pihole.svc.cluster.local"
+  PRIMARY_HOST_BASE_URL: "http://pihole-0.pihole.network.svc.cluster.local"
+  SECONDARY_HOST_1_BASE_URL: "http://pihole-1.pihole.network.svc.cluster.local"
+  SECONDARY_HOST_2_BASE_URL: "http://pihole-2.pihole.network.svc.cluster.local"
   INTERVAL_MINUTES: "30"
