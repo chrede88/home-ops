@@ -32,13 +32,13 @@ spec:
             - name: svc-53-tcp-dns
               containerPort: 53
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              port: svc-80-tcp-web
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 15
+          # livenessProbe:
+          #   httpGet:
+          #     port: svc-80-tcp-web
+          #   initialDelaySeconds: 60
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   timeoutSeconds: 15
           volumeMounts:
             - name: pihole-etc-pihole
               mountPath: /etc/pihole
