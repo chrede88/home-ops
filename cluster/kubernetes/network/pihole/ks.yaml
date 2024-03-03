@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: pihole
   dependsOn:
-    - name: rock-ceph-cluster
+    - name: rook-ceph-cluster
   path: ./cluster/kubernetes/netwotk/pihole/app
   prune: true
   sourceRef:
