@@ -6,7 +6,7 @@ metadata:
   namespace: network
   annotations:
     "io.cilium/lb-ipam-ips": "10.10.30.70"
-    "io.cilium/lb-ipam-sharing-key": "pihole-dns-key"
+    # "io.cilium/lb-ipam-sharing-key": "pihole-dns-key"
 spec:
   selector:
     app: pihole
@@ -17,21 +17,21 @@ spec:
       port: 53
       targetPort: 53
       protocol: UDP
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: pihole-dns-tcp-svc
-  namespace: network
-  annotations:
-    "io.cilium/lb-ipam-sharing-key": "pihole-dns-key"
-spec:
-  selector:
-    app: pihole
-  type: LoadBalancer
-  loadBalancerClass: io.cilium/l2-announcer
-  ports:
-    - name: svc-53-tcp-dns
-      port: 53
-      targetPort: 53
-      protocol: TCP
+# ---
+# kind: Service
+# apiVersion: v1
+# metadata:
+#   name: pihole-dns-tcp-svc
+#   namespace: network
+#   annotations:
+#     "io.cilium/lb-ipam-sharing-key": "pihole-dns-key"
+# spec:
+#   selector:
+#     app: pihole
+#   type: LoadBalancer
+#   loadBalancerClass: io.cilium/l2-announcer
+#   ports:
+#     - name: svc-53-tcp-dns
+#       port: 53
+#       targetPort: 53
+#       protocol: TCP
