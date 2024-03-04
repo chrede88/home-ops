@@ -2,7 +2,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: pihole-dns-upd-svc
+  name: pihole-dns-udp-svc
   namespace: network
   annotations:
     "io.cilium/lb-ipam-ips": "10.10.0.70"
