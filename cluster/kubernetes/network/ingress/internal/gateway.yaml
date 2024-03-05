@@ -19,7 +19,7 @@ spec:
       allowedRoutes:
         namespaces:
           from: Same
-    # catch traffic for pihole dashboard
+    # catch traffic for pihole0 dashboard
     - name: pihole0-dashboard
       hostname: pihole.local.cjsolsen.com
       protocol: HTTPS
@@ -31,3 +31,27 @@ spec:
         mode: Terminate
         certificateRefs:
           - name: pihole-cjsolsen-com
+    # catch traffic for pihole0 dashboard
+    - name: pihole1-dashboard
+      hostname: pihole1.local.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Same
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: pihole1-cjsolsen-com
+    # catch traffic for pihole0 dashboard
+    - name: pihole2-dashboard
+      hostname: pihole2.local.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Same
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: pihole2-cjsolsen-com
