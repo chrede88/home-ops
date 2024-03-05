@@ -12,14 +12,7 @@ spec:
     - matches:
       - path:
           type: PathPrefix
-          value: /
-      filters:
-        - type: RequestRedirect
-          requestRedirect:
-            path:
-              type: ReplaceFullPath
-              replaceFullPath: /admin
-            statusCode: 302
+          value: /admin
       backendRefs:
         - name: pihole0-web-svc
           port: 80
