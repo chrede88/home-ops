@@ -27,9 +27,9 @@ spec:
       allowedRoutes:
         namespaces:
           from: Same
-      tls:
-        mode: Terminate
-        certificateRefs:
-          - name: pihole-cjsolsen-com
-            kind: Secret
-            group: core
+      # tls:
+      #   mode: Terminate
+      #   certificateRefs:
+      #     - name: pihole-cjsolsen-com
+      #       kind: Secret
+      #       group: core
