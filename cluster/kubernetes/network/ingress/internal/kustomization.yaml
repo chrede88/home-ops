@@ -5,3 +5,4 @@ resources:
   - ./gateway.yaml
   - ./http-redirect.yaml
   - ./pihole-http-route.yaml
+  - ./ceph-http-route.yaml

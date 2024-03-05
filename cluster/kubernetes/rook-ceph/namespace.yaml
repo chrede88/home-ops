@@ -7,3 +7,4 @@ metadata:
     kustomize.toolkit.fluxcd.io/prune: disabled
   labels:
     pod-security.kubernetes.io/enforce: privileged
+    internal-gateway-access: "true"
