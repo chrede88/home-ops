@@ -20,7 +20,7 @@ spec:
         namespaces:
           from: Same
     # catch traffic for pihole dashboard
-    - name: pihole-dashboard
+    - name: pihole0-dashboard
       hostname: pihole.local.cjsolsen.com
       protocol: HTTPS
       port: 443
