@@ -30,6 +30,6 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - name: pihole0-cjsolsen-com
+          - name: pihole-cjsolsen-com
             kind: Secret
             group: core
