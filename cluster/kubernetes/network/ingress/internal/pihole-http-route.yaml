@@ -11,8 +11,8 @@ spec:
   rules:
     - matches:
       - path:
-        type: PathPrefix
-        value: /
+          type: PathPrefix
+          value: /
       filters:
         - type: RequestRedirect
           requestRedirect:
