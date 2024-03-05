@@ -37,3 +37,8 @@ spec:
               secretKeyRef:
                 name: pihole-password
                 key: WEBPASSWORD
+          - name: "SECONDARY_HOST_3_PASSWORD"
+            valueFrom:
+              secretKeyRef:
+                name: pihole-password
+                key: WEBPASSWORD
