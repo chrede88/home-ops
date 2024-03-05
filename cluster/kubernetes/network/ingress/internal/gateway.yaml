@@ -31,5 +31,3 @@ spec:
         mode: Terminate
         certificateRefs:
           - name: pihole-cjsolsen-com
-            kind: Secret
-            group: core
