@@ -11,7 +11,7 @@ ssh-keygen -t ed25519 -C "christian@cjsolsen.com"
 
 Next I'll add the public key to the deploy keys my Github repository (the key needs push access).
 
-Now I'm ready to bootstrap Flux :tada:
+Now I'm ready to bootstrap Flux 🎉
 
 But first, let's use Flux to check if everything will work before running the real bootstrap.
 

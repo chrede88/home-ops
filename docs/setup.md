@@ -157,7 +157,7 @@ talosctl gen config asgard https://10.10.30.30:6443 \
 ```
 One could ask why I'm seperating out the `dhcp` and `vip` patches, since all my nodes are control-plane it shouldn't make a difference. I do that simply because it then makes it easier to setup an additional worker node later if needed.
 
-The configuration files have now been generated:smile::tada:
+The configuration files have now been generated😄🎉
 Three files have been generated:
 - controlplane.yaml
 - worker.yaml
@@ -203,7 +203,7 @@ talosctl config merge talosconfig
 ```
 
 ## Kubernetes Bootstrap
-It is now time to bootstrap kubernetes :+1:
+It is now time to bootstrap kubernetes 👍
 
 This is super simple with Talos:
 
@@ -243,4 +243,4 @@ When it's time to install Cilium, I'll execute:
 helmfile apply
 ```
 
-The boot process should now finish!:+1:
+The boot process should now finish!🎉

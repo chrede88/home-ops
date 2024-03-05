@@ -233,7 +233,7 @@ spec:
       stop: 10.10.30.99
 ```
 
-Flux now manages Cilium:tada:
+Flux now manages Cilium🎉
 
 As I'm planing on using Cilium for Ingress via Gateway API, I need to install the CRDs.
 

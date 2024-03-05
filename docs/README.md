@@ -7,7 +7,7 @@ My plan is to run a three node Kubernetes cluster on bare metal servers. I used 
 When first heard about Talos Linux, I was completely sold from the get go. Having an operating system that you treat just like you would any workloads in Kubernetes just sounded amazing. Keeping the state in a .yaml document means it always clear what's runnig and what version. Talos Linux is also different in that you talk to it through an API (and only through the API), there is no SSH etc. This certainly makes it simpler and less vulnerable, but it might also be a curse. Only time will tell! 
 
 ## Hardware
-I went with three server nodes to give my a HA control-plane/etcd, which to be completely honest is probably completely overkill. I'm mostly doing this because I find it interesting and want to learn. From that perspective one control-plane node should be just fine, but I guess I'm like most people who has a hobby: The bare minimum is never good enough:wink:
+I went with three server nodes to give my a HA control-plane/etcd, which to be completely honest is probably complete overkill. I'm mostly doing this because I find it interesting and want to learn. From that perspective one control-plane node should be just fine, but I guess I'm like most people who has a hobby: The bare minimum is never good enough😉
 
 ### Servers
 Each server is identical so I'll only list the specs once.
@@ -18,7 +18,7 @@ Each server is identical so I'll only list the specs once.
 - Storage: Samsung 980 PRO 2TB M.2 NVME SSD
 
 ### Network
-The network setup is very minimal as it is just a Ubiqiuti UDR. The router has a build-in 4 port GB/s switch, which for now is just enough. This is probably to first area I'll expand at some point.
+The network setup is very minimal as it is just a Ubiqiuti UDR. The router has a build-in 4 port Gbit/s switch, which for now is just enough. This is probably the first thing I'll replace.
 
 ## Files
 This is a list of the documentation I've put together so far (in order):
@@ -28,8 +28,9 @@ This is a list of the documentation I've put together so far (in order):
 3) Reconfiguring Cilium: [cilium.md](./cilium.md)
 4) Installing Cert-manager: [cert-manager.md](./cert-manager.md)
 5) Installing Rook & Ceph: [rook-ceph.md](./rook-ceph.md)
-6) Installing Pihole: [pihole.md](./pihole.md)
+6) Installing Pi-hole: [pihole.md](./pihole.md)
+7) Ingress: [ingress.md](./ingress.md)
 
 ### Destroying the cluster
-Sometimes it's just easier to completely burn down the cluster:fire:
+Sometimes it's just easier to completely burn down the cluster🔥
 See [destroy-cluster.md](./destroy-cluster.md) for more info.

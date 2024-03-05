@@ -1,0 +1,25 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: pihole-dashboard
+  namespace: network
+spec:
+  parentRefs:
+    - name: internal-gateway
+      sectionName: pihole-dashboard
+  rules:
+    - matches:
+      - path:
+        type: PathPrefix
+        value: /
+      filters:
+        - type: RequestRedirect
+          requestRedirect:
+            path:
+              type: ReplaceFullPath
+              replaceFullPath: /admin
+            statusCode: 302
+      backendRefs:
+        - name: svc-53-udp-dns
+          port: 53

@@ -1,0 +1,35 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: internal-gateway
+  namespace: network
+  annotations:
+    cert-manager.io/issuer: letsencrypt-production
+spec:
+  gatewayClassName: cilium
+  addresses:
+    - value: 10.10.30.80
+  listeners:
+    # catch all local http -> https
+    - name: http-redirect
+      hostname: "*.local.cjsolsen.com"
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: Same
+    # catch traffic for pihole dashboard
+    - name: pihole-dashboard
+      hostname: pihole.local.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Same
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: pihole-cjsolsen-com
+            kind: Secret
+            group: core

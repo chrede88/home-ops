@@ -1,5 +1,5 @@
 # Cert-manager
-I use cert-manager to generate TLS certificates for me. This is a must have feature in my opinion. Luckily for me, Cert-manager works with the new Gateway API in a really nice way. I just need to add a label to a Gateway and Cert-manager will take care of the rest :+1:
+I use cert-manager to generate TLS certificates for me. This is a must have feature in my opinion. Luckily for me, Cert-manager works with the new Gateway API in a really nice way. I just need to add a label to a Gateway and Cert-manager will take care of the rest 👍
 
 ## Install
 Cert-manager needs the Gateway CRDs, which I already installed with Cilium. So as long as I just set Cert-manager to depend on the install of Cilium, I should be fine in the future.
