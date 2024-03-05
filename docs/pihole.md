@@ -217,6 +217,9 @@ spec:
 Here I'm using annotations to request a specefic IP: `"io.cilium/lb-ipam-ips"`.
 Because pihole should respond to both UDP and TCP request on port 53, I need to tell Cilium that the two services should have to same IP. This is done using another annotation: `"io.cilium/lb-ipam-sharing-key": "pihole-dns-key"`. If both services have the same key, they'll get the same IP.
 
+### Note (Mrach 5th 2024)
+Currently Cilium isn't looking at protocols. The two services can't get the same IP as the ports collide. I've removed the TCP port for now, it's mostly not used.
+
 ```yaml
 # ./cluster/kuberntes/network/pihole/app/headless-service.yaml
 ---

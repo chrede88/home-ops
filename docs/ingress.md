@@ -111,17 +111,9 @@ spec:
     - matches:
       - path:
         type: PathPrefix
-        value: /
-      filters:
-        - type: RequestRedirect
-          requestRedirect:
-            path:
-              type: ReplaceFullPath
-              replaceFullPath: /admin
-            statusCode: 302
+        value: /admin
       backendRefs:
-        - name: svc-53-udp-dns
-          port: 53
+        - name: pihole0-web-svc
+          port: 80
 ```
-
-This route matches any path prefix and redirects it to `/admin`, which is the dashbord URL. The `backendRefs` define which service to route the traffic to.
+The `backendRefs` define which service to route the traffic to.

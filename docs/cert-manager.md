@@ -200,7 +200,8 @@ metadata:
     cert-manager.io/issuer: foo # <- 1.
 spec:
   gatewayClassName: foo
-  addresses: requested-IP-from-Cilium
+  addresses:
+    - value: requested-IP-from-Cilium
   listeners:
     - name: example
       hostname: example.com # <- 2.
@@ -219,3 +220,8 @@ spec:
 ```
 
 If all 7 conditions are met Cert-manager will get a certificate for the specificed hostname. If one (or more) conditions are not met, Cert-manager will ignore the listener.
+
+### Note (March 5th, 2024)
+It seems I can only get the Gateway to accept my `tls` setting if `kind`, `group` & `namespace` is not set.
+
+Right now (v1.15.1) the `addresses` field in the Gateway manifest is completely ignored by Cilium. They're working on a fix.
