@@ -5,7 +5,7 @@ metadata:
   name: internal-gateway
   namespace: network
   annotations:
-    cert-manager.io/issuer: letsencrypt-production
+    cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   gatewayClassName: cilium
   addresses:
