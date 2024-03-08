@@ -1,0 +1,23 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: test-gateway
+  namespace: rook-ceph
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  gatewayClassName: cilium
+  listeners:
+    # catch traffic for the ceph dashboard
+    - name: ceph-test-dashboard
+      hostname: ceph-test.local.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Same
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: ceph-test-cjsolsen-com
