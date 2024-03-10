@@ -13,7 +13,7 @@ spec:
     - matches:
       - path:
           type: PathPrefix
-          value: /ceph-dashboard
+          value: /
       backendRefs:
         - name: rook-ceph-mgr-dashboard
           port: 8443
