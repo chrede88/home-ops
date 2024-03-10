@@ -41,7 +41,8 @@ spec:
         allowMultiplePerNode: false
       dashboard:
         enabled: true
-        port: 8443
+        urlPrefix: /
+        port: 8080
         ssl: false
       # network:
       #   connections:
