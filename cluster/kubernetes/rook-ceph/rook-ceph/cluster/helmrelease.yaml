@@ -40,10 +40,10 @@ spec:
         count: 2
         allowMultiplePerNode: false
       dashboard:
-        enabled: false
-        # urlPrefix: /
-        # port: 8080
-        # ssl: false
+        enabled: true
+        urlPrefix: /
+        port: 8080
+        ssl: false
       # network:
       #   connections:
       #     requireMsgr2: true
