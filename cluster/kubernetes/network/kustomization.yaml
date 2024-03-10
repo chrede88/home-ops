@@ -10,3 +10,4 @@ resources:
   - ./pihole/ks.yaml
   - ./orbitalsync/ks.yaml
   - ./ingress/ks.yaml
+  - ./cloudflare-ddns/ks.yaml
