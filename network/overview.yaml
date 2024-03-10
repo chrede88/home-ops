@@ -20,7 +20,7 @@ servers:
     ram: 64GB
     udr-port: 3
   - name: baldr
-    mac: 48:21:0b:58-f0-1f
+    mac: 48:21:0b:58:f0:1f
     ip: 10.10.30.4
     cpu: 12c/16t
     ram: 64GB
@@ -33,6 +33,6 @@ exposed-ips:
   - name: DNS (rpi)
     ip: 10.10.30.60
   - name: ingress-internal
-    ip: 10.10.30.80
+    ip: 10.10.30.71
   - name: ingress-external
-    ip: 10.10.30.90
+    ip: 10.10.30.xx

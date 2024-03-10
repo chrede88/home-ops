@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: homepage-web-svc
+  namespace: internal
+spec:
+  selector:
+    app: homepage
+  ports:
+    - name: http
+      targetPort: 3000
+      port: 80
