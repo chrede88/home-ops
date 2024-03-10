@@ -34,11 +34,11 @@ data:
     - Network:
         - Unifi:
             icon: unifi.svg
-            href: 10.10.0.1
+            href: https://10.10.0.1/
             description: Unifi Network Application
             widget:
               type: unifi
-              url: 10.10.0.1
+              url: https://10.10.0.1/
               username: "{{HOMEPAGE_VAR_UNIFI_NETWORK_USERNAME}}"
               password: "{{HOMEPAGE_VAR_UNIFI_NETWORK_PASSWORD}}"
     - DNS:
