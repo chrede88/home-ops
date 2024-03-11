@@ -38,13 +38,13 @@ data:
             description: Unifi Network Application
             widget:
               type: unifi
-              url: https://10.10.0.1/
+              url: https://10.10.0.1
               username: "{{HOMEPAGE_VAR_UNIFI_NETWORK_USERNAME}}"
               password: "{{HOMEPAGE_VAR_UNIFI_NETWORK_PASSWORD}}"
     - DNS:
         - Pihole0:
             icon: pi-hole.svg
-            href: http://pihole-0.pihole.network.svc.cluster.local
+            href: https://pihole.local.cjsolsen.com/admin
             description: pihole-0
             widget:
               type: pihole
@@ -52,7 +52,7 @@ data:
               key: "{{HOMEPAGE_VAR_PIHOLE0_API_KEY}}"
         - Pihole1:
             icon: pi-hole.svg
-            href: http://pihole-1.pihole.network.svc.cluster.local
+            href: https://pihole1.local.cjsolsen.com/admin
             description: pihole-1
             widget:
               type: pihole
@@ -60,7 +60,7 @@ data:
               key: "{{HOMEPAGE_VAR_PIHOLE1_API_KEY}}"
         - Pihole2:
             icon: pi-hole.svg
-            href: http://pihole-2.pihole.network.svc.cluster.local
+            href: https://pihole2.local.cjsolsen.com/admin
             description: pihole-2
             widget:
               type: pihole
@@ -68,7 +68,7 @@ data:
               key: "{{HOMEPAGE_VAR_PIHOLE2_API_KEY}}"
         - PiholeBackup:
             icon: pi-hole.svg
-            href: http://10.10.30.60
+            href: http://10.10.30.60/admin
             description: backup pihole
             widget:
               type: pihole
