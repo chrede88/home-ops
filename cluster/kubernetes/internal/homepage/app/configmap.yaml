@@ -88,19 +88,11 @@ data:
             href: https://l1nkr.cjsolsen.com
             description: Linktree Website
   widgets.yaml: |
-    - kubernetes:
-        cluster:
-          show: true
-          cpu: true
-          memory: true
-          showLabel: true
-          label: "Talos Cluster"
-        nodes:
-          show: true
-          cpu: true
-          memory: true
-          showLabel: true
-
+    - resources:
+         cpu: true
+         memory: true
+         disk: /
+         
     - search:
         provider: duckduckgo
         target: _blank
