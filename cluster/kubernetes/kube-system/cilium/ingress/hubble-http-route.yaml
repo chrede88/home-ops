@@ -15,5 +15,5 @@ spec:
           type: PathPrefix
           value: /
       backendRefs:
-        - name: hubble-peer
-          port: 443
+        - name: hubble-ui
+          port: 80
