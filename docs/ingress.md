@@ -117,3 +117,68 @@ spec:
           port: 80
 ```
 The `backendRefs` define which service to route the traffic to.
+
+#### Cross namespace
+If an ingress need to route to another namespace a couple of things needs to be added both to the `listener`, the `httproute` and the `namespace` manifest of the namespace that holds the service.
+
+Let's take `Homepage` as an example. I've deployed Homepage in the `internal` namespace. We need to add a label to the namespace manifest.
+
+```yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: internal
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+  labels:
+    internal-gateway-access: "true"
+```
+
+The same label must be added to the gateway `listener`:
+
+```yaml
+# catch traffic for the homepage dashboard
+    - name: homepage
+      hostname: homepage.local.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              internal-gateway-access: "true"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: homepage-cjsolsen-com
+```
+
+And finally must the `httproute` include the namespace of the `listener` it's refering to:
+
+```yaml
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: homepage
+  namespace: internal
+spec:
+  parentRefs:
+    - name: internal-gateway
+      namespace: network # <- Here!
+      sectionName: homepage
+  rules:
+    - matches:
+      - path:
+          type: PathPrefix
+          value: /
+      backendRefs:
+        - name: homepage-web-svc
+          port: 80
+```
+
+
+#### Note (2024-11-03)
+The current Cilium implementation of Gateway API completely ignores the `addresses` field in the `gateway` definetion. The gateway will get the next avaliable IP address from the pool. 

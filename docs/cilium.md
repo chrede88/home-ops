@@ -245,3 +245,14 @@ kubectl -n kube-system rollout restart ds/cilium
 ```
 
 The default `GatewayClass` is not deployed when the CRDs are not present when the Helm Chart is installed at boot. It seems that the Helm Chart must be reinstalled to force the creation of the default GatewayClass called `cilium`. I just changed some values in the Helm Chart, enabling `hubble`. This triggered a reinstall, which created the cilium GatewayClass.
+
+In order to get the hubble UI runnig the following values need to be changed in the helm chart:
+
+```yaml
+hubble:
+  enabled: true
+  relay:
+    enabled: true
+  ui:
+    enabled: true
+```

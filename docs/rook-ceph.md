@@ -168,8 +168,7 @@ spec:
         allowMultiplePerNode: false
       dashboard:
         enabled: true
-        urlPrefix: /ceph-dashboard
-        port: 8443
+        port: 8080
         ssl: false
       resources:
         mgr:
@@ -318,7 +317,7 @@ spec:
             region: us-east-1
 ```
 Almost all the values defined in this chart are the defaults. I'll added them so I can more easily go back and see the setup.
-I've set the `dashboard.urlPrefix` to `/ceph-dashboard`, which is important for setting up an ingress.
+I've set the `dashboard.port` to 8080 instead of the default 8443, mostly because 8443 reminds me of `https` which is disabled (by setting `dashboard.port: false`).
 
 Some of the pods need to run in a privileged state. Therefore I need to kubernetes to bypass the normal admission policies for the `rook-ceph` namespace. This can be done by adding a label to the namespace definition:
 
