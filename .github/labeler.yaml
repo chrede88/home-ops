@@ -1,0 +1,7 @@
+area/kubernetes:
+- changed-files:
+  - any-glob-to-any-file: "cluster/kubernetes/**/*"
+
+area/github:
+- changed-files:
+  - any-glob-to-any-file: ".github/**/*"
