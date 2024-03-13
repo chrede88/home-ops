@@ -4,7 +4,7 @@
   <img src="./docs/assets/k8s.png" alt="Kubernetes logo" width="150" height="150">
 </p>
 <p align="center">
-  <img src="https://img.shields.io/badge/Talos-v1.6.5-blue" alt="Talos version">
+  <img src="https://img.shields.io/badge/Talos-v1.6.6-blue" alt="Talos version">
   <img src="https://img.shields.io/badge/Kubernetes-v1.29.2-blue" alt="Kubernetes version">
 </p>
 

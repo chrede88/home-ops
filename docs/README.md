@@ -32,6 +32,41 @@ This is a list of the documentation I've put together so far (in order):
 7) Ingress: [ingress.md](./ingress.md)
 8) Renovate: [renovate.md](./renovate.md)
 
+### Updating cluster
+Keeping the cluster up-to-date is important. Both Talos Linux and Kubernetes itself should be kept up-to-date.
+
+#### Talos Linux
+Because I'm running Ceph extra care needs to taken to make sure the Ceph cluster stays healthy between node upgrades.
+Before starting the upgrade check that the Ceph cluster is healthy:
+
+```zsh
+kubectl get cephclusters -n rook-ceph
+```
+
+If the Ceph cluster is healthy, we can procide to upgrading the first node.
+
+```zsh
+talosctl upgrade -n 10.10.30.2 -i ghcr.io/siderolabs/installer:vX.Y.Z
+```
+
+Before moving on to the next node, make sure the Ceph cluster is back in a healthy state. Run this right after starting the node upgrade:
+
+```zsh
+kubectl -n rook-ceph wait --timeout=1800s --for=jsonpath='{.status.ceph.health}=HEALTH_OK' cephclusters rook-ceph
+```
+
+This command won't retrun until the Ceph cluster status changes back to `HEALTH_OK`. At this point it's okay to move forward with the update and start updating the next node. Again, wait until the Ceph cluster is back in a healthy state.
+
+#### Kubernetes
+Upgrading Kubernetes is very easy with Talos Linux. The talosctl cli has an uatomated upgrade command build-in.
+If you have just upgraded Talos Linux, make sure the Ceph cluster is in a good state before upgrading Kubernetes.
+
+```zsh
+talosctl -n 10.10.30.2 upgrade-k8s --to X.Y.Z
+```
+
+You can check what will be upgrades by passing the flag `--dry-run`.
+
 ### Destroying the cluster
 Sometimes it's just easier to completely burn down the cluster🔥
 See [destroy-cluster.md](./destroy-cluster.md) for more info.
