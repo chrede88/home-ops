@@ -30,6 +30,7 @@ This is a list of the documentation I've put together so far (in order):
 5) Installing Rook & Ceph: [rook-ceph.md](./rook-ceph.md)
 6) Installing Pi-hole: [pihole.md](./pihole.md)
 7) Ingress: [ingress.md](./ingress.md)
+8) Renovate: [renovate.md](./renovate.md)
 
 ### Destroying the cluster
 Sometimes it's just easier to completely burn down the cluster🔥
