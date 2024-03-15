@@ -62,7 +62,6 @@ spec:
         certificateRefs:
           - name: pihole-cjsolsen-com
             kind: Secret
-            group: core
     # more https listeners ...
 ```
 The `tls` section has to conform to the requirements set out by [cert-manager](./cert-manager.md#getting-certificates).

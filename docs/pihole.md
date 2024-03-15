@@ -1,10 +1,10 @@
 # Pihole
-I'll be using Pihole for my network DNS. In order to not loose DNS if the cluster goes down, I plan to run a backup pihole server on a seperate RPi. To keep all the pihole servers in sync, I'll deploy OrbitalSync to sync all to be master configuration.
+I'll be using Pihole for my network DNS. In order to not loose DNS if the cluster goes down, I plan to run a backup pihole server on a seperate RPi. To keep all the pihole servers in sync, I'll deploy OrbitalSync to sync all to the master configuration.
 
 For now, I'll focus on getting it up and runnig in the cluster first.
 
 ## Install
-I'll install pihole using standard yaml manifests, as there are not an offiical Helm chart. I'll install pihole using a statefulset, rather than a normal deployment. Using a statefulset means the pods will have fixed names, which I need for OrbitalSync to work.
+I'll install Pihole using standard yaml manifests, as there are not an offiical Helm chart. I'll install Pihole using a statefulset, rather than a normal deployment. Using a statefulset means the pods will have fixed names, which I need for OrbitalSync to work.
 
 ### Flux resources
 I'll first define the Flux resources I need.
@@ -351,10 +351,12 @@ metadata:
   name: orbital-sync-config
   namespace: network
 data:
-  PRIMARY_HOST_BASE_URL: "http://pihole-0.pihole.pihole.svc.cluster.local"
-  SECONDARY_HOST_1_BASE_URL: "http://pihole-1.pihole.pihole.svc.cluster.local"
-  SECONDARY_HOST_2_BASE_URL: "http://pihole-2.pihole.pihole.svc.cluster.local"
+  PRIMARY_HOST_BASE_URL: "http://pihole-0.pihole.network.svc.cluster.local"
+  SECONDARY_HOST_1_BASE_URL: "http://pihole-1.pihole.network.svc.cluster.local"
+  SECONDARY_HOST_2_BASE_URL: "http://pihole-2.pihole.network.svc.cluster.local"
   INTERVAL_MINUTES: "30"
 ```
+
+The general http URL for a pod defined by a statefulset is: `http://<podName>.<statefulsetName>.<namespace>.svc.cluster.local`
 
 It should be trivial to add the external backup Pihole once it get it up. I will just add `SECONDARY_HOST_3_BASE_URL: http://ip-address-of-pihole` to the configmap. And another entry in the `spec.env` field in the deployment.

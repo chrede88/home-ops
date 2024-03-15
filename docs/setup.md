@@ -28,7 +28,7 @@ kubectl version --client
 
 ### Helm
 
-I'm planing using Cilium for cluster networking and also replacing Kube-proxy. This mean I'll have to supply a helm manifest to Talos so it can install Cilium on boot. Therefore I'll need Helm.
+I'm planing on using [Cilium](https://cilium.io) for cluster networking and also replacing Kube-proxy. This mean I'll have to supply a helm manifest to Talos so it can install Cilium on boot. Therefore I'll need Helm and Helmfile.
 
 ```zsh
 brew install helm
@@ -43,7 +43,7 @@ brew install helmfile
 ```
 
 ### fluxcd
-I'm plaing on using fluxcd so I might as well set this up now.
+I'm plaing on using [Fluxcd](https://fluxcd.io) so I might as well set this up now.
 
 ```zsh
 brew install fluxcd/tap/flux
@@ -56,11 +56,11 @@ flux --version
 ```
 
 ## Talos configuration
-The Talos configuration files can be setup using talosctl. I'm pretty sure all the generated configuration files should not be made public! I'll use SOPS with age, but if not then remember to add the config files to `.gitignore`.
+The Talos configuration files can be setup using talosctl. I'm pretty sure all the generated configuration files should not be made public unless you encrypt the sensitive parts. I'll use SOPS with age, but if not then remember to add the config files to `.gitignore`.
 
 ### What not to do!
-I used `inlineManifests` to install Cilium on boot. This worked nicely, but because all the resources now don't have the correct helm labels Flux can't gracefully take over when Flux is bootstraps to the cluster.
-The best way to do this seems to be to wait for the cluster install to hang because of the missing CNI and then install Cilium manually with Helm.
+I used `inlineManifests` to install Cilium on boot. This worked nicely, but because all the resources now don't have the correct helm labels Flux can't gracefully take over when Flux bootstraps.
+The best way to do install Cilium seems to be to wait for the cluster install to hang because of the missing CNI and then install Cilium manually with Helm.
 
 ### Second try
 
@@ -79,11 +79,13 @@ cluster:
   allowSchedulingOnControlPlanes: true
 ```
 
-All other patches depends on the network interface and install disk names. I can ask talosctl to provide me with this info for each node. First the install disk, I can ask talos to provide me with the disk names:
+All other patches depends on the network interface and install disk names. After Talos boots up into memory, it waits for a machine configuration before finishing the install. During this time I can ask Talos to provide me with the disk and network interface names for each node. First the install disk:
 
 ```zsh
 talosctl disks -n 10.10.30.x --insecure
 ```
+I need the `--insecure` flag because Talos is not fully installed.
+
 The install disk I want to use (500GB SATA SSD) is called `/dev/sda`.
 
 As for the network interface, Talos uses `predictable interface names` which means the network interface may be called something stupid. I want to disable this.
@@ -109,7 +111,7 @@ machine:
         dhcp: true
 ```
 
-Talos can instruct Kubernetes to setup a VIP between the control-plane nodes, so I don't have to use an external loadbalancer.
+Talos can instruct Kubernetes to setup a VIP (virtual IP) between the control-plane nodes, so I don't have to use an external loadbalancer.
 ```yaml
 # vip.yaml
 machine:
@@ -130,7 +132,7 @@ machine:
     wipe: true
 ```
 
-Disable CNI, I'll manually install Cilium at the right time.
+Disable CNI, I'll manually install Cilium at the right time. Cilium also needs to run the proxy, so I'll also disable `Kube-proxy`.
 
 ```yaml
 # disable-cni-proxy.yaml
@@ -142,7 +144,7 @@ cluster:
     disabled: true
 ```
 
-We can now generate the configuration files using the seven patches.
+We can now generate the configuration files using the seven patches. I'm using names from the old Nordic mythology, so I'll call my cluster Asgard.
 
 ```zsh
 talosctl gen config asgard https://10.10.30.30:6443 \
@@ -163,9 +165,9 @@ Three files have been generated:
 - worker.yaml
 - talosconfig
 
-I'll only need the `controlplane.yaml` as I don't have any worker nodes. We have to come back to the `talosconfig` later.
+I'll only need the `controlplane.yaml` as I don't have any worker nodes. I'll come back to the `talosconfig` later.
 
-We need add one more patch! Each nodes needs a hostname. We can create 3 new controlplane configs, one for each node using the following command:
+We need to add one more patch! Each node need a hostname. We can create 3 new controlplane configs, one for each node using the following command:
 
 ```zsh
 talosctl machineconfig patch controlplane.yaml --patch @patches/odin-hostname.yaml -o controlplane-odin.yaml
@@ -189,6 +191,8 @@ talosctl apply-config -f controlplane-odin.yaml -n 10.10.30.2 --insecure
 talosctl apply-config -f controlplane-thor.yaml -n 10.10.30.3 --insecure
 talosctl apply-config -f controlplane-baldr.yaml -n 10.10.30.4 --insecure
 ```
+This should be last time I need to use the `--insecure` flag.
+
 To setup the talosconfig I need to change the endpoint. It's currently set to localhost.
 
 ```zsh
@@ -203,7 +207,7 @@ talosctl config merge talosconfig
 ```
 
 ## Kubernetes Bootstrap
-It is now time to bootstrap kubernetes 👍
+It is now time to bootstrap Kubernetes 👍
 
 This is super simple with Talos:
 
@@ -216,9 +220,9 @@ Only send this command to **one** node. After a bit the `kubeconfig` file can be
 talosctl kubeconfig -n 10.10.30.2
 ```
 
-The install will hang because of the missing CNI. This is the point where I'll install Cilium using Helm. See the [Talos docs](https://www.talos.dev/v1.6/kubernetes-guides/network/deploying-cilium/#method-1-helm-install).
+The install will hang because of the missing CNI. This is the point where I'll install Cilium using Helm. See the [Talos docs](https://www.talos.dev/v1.6/kubernetes-guides/network/deploying-cilium/#method-1-helm-install) for more info.
 
-I'll use `Helmfile` to install cilium. This way I can provide one values file for both the initial install as well as to flux when bootstrapping the Kubernetes cluster.
+I'll use `Helmfile` to install Cilium. This way I can provide one values file for both the initial install as well as to flux when bootstrapping the my cluster.
 
 This is the helmfile I'll use:
 

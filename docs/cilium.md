@@ -3,7 +3,7 @@
 I installed Cilium at boot, so it could replace Flannel and Kubeproxy. As it was installed using Helm, Flux should be able to take over gracefully.
 
 ## Cilium CLI
-It can be useful to have the Cilium CLI tool install on your local dev machine.
+It can be useful to have the Cilium CLI tool installed on your local dev machine.
 
 ```zsh
 CILIUM_CLI_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/main/stable.txt)
@@ -22,7 +22,7 @@ I shouldn't have to do anything apart from setting up the Cilium helm chart usin
 I'll setup a Helm repository for Flux. I'll keep all the repositories I need in the same folder so they are easy to find: `./kubernetes/flux-resources/`. These are the files I need to add:
 
 ```yaml
-# kustomization.yaml
+# # ./cluster/kubernetes/flux-resources/kustomization.yaml
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -31,7 +31,7 @@ resources:
 ```
 
 ```yaml
-# ./helm/kustomization.yaml
+# # ./cluster/kubernetes/flux-resources/helm/kustomization.yaml
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -40,7 +40,7 @@ resources:
 ```
 
 ```yaml
-# ./helm/cilium.yaml
+# ./cluster/kubernetes/flux-resources/helm/cilium.yaml
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
@@ -52,7 +52,7 @@ spec:
   url: https://helm.cilium.io
 ```
 
-With this is can reference the Helm repository by its name: `cilium`.
+With this I can reference the Helm repository by its name: `cilium`.
 
 ### Helm deployment
 The actual helm deployment is defined in the `kube-system` folder, as this is the namespace Cilium is install in by default.
@@ -60,7 +60,7 @@ The actual helm deployment is defined in the `kube-system` folder, as this is th
 These are the files I need:
 
 ```yaml
-# kustomization.yaml
+# ./cluster/kubernetes/kube-system/kustomization.yaml
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -74,7 +74,7 @@ resources:
 ```
 
 ```yaml
-# ./cilium/ks.yaml
+# ./cluster/kubernetes/kube-system/cilium/ks.yaml
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -120,7 +120,7 @@ spec:
 ```
 
 ```yaml
-# ./cilium/app/kustomization.yaml
+# ./cluster/kubernetes/kube-system/app/kustomization.yaml
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -129,7 +129,7 @@ resources:
 ```
 
 ```yaml
-# ./cilium/app/helmrelease.yaml
+# ./cluster/kubernetes/kube-system/cilium/app/helmrelease.yaml
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
@@ -199,7 +199,7 @@ The values are identical to the flags set on the initial helm install of Cilium 
 And finally some configuration to setup an L2 IP address pool for Services of type LoadBalancer and an L2 Annocement Policy.
 
 ```yaml
-# ./cilium/config/kustomization.yaml
+# ./cluster/kubernetes/kube-system/cilium/config/kustomization.yaml
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -208,7 +208,7 @@ resources:
 ```
 
 ```yaml
-# ./cilium/config/l2config.yaml
+# ./cluster/kubernetes/kube-system/cilium/config/l2config.yaml
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumL2AnnouncementPolicy
