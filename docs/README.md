@@ -31,6 +31,7 @@ This is a list of the documentation I've put together so far (in order):
 6) Installing Pi-hole: [pihole.md](./pihole.md)
 7) Ingress: [ingress.md](./ingress.md)
 8) Renovate: [renovate.md](./renovate.md)
+9) Cloudnative PostgreSQL: [cloudnative-pg.md](./cloudnative-pg.md)
 
 ### Updating cluster
 Keeping the cluster up-to-date is important. Both Talos Linux and Kubernetes itself should be kept up-to-date. See more in [update.md](./update.md).
