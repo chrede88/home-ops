@@ -7,7 +7,7 @@ data:
   config.yaml: |
     storage:
       type: postgres
-      path: postgres://{{GATUS_USER}}:{{GATUS_PASSWD}}@gatus-cluster-rw.database.svc.cluster.local:5432/gatus?sslmode=disable
+      path: postgres://${GATUS_USER}:${GATUS_PASSWD}@gatus-cluster-rw.database.svc.cluster.local:5432/gatus?sslmode=disable
       caching: true
     metrics: false # <- change when Prometheus is running
     debug: false
