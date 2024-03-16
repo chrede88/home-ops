@@ -5,3 +5,4 @@ resources:
   - ./cilium.yaml
   - ./cert-manager.yaml
   - ./rook-ceph.yaml
+  - ./cloudnative-pg.yaml
