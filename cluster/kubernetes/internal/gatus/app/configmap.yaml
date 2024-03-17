@@ -19,9 +19,9 @@ data:
         application-token: "{{PUSHOVER_TOKEN}}"
         user-key: "{{PUSHOVER_USER_KEY}}"
         default-alert:
-          description: Health Check Failed!
+          description: "Health Check Failed!"
           send-on-resolved: true
-          failure-threshold: 3
+          failure-threshold: 2
           success-threshold: 2
     endpoints:
       - name: Odin - Ping
