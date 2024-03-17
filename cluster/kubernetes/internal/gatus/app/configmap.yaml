@@ -16,8 +16,8 @@ data:
       header: Status
     alerting:
       pushover:
-        application-token: "{{PUSHOVER_TOKEN}}"
-        user-key: "{{PUSHOVER_USER_KEY}}"
+        application-token: ${PUSHOVER_TOKEN}
+        user-key: ${PUSHOVER_USER_KEY}
         default-alert:
           description: "Health Check Failed!"
           send-on-resolved: true
