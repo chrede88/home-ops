@@ -8,4 +8,4 @@ resources:
   - ./notifications.yaml
   # Flux-Kustomizations
   - ./homepage/ks.yaml
-  # - ./gatus/ks.yaml
+  - ./gatus/ks.yaml
