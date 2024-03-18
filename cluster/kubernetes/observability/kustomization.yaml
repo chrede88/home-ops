@@ -8,5 +8,4 @@ resources:
   - ./notifications.yaml
   # Flux-Kustomizations
   - ./kube-prometheus-stack/ks.yaml
-  - ./loki/ks.yaml
   - ./grafana/ks.yaml
