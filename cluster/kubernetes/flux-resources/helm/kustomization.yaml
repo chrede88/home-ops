@@ -6,3 +6,5 @@ resources:
   - ./cert-manager.yaml
   - ./rook-ceph.yaml
   - ./cloudnative-pg.yaml
+  - ./prometheus-community.yaml
+  - ./grafana.yaml

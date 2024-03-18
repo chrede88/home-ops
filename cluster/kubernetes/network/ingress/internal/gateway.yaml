@@ -115,3 +115,18 @@ spec:
         mode: Terminate
         certificateRefs:
           - name: gatus-cjsolsen-com
+    # catch traffic for the grafana dashboard
+    - name: grafana
+      hostname: grafana.local.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              internal-gateway-access: "true"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: grafana-cjsolsen-com
