@@ -25,6 +25,4 @@ spec:
     crds:
       create: true
     monitoring:
-      podMonitorEnabled: false
-      grafanaDashboard:
-        create: false # <- change when Prometheus is running
+      podMonitorEnabled: true
