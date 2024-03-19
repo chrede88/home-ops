@@ -32,5 +32,9 @@ spec:
       nameservers:
         - 1.1.1.1
         - 1.0.0.1
+    prometheus:
+      enabled: true
+      servicemonitor:
+        enabled: true
     extraArgs:
       - --feature-gates=ExperimentalGatewayAPISupport=true
