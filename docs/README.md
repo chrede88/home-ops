@@ -37,6 +37,9 @@ This is a list of the documentation I've put together so far (in order):
 ### Updating cluster
 Keeping the cluster up-to-date is important. Both Talos Linux and Kubernetes itself should be kept up-to-date. See more in [update.md](./update.md).
 
+### Shut down a node
+Sometimes shutting down a node is required. See [shutdown-node.md](./shutdown-node.md).
+
 ### Destroying the cluster
 Sometimes it's just easier to completely burn down the cluster🔥
 See [destroy-cluster.md](./destroy-cluster.md) for more info.

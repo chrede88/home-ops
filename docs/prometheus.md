@@ -562,3 +562,74 @@ operator:
     serviceMonitor:
       enabled: true
 ```
+
+### Cert-manager
+
+In order to get cert-manager to pushlish metrics for Prometheus I need to add a bit of yaml to the helm chart values:
+
+```yaml
+# ./cluster/kubernetes/cert-manager/cert-manager/app/helmrelease.yaml
+prometheus:
+  enabled: true
+  servicemonitor:
+    enabled: true
+```
+
+### Rook-Ceph
+Both the Rook operator and the Ceph cluster can provide metrics. I'll have to enable that in both helm charts:
+
+```yaml
+# ./cluster/kubernetes/rook-ceph/rook-ceph/app/helmrelease.yaml
+csi:
+  serviceMonitor:
+    enabled: true
+monitoring:
+  enabled: true
+```
+
+And for the Ceph cluster:
+
+```yaml
+# ./cluster/kubernetes/rook-ceph/rook-ceph/cluster/helmrelease.yaml
+monitoring:
+  enabled: true
+  createPrometheusRules: true
+```
+
+### Flux
+
+Flux can also be monitored using Prometheus. All I need to do is to deploy a `podMonitor`:
+
+```yaml
+# ./cluster/kubernetes/flux-system/pod-monitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: flux-system
+  namespace: flux-system
+  labels:
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/component: monitoring
+spec:
+  namespaceSelector:
+    matchNames:
+      - flux-system
+  selector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - helm-controller
+          - source-controller
+          - kustomize-controller
+          - notification-controller
+          - image-automation-controller
+          - image-reflector-controller
+  podMetricsEndpoints:
+    - port: http-prom
+      relabelings:
+        # https://github.com/prometheus-operator/prometheus-operator/issues/4816
+        - sourceLabels: [__meta_kubernetes_pod_phase]
+          action: keep
+          regex: Running
+```
