@@ -98,14 +98,14 @@ data:
             description: Gatus
             widget:
               type: gatus
-              url: http://gatus-web-svc.internal.svc.cluster.local
+              url: http://gatus-web-svc.internal.svc.cluster.local:8080
         - Prometheus:
             icon: prometheus.svg
             href: https://prometheus.local.cjsolsen.com
             description: Prometheus
-            widget:
-              type: prometheus
-              url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:8080
+            # widget:
+            #   type: prometheus
+            #   url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:8080
     - Storage:
         - Ceph:
             icon: ceph.svg
