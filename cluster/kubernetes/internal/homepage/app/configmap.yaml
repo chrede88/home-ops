@@ -107,7 +107,7 @@ data:
               type: prometheus
               url: http://kube-prometheus-stack-operator.observability.svc.cluster.local:443
     - Storage:
-        - Ceph
+        - Ceph:
             icon: ceph.svg
             href: https://ceph.local.cjsolsen.com
             description: Ceph Dashboard
