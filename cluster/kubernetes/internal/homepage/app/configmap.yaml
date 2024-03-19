@@ -21,11 +21,19 @@ data:
       Network:
         header: true
         style: row
-        columns: 3
+        columns: 2
       DNS:
         header: true
         style: row
         columns: 4
+      Observability:
+        header: true
+        style: row
+        columns: 3
+      Storage:
+        header: true
+        style: row
+        columns: 2
       Other:
         header: true
         style: row
@@ -74,6 +82,35 @@ data:
               type: pihole
               url: http://10.10.30.60
               key: "{{HOMEPAGE_VAR_PIHOLE3_API_KEY}}"
+    - Observability:
+        - Grafana:
+            icon: grafana.svg
+            href: https://grafana.local.cjsolsen.com
+            description: Grafana
+            widget:
+              type: grafana
+              url: http://grafana.observability.svc.cluster.local
+              username: "{{HOMEPAGE_VAR_GRAFANA_USER}}"
+              password: "{{HOMEPAGE_VAR_GRAFANA_PASSWD}}"
+        - Gatus:
+            icon: gatus.svg
+            href: https://gatus.local.cjsolsen.com
+            description: Gatus
+            widget:
+              type: gatus
+              url: http://gatus-web-svc.svc.cluster.local
+        - Prometheus:
+            icon: prometheus.svg
+            href: https://prometheus.local.cjsolsen.com
+            description: Prometheus
+            widget:
+              type: prometheus
+              url: http://kube-prometheus-stack-operator.observability.svc.cluster.local:443
+    - Storage:
+        - Ceph
+            icon: ceph.svg
+            href: https://ceph.local.cjsolsen.com
+            description: Ceph Dashboard
     - Other:
         - GitHub:
             icon: github.svg
