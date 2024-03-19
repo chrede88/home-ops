@@ -26,9 +26,9 @@ spec:
   values:
     csi:
       serviceMonitor:
-        enabled: false # <- change when Prometheus is running
+        enabled: true
     monitoring:
-      enabled: false # <- change when Prometheus is running
+      enabled: true
     resources:
       requests:
         memory: 128Mi

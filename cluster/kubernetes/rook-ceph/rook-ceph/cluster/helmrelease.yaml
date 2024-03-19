@@ -28,8 +28,8 @@ spec:
       namespace: rook-ceph
   values:
     monitoring:
-      enabled: false # <- change when Prometheus is running
-      createPrometheusRules: false # <- change when Prometheus is running
+      enabled: true
+      createPrometheusRules: true
     toolbox:
       enabled: true
     cephClusterSpec:
