@@ -33,6 +33,8 @@ spec:
         reporting_enabled: false
       news:
         news_feed_enabled: false
+      dashboards:
+        default_home_dashboard_path: /var/lib/grafana/dashboards/kubernetes/kubernetes-global.json
     datasources:
       datasources.yaml:
         apiVersion: 1
