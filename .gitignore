@@ -3,3 +3,6 @@
 
 # Talos
 cluster/talos/config/
+
+# etcd snapshots
+etcd-snapshots/
