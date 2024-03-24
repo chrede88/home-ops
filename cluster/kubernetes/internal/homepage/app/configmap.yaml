@@ -103,9 +103,9 @@ data:
             icon: prometheus.svg
             href: https://prometheus.local.cjsolsen.com
             description: Prometheus
-            # widget:
-            #   type: prometheus
-            #   url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:8080
+            widget:
+              type: prometheus
+              url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
     - Storage:
         - Ceph:
             icon: ceph.svg
