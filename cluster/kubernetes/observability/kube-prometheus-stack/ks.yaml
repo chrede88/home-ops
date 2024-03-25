@@ -32,7 +32,7 @@ spec:
     labels:
       app.kubernetes.io/name: prometheus-ingress
   dependsOn:
-    - name: grafana
+    - name: kube-prometheus-stack
   path: ./cluster/kubernetes/observability/kube-prometheus-stack/ingress
   prune: true
   sourceRef:
