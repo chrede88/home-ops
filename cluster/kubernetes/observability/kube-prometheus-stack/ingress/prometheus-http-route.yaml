@@ -13,7 +13,7 @@ spec:
     - matches:
       - path:
           type: PathPrefix
-          value: /graph
+          value: /
       backendRefs:
         - name: kube-prometheus-stack-prometheus
           port: 9090
