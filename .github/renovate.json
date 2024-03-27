@@ -5,6 +5,9 @@
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "commitMessagePrefix": "🤖",
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "to {{newVersion}}",
+  "commitMessageSuffix": "",
   "reviewers": ["chrede88"],
   "timezone": "Europe/Zurich",
   "schedule": [
@@ -39,6 +42,14 @@
     {
       "matchUpdateTypes": ["patch"],
       "labels": ["type/patch"]
+    },
+    {
+      "matchDatasources": ["helm"],
+      "commitMessageTopic": "chart {{depName}}"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "commitMessageTopic": "image {{depName}}"
     }
   ]
 }
