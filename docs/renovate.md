@@ -13,6 +13,9 @@ I'll leave my renovate config here:
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "commitMessagePrefix": "🤖",
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "to {{newVersion}}",
+  "commitMessageSuffix": "",
   "reviewers": ["chrede88"],
   "timezone": "Europe/Zurich",
   "schedule": [
@@ -47,6 +50,14 @@ I'll leave my renovate config here:
     {
       "matchUpdateTypes": ["patch"],
       "labels": ["type/patch"]
+    },
+    {
+      "matchDatasources": ["helm"],
+      "commitMessageTopic": "chart {{depName}}"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "commitMessageTopic": "image {{depName}}"
     }
   ]
 }
@@ -153,3 +164,52 @@ area/github:
 - changed-files:
   - any-glob-to-any-file: ".github/**/*"
 ```
+
+### Flux diff
+I'm also using a workflow to generate a flux diff on each PR.
+
+````yaml
+# .github/workflows/flux-diff.yaml
+name: "Flux Diff"
+
+on:
+  pull_request:
+    branches: ["main"]
+    paths: ["cluster/kubernetes/**"]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  flux-diff:
+    name: Flux Diff
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        resource:
+          - helmrelease
+          - kustomization
+    steps:
+      - name: Setup Flux CLI
+        uses: fluxcd/flux2/action@main
+        with:
+          version: 2.2.3
+      - uses: allenporter/flux-local/action/diff@4.3.1
+        id: diff
+        with:
+          live-branch: main
+          path: cluster/kubernetes/flux-system
+          resource: ${{ matrix.resource }}
+      - name: PR Comments
+        uses: mshick/add-pr-comment@v2
+        if: ${{ steps.diff.outputs.diff != '' }}
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          message-id: ${{ github.event.pull_request.number }}/${{ matrix.resource }}
+          message-failure: Unable to post kustomization diff
+          message: |
+            ```diff
+            ${{ steps.diff.outputs.diff }}
+            ```
+````

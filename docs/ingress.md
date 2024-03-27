@@ -27,7 +27,7 @@ I like having exact TLS/SSL certs (not wildcard), which means I'll have to defin
 The following manifest defines the internal Gateway:
 
 ```yaml
-# ./cluster/kubernetes/network/ingress/internal/gateway.yaml
+# ./cluster/kubernetes/network/gateways/internal/gateway.yaml
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
@@ -69,7 +69,7 @@ The `tls` section has to conform to the requirements set out by [cert-manager](.
 The first listener is a `http` "catch all" that will catch any local http traffic and forward it to a `HTTPRoute` that'll redirect it to `https`.
 
 ```yaml
-# ./cluster/kubernetes/network/ingress/internal/http-redirect.yaml
+# ./cluster/kubernetes/network/gateways/internal/http-redirect.yaml
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
@@ -95,7 +95,7 @@ From here, all listeners below the http redirect listener, will catch traffic bo
 The `HTTPRoute` for `pihole` is defined as follows:
 
 ```yaml
-# ./cluster/kubernetes/network/ingress/internal/pihole-http-route.yaml
+# ./cluster/kubernetes/network/pihole/ingress/pihole-http-route.yaml
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
@@ -119,7 +119,7 @@ The `backendRefs` define which service to route the traffic to.
 
 I'll also add a path redirect to this http route. This is done by another http route, defined as follows:
 ```yaml
-# ./cluster/kubernetes/network/ingress/internal/pihole-http-route.yaml
+# ./cluster/kubernetes/network/pihole/ingress/pihole-http-route.yaml
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute

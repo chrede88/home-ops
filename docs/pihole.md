@@ -176,49 +176,31 @@ Next I'll need three types services:
 ```yaml
 # ./cluster/kuberntes/network/pihole/app/dns-service.yaml
 ---
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
-  name: pihole-dns-udp-svc
+  name: pihole-dns-svc
   namespace: network
   annotations:
-    "io.cilium/lb-ipam-ips": "10.10.0.70"
-    "io.cilium/lb-ipam-sharing-key": "pihole-dns-key"
+    io.cilium/lb-ipam-ips: 10.10.30.70
 spec:
+  loadBalancerClass: io.cilium/l2-announcer
+  ports:
+  - name: svc-53-udp-dns
+    port: 53
+    protocol: UDP
+    targetPort: 53
+  - name: svc-53-tcp-dns
+    port: 53
+    protocol: TCP
+    targetPort: 53
   selector:
     app: pihole
   type: LoadBalancer
-  loadBalancerClass: io.cilium/l2-announcer
-  ports:
-    - name: svc-53-udp-dns
-      port: 53
-      targetPort: 53
-      protocol: UDP
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: pihole-dns-tcp-svc
-  namespace: pihole
-  annotations:
-    "io.cilium/lb-ipam-sharing-key": "pihole-dns-key"
-spec:
-  selector:
-    app: pihole
-  type: LoadBalancer
-  loadBalancerClass: io.cilium/l2-announcer
-  ports:
-    - name: svc-53-tcp-dns
-      port: 53
-      targetPort: 53
-      protocol: TCP
 ```
 
 Here I'm using annotations to request a specefic IP: `"io.cilium/lb-ipam-ips"`.
-Because pihole should respond to both UDP and TCP request on port 53, I need to tell Cilium that the two services should have to same IP. This is done using another annotation: `"io.cilium/lb-ipam-sharing-key": "pihole-dns-key"`. If both services have the same key, they'll get the same IP.
-
-### Note (Mrach 5th 2024)
-Currently Cilium isn't looking at protocols. The two services can't get the same IP as the ports collide. I've removed the TCP port for now, it's mostly not used.
+Because pihole should respond to both UDP and TCP request on port 53, I've added both ports to the service.
 
 ```yaml
 # ./cluster/kuberntes/network/pihole/app/headless-service.yaml
