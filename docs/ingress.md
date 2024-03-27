@@ -95,17 +95,17 @@ From here, all listeners below the http redirect listener, will catch traffic bo
 The `HTTPRoute` for `pihole` is defined as follows:
 
 ```yaml
-# ./cluster/kubernetes/network/ingress/internal/pihole-hhtp-route.yaml
+# ./cluster/kubernetes/network/ingress/internal/pihole-http-route.yaml
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: pihole-dashboard
+  name: pihole0-dashboard
   namespace: network
 spec:
   parentRefs:
     - name: internal-gateway
-      sectionName: pihole-dashboard
+      sectionName: pihole0-dashboard
   rules:
     - matches:
       - path:
@@ -116,6 +116,33 @@ spec:
           port: 80
 ```
 The `backendRefs` define which service to route the traffic to.
+
+I'll also add a path redirect to this http route. This is done by another http route, defined as follows:
+```yaml
+# ./cluster/kubernetes/network/ingress/internal/pihole-http-route.yaml
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: pihole0-redirect
+  namespace: network
+spec:
+  parentRefs:
+    - name: internal-gateway
+      sectionName: pihole0-dashboard
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /
+      filters:
+        - type: RequestRedirect
+          requestRedirect:
+            path:
+              type: ReplaceFullPath
+              replaceFullPath: /admin
+            statusCode: 302
+```
 
 #### Cross namespace
 If an ingress need to route to another namespace a couple of things needs to be added both to the `listener`, the `httproute` and the `namespace` manifest of the namespace that holds the service.
@@ -180,4 +207,4 @@ spec:
 
 
 #### Note (2024-11-03)
-The current Cilium implementation of Gateway API completely ignores the `addresses` field in the `gateway` definetion. The gateway will get the next avaliable IP address from the pool. 
+The current Cilium implementation of Gateway API completely ignores the `addresses` field in the `gateway` definetion. The gateway will get the next avaliable IP address from the pool. See this issue [#21926](https://github.com/cilium/cilium/issues/21926).

@@ -9,5 +9,5 @@ resources:
   # Flux-Kustomizations
   - ./pihole/ks.yaml
   - ./orbitalsync/ks.yaml
-  - ./ingress/ks.yaml
+  - ./gateways/ks.yaml
   - ./cloudflare-ddns/ks.yaml

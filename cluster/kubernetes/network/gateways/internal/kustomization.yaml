@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - ./gateway.yaml
   - ./http-redirect.yaml
-  - ./pihole-http-route.yaml
