@@ -99,6 +99,7 @@ spec:
     dashboards:
       default:
         node-exporter-full:
+          # renovate: depName="Node Exporter Full"
           gnetId: 1860
           revision: 36
           datasource: Prometheus
@@ -107,14 +108,17 @@ spec:
           datasource: Prometheus
       ceph:
         ceph-cluster:
+          # renovate: depName="Ceph Cluster"
           gnetId: 2842
           revision: 17
           datasource: Prometheus
         ceph-osd:
+          # renovate: depName="Ceph - OSD (Single)"
           gnetId: 5336
           revision: 9
           datasource: Prometheus
         ceph-pools:
+          # renovate: depName="Ceph - Pools"
           gnetId: 5342
           revision: 9
           datasource: Prometheus
@@ -127,30 +131,37 @@ spec:
           datasource: Prometheus
       kubernetes:
         kubernetes-api-server:
+          # renovate: depName="Kubernetes / System / API Server"
           gnetId: 15761
           revision: 16
           datasource: Prometheus
         kubernetes-coredns:
+          # renovate: depName="Kubernetes / System / CoreDNS"
           gnetId: 15762
           revision: 17
           datasource: Prometheus
         kubernetes-global:
+          # renovate: depName="Kubernetes / Views / Global"
           gnetId: 15757
           revision: 37
           datasource: Prometheus
         kubernetes-namespaces:
+          # renovate: depName="Kubernetes / Views / Namespaces"
           gnetId: 15758
           revision: 34
           datasource: Prometheus
         kubernetes-nodes:
+          # renovate: depName="Kubernetes / Views / Nodes"
           gnetId: 15759
           revision: 29
           datasource: Prometheus
         kubernetes-pods:
+          # renovate: depName="Kubernetes / Views / Pods"
           gNetId: 15760
           revision: 21
           datasource: Prometheus
         kubernetes-volumes:
+           # renovate: depName="K8s / Storage / Volumes / Cluster"
           gnetId: 11454
           revision: 14
           datasource: Prometheus
@@ -172,6 +183,7 @@ spec:
           datasource: Prometheus
       cloudnative-pg:
         cloudnative-pg:
+          # renovate: depName="CloudNativePG"
           gnetId: 20417
           revision: 1
           datasource: Prometheus
