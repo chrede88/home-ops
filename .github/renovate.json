@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:base",
-    "github>chrede99/home-ops//.github/renovate/grafanaDashboards.json"
+    "github>chrede88/home-ops//.github/renovate/grafanaDashboards.json"
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "commitMessagePrefix": "🤖",
