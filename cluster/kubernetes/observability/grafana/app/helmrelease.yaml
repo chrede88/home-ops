@@ -185,5 +185,5 @@ spec:
         cloudnative-pg:
           # renovate: depName="CloudNativePG"
           gnetId: 20417
-          revision: 1
+          revision: 2
           datasource: Prometheus
