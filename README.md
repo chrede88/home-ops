@@ -12,10 +12,11 @@ _... powered by Talos Linux and Kubernetes_
 </div>
 
 <div align="center">
-  <img src="https://img.shields.io/badge/Talos-v1.6.7-blue" alt="Talos version">
-  <img src="https://img.shields.io/badge/Kubernetes-v1.29.3-blue" alt="Kubernetes version">
+  <img src="https://img.shields.io/badge/Talos-v1.6.7-C9CBFF?logo=talos&logoColor=fff&style=for-the-badge&labelColor=302D41" alt="Talos version">
+  <img src="https://img.shields.io/badge/Kubernetes-v1.29.3-B5E8E0?logo=kubernetes&logoColor=fff&style=for-the-badge&labelColor=302D41" alt="Kubernetes version">
+  <img src="https://img.shields.io/badge/Fluxcd-v2.2.3-DDB6F2?logo=flux&logoColor=fff&style=for-the-badge&labelColor=302D41" alt="Fluxcd version">
+  <img src="https://img.shields.io/github/issues-pr/chrede88/home-ops?logo=github&color=F2CDCD&logoColor=fff&style=for-the-badge&labelColor=302D41" alt="Open Pull Requests">
 </div>
-
 ---
 
 This repo hold all the manifests for my kubernetes cluster and acts as the source of truth. I use Flux to keep my cluster state up-to-date with this repo. I also use Renovate to automatically open PR's when new versions of the applications I have in my cluster becomes avaliable.
