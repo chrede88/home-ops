@@ -105,7 +105,7 @@ spec:
           datasource: Prometheus
         cert-manager:
           # renovate: depName="cert-manager"
-          gnetId: 20340
+          gnetId: 11001
           revision: 1
           datasource: Prometheus
       ceph:
