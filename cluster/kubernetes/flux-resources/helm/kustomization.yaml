@@ -8,3 +8,4 @@ resources:
   - ./cloudnative-pg.yaml
   - ./prometheus-community.yaml
   - ./grafana.yaml
+  - ./bjw-s.yaml
