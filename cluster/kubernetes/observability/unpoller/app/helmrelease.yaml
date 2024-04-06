@@ -48,11 +48,11 @@ spec:
                   secretKeyRef:
                     name: unpoller-secret
                     key: unifi-pass
-            probes:
-              liveness:
-                enabled: true
-              readiness:
-                enabled: true
+            # probes:
+            #   liveness:
+            #     enabled: true
+            #   readiness:
+            #     enabled: true
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
