@@ -38,7 +38,7 @@ spec:
               - name: UP_POLLER_DEBUG
                 value: true
               - name: UP_UNIFI_DEFAULT_URL
-                value: https://10.10.0.252
+                value: https://10.10.0.252:443
               - name: UP_UNIFI_DEFAULT_VERIFY_SSL
                 value: false
               - name: UP_UNIFI_DEFAULT_USER
