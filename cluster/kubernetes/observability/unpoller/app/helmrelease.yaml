@@ -36,7 +36,7 @@ spec:
               - name: TZ
                 value: Europe/Zurich
               - name: UP_UNIFI_DEFAULT_URL
-                value: http://10.10.0.252
+                value: https://10.10.0.252
               - name: UP_UNIFI_DEFAULT_VERIFY_SSL
                 value: false
               - name: UP_UNIFI_DEFAULT_USER
@@ -51,8 +51,10 @@ spec:
             # probes:
             #   liveness:
             #     enabled: true
+            #     initialDelaySeconds: 10
             #   readiness:
             #     enabled: true
+            #     initialDelaySeconds: 60
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
