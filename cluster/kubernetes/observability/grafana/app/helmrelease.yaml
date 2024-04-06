@@ -80,22 +80,14 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/cilium
-          - name: cloudnative-pg
+          - name: unifi
             orgId: 1
-            folder: Cloudnative-pg
+            folder: Unifi
             type: file
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards/cloudnative-pg
-          - name: flux
-            orgId: 1
-            folder: Flux
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/flux
+              path: /var/lib/grafana/dashboards/unifi
     dashboards:
       default:
         node-exporter-full:
@@ -104,9 +96,19 @@ spec:
           revision: 36
           datasource: Prometheus
         cert-manager:
-          # renovate: depName="cert-manager"
-          gnetId: 11001
+          # renovate: depName="Cert-manager-Kubernetes"
+          gnetId: 20842
           revision: 1
+          datasource: Prometheus
+        flux:
+          # renovate: depName="Flux2"
+          gnetId: 16714
+          revision: 1
+          datasource: Prometheus
+        cloudnative-pg:
+          # renovate: depName="CloudNativePG"
+          gnetId: 20417
+          revision: 2
           datasource: Prometheus
       ceph:
         ceph-cluster:
@@ -124,18 +126,6 @@ spec:
           gnetId: 5342
           revision: 9
           datasource: Prometheus
-      flux:
-        flux:
-          # renovate: depName="Flux2"
-          gnetId: 16714
-          revision: 1
-          datasource: Prometheus
-        # flux-cluster:
-        #   url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/cluster.json
-        #   datasource: Prometheus
-        # flux-control-plane:
-        #   url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
-        #   datasource: Prometheus
       kubernetes:
         kubernetes-api-server:
           # renovate: depName="Kubernetes / System / API Server"
@@ -188,9 +178,29 @@ spec:
         hubble-l7-http:
           url: https://raw.githubusercontent.com/cilium/cilium/main/install/kubernetes/cilium/files/hubble/dashboards/hubble-l7-http-metrics-by-workload.json
           datasource: Prometheus
-      cloudnative-pg:
-        cloudnative-pg:
-          # renovate: depName="CloudNativePG"
-          gnetId: 20417
-          revision: 2
+      unifi:
+        # renovate: depName="UniFi-Poller: Network Sites - Prometheus"
+        unifi-site:
+          gnetId: 11311
+          revision: 5
+          datasource: Prometheus
+        # renovate: depName="UniFi-Poller: USW Insights - Prometheus"
+        unifi-switch:
+          gnetId: 11312
+          revision: 9
+          datasource: Prometheus
+        # renovate: depName="UniFi-Poller: USG Insights - Prometheus"
+        unifi-usg:
+          gnetId: 11313
+          revision: 9
+          datasource: Prometheus
+        # renovate: depName="UniFi-Poller: UAP Insights - Prometheus"
+        unifi-ap:
+          gnetId: 11314
+          revision: 10
+          datasource: Prometheus
+        # renovate: depName="UniFi-Poller: Client Insights - Prometheus"
+        unifi-client:
+          gnetId: 11315
+          revision: 9
           datasource: Prometheus
