@@ -35,4 +35,4 @@ exposed-ips:
   - name: ingress-internal
     ip: 10.10.30.71
   - name: ingress-external
-    ip: 10.10.30.xx
+    ip: 10.10.30.72

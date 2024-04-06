@@ -1,0 +1,16 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: http-https-redirect-external
+  namespace: network
+spec:
+  parentRefs:
+  - name: external-gateway
+    sectionName: http-redirect-external
+  rules:
+  - filters:
+    - type: RequestRedirect
+      requestRedirect:
+        scheme: https
+        statusCode: 301
