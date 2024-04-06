@@ -42,7 +42,7 @@ data:
     - Network:
         - Unifi:
             icon: unifi.svg
-            href: https://10.10.0.1/
+            href: https://10.10.0.252/
             description: Unifi Network Application
             widget:
               type: unifi
