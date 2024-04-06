@@ -36,7 +36,7 @@ spec:
               - name: TZ
                 value: Europe/Zurich
               - name: UP_POLLER_DEBUG
-                value: true
+                value: false
               - name: UP_UNIFI_DEFAULT_URL
                 value: https://10.10.0.252:443
               - name: UP_UNIFI_DEFAULT_VERIFY_SSL
