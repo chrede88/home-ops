@@ -1,5 +1,5 @@
 ---
-debug: true
+debug: false
 metrics:
   - name: talos_version
     query: node_os_info{name="Talos"}
