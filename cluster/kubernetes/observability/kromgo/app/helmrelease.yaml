@@ -33,7 +33,7 @@ spec:
               tag: 0.3.1
             env:
               PROMETHEUS_URL: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
-              PORT: 80
+              PORT: 8080
             probes:
               liveness:
                 enabled: true
@@ -41,7 +41,7 @@ spec:
                 spec:
                   httpGet:
                     path: /-/ready
-                    port: 80
+                    port: 8080
                   initialDelaySeconds: 5
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -52,7 +52,7 @@ spec:
                 spec:
                   httpGet:
                     path: /-/ready
-                    port: 80
+                    port: 8080
                   initialDelaySeconds: 5
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -76,7 +76,7 @@ spec:
         controller: kromgo
         ports:
           http:
-            port: 80
+            port: 8080
     persistence:
       config-file:
         type: configMap

@@ -16,4 +16,4 @@ spec:
           value: /
       backendRefs:
         - name: kromgo
-          port: 80
+          port: 8080
