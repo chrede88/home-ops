@@ -19,15 +19,18 @@ spec:
       allowedRoutes:
         namespaces:
           from: Same
-    # # catch traffic for kromgo
-    # - name: kromgo
-    #   hostname: kromgo.cjsolsen.com
-    #   protocol: HTTPS
-    #   port: 443
-    #   allowedRoutes:
-    #     namespaces:
-    #       from: Same
-    #   tls:
-    #     mode: Terminate
-    #     certificateRefs:
-    #       - name: kromgo-cjsolsen-com
+    # catch traffic for kromgo
+    - name: kromgo
+      hostname: kromgo.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              external-gateway-access: "true"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: kromgo-cjsolsen-com
