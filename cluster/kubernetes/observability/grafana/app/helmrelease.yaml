@@ -159,11 +159,6 @@ spec:
           gNetId: 15760
           revision: 21
           datasource: Prometheus
-        kubernetes-volumes:
-           # renovate: depName="K8s / Storage / Volumes / Cluster"
-          gnetId: 11454
-          revision: 14
-          datasource: Prometheus
       cilium:
         cilium-operator:
           url: https://raw.githubusercontent.com/cilium/cilium/main/install/kubernetes/cilium/files/cilium-operator/dashboards/cilium-operator-dashboard.json
