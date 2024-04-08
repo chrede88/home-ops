@@ -44,6 +44,8 @@ spec:
           url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
           access: proxy
           isDefault: true
+          jsonData:
+            timeInterval: 1m
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
