@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: l1nkr
-  path: ./cluster/kubernetes/internal/l1nkr/app
+  path: ./cluster/kubernetes/external/l1nkr/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -33,7 +33,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: l1nkr-ingress
-  path: ./cluster/kubernetes/internal/l1nkr/ingress
+  path: ./cluster/kubernetes/external/l1nkr/ingress
   prune: true
   sourceRef:
     kind: GitRepository

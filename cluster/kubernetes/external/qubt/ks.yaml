@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: qubt
-  path: ./cluster/kubernetes/internal/qubt/app
+  path: ./cluster/kubernetes/external/qubt/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -33,7 +33,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: qubt-ingress
-  path: ./cluster/kubernetes/internal/qubt/ingress
+  path: ./cluster/kubernetes/external/qubt/ingress
   prune: true
   sourceRef:
     kind: GitRepository
