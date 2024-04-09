@@ -6,3 +6,6 @@ cluster/talos/config/
 
 # etcd snapshots
 etcd-snapshots/
+
+# ghcr
+update-ghcr-token.txt

@@ -1,0 +1,44 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: qubt
+  namespace: flux-system
+spec:
+  targetNamespace: external
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: qubt
+  path: ./cluster/kubernetes/internal/qubt/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: qubt-ingress
+  namespace: flux-system
+spec:
+  targetNamespace: external
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: qubt-ingress
+  path: ./cluster/kubernetes/internal/qubt/ingress
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m

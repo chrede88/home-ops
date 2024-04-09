@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: external
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+  labels:
+    external-gateway-access: "true"

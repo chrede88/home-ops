@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: l1nkr
+  namespace: external
+  labels:
+    app: l1nkr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: l1nkr
+  template:
+    metadata:
+      labels:
+        app: l1nkr
+    spec:
+      containers:
+      - image: ghcr.io/chrede88/l1nkrdocker:v1.1.5
+        name: l1nkr
+        imagePullPolicy: Always
+      imagePullSecrets:
+        - name: ghcr-secret

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qubt
+  namespace: external
+  labels:
+    app: qubt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qubt
+  template:
+    metadata:
+      labels:
+        app: qubt
+    spec:
+      containers:
+      - image: ghcr.io/chrede88/qubtdocker:v1.0.7
+        name: qubt
+        imagePullPolicy: Always
+      imagePullSecrets:
+        - name: ghcr-secret
