@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "hostRules": [
     {
-      "matchHost": "ghcr.io/chrede88/",
+      "matchHost": "ghcr.io/chrede88/l1nkrdocker",
       "encrypted": {
         "token": "wcFMA/xDdHCJBTolARAAivJvnhwbp4G0z/Sedlb22/PFS7PpRmmnpxy1HPMyn/Bw6e9jDzEKXpt++CWZFDCwfwexLmJ3a3KxNe453D0xWk6uTnWOo5EA78HMYkAP8amweH5THB2DxN/2EyD0+aThdlQNb+DBI3gcUJA542lWAI7waIVRoePLDtQNeEsCgZlwD0aQ34cbAGgZjo9wC9g3vKgQ/I+/rrZZdqOLluaV3e4O9MCtLHSjK8+Avlh8aCCss46n9dMk+G3cYlCxUiggnNFrtnGu22I0p4s3i9TuBQAWdzlvqV7SDMY7S9qId13w+IfYllsYXBAucLdAPntHYUONqWCMYaez2GERBicb8YSCk+GlUTBzdJqTPONVwIEb/Zf8lY+7ATBXmes0WZrCxl5JuWXtPHMHDhZkVryHdRPcs61WPppvEbfgUCwQGDrRBbj8lsrJrJTB3cr3Up2CuKxwya+P3uTLgcBtUXiXF96ycbyulP9bZXFp0QNh1AyUCQsz0c0fpzCtfPl6eNmgOMSk7idFqoGWi1olb5aVNm4nYUyCth88peNQqFezBGHiAsYcjx5oGv3cz/zMvA8w6zaj+GSc01ouzdKItBCg9bZ13iGZJvw9hijA+gVTB3Z/6xmVOM//14V3bAmAm7cRA1U3VkphmNk7dqMdw6BoorV+wdeGziU8dB1quDpAq2HSfwFX9u828Pf0V80ybSipiTwndZJeJ+/tskYIlsuADZ0g9hcfruJZl5HtVMTnA/G0ADFK1NV/Oem/9zWHiVSEjt+0S0jK6qAQ+qDzuTqpX++C9KHx2bBP78sIHEGfBuQVDAhVaFyxOjpItKmDOozJpzFkquMUgrccJnipITn50nc"
       }
