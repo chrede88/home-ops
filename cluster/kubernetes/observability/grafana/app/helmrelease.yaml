@@ -107,6 +107,11 @@ spec:
         cilium-agent:
           url: https://raw.githubusercontent.com/cilium/cilium/main/install/kubernetes/cilium/files/cilium-agent/dashboards/cilium-dashboard.json
           datasource: Prometheus
+        prometheus:
+          # renovate: depName="Prometheus 2.0 Overview"
+          gnetId: 3662
+          revision: 2
+          datasource: Prometheus
       ceph:
         ceph-cluster:
           # renovate: depName="Ceph Cluster"
