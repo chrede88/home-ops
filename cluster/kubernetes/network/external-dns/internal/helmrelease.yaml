@@ -46,6 +46,8 @@ spec:
         value: http://pihole-0.pihole.network.svc.cluster.local
       - name: EXTERNAL_DNS_GATEWAY_LABEL_FILTER
         value: gateway-label==internal-gateway
+      - name: EXTERNAL_DNS_LABEL_FILTER
+        value: route-label==external-dns-internal
       - name: EXTERNAL_DNS_PIHOLE_PASSWORD
         valueFrom:
           secretKeyRef:
