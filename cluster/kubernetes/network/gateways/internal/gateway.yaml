@@ -6,6 +6,8 @@ metadata:
   namespace: network
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+  labels:
+    gateway-label: internal-gateway
 spec:
   gatewayClassName: cilium
   addresses:

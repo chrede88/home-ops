@@ -11,3 +11,4 @@ resources:
   - ./orbitalsync/ks.yaml
   - ./gateways/ks.yaml
   - ./cloudflare-ddns/ks.yaml
+  - ./external-dns/ks.yaml
