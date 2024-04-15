@@ -4,6 +4,8 @@ kind: HTTPRoute
 metadata:
   name: pihole0-redirect
   namespace: network
+  labels:
+    route-label: external-dns-internal
 spec:
   parentRefs:
     - name: internal-gateway
