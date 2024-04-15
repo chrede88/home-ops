@@ -4,8 +4,6 @@ kind: HTTPRoute
 metadata:
   name: pihole0-redirect
   namespace: network
-  labels:
-    route-label: external-dns-internal
 spec:
   parentRefs:
     - name: internal-gateway
@@ -28,6 +26,8 @@ kind: HTTPRoute
 metadata:
   name: pihole0-dashboard
   namespace: network
+  labels:
+    route-label: external-dns-internal
 spec:
   parentRefs:
     - name: internal-gateway
@@ -68,6 +68,8 @@ kind: HTTPRoute
 metadata:
   name: pihole1-dashboard
   namespace: network
+  labels:
+    route-label: external-dns-internal
 spec:
   parentRefs:
     - name: internal-gateway
@@ -108,6 +110,8 @@ kind: HTTPRoute
 metadata:
   name: pihole2-dashboard
   namespace: network
+  labels:
+    route-label: external-dns-internal
 spec:
   parentRefs:
     - name: internal-gateway

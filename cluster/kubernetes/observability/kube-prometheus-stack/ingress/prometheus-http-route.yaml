@@ -4,6 +4,8 @@ kind: HTTPRoute
 metadata:
   name: prometheus
   namespace: observability
+  labels:
+    route-label: external-dns-internal
 spec:
   parentRefs:
     - name: internal-gateway

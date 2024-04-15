@@ -4,6 +4,8 @@ kind: HTTPRoute
 metadata:
   name: ceph-dashboard
   namespace: rook-ceph
+  labels:
+    route-label: external-dns-internal
 spec:
   parentRefs:
     - name: internal-gateway

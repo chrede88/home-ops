@@ -4,6 +4,8 @@ kind: HTTPRoute
 metadata:
   name: gatus
   namespace: internal
+  labels:
+    route-label: external-dns-internal
 spec:
   parentRefs:
     - name: internal-gateway

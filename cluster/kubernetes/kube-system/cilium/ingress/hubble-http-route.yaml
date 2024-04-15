@@ -4,6 +4,8 @@ kind: HTTPRoute
 metadata:
   name: hubble-dashboard
   namespace: kube-system
+  labels:
+    route-label: external-dns-internal
 spec:
   parentRefs:
     - name: internal-gateway
