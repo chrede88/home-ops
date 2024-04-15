@@ -112,6 +112,11 @@ spec:
           gnetId: 3662
           revision: 2
           datasource: Prometheus
+        external-dns:
+          # renovate: depName="External DNS"
+          gnetId: 15038
+          revision: 3
+          datasource: Prometheus
       ceph:
         ceph-cluster:
           # renovate: depName="Ceph Cluster"
