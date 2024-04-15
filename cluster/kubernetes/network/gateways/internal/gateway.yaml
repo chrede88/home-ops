@@ -6,6 +6,7 @@ metadata:
   namespace: network
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    external-dns.alpha.kubernetes.io/target: internal.local.cjsolsen.com
   labels:
     gateway-label: internal-gateway
 spec:
