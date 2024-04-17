@@ -7,5 +7,5 @@ resources:
   - ./slack-token.yaml
   - ./notifications.yaml
   # Flux-Kustomizations
-  - ./qubt/ks.yaml
-  - ./l1nkr/ks.yaml
+  # - ./qubt/ks.yaml
+  # - ./l1nkr/ks.yaml
