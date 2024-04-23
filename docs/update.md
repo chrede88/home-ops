@@ -2,7 +2,7 @@
 Both Talos Linux and Kubernetes can be updated using the Talos CLI tool. This process is very simple and easy to do.
 
 ## Talos Linux
-Because I'm running Ceph extra care needs to taken to make sure the Ceph cluster stays healthy between node upgrades.
+Because I'm running Ceph extra care needs to be taken to make sure the Ceph cluster stays healthy between node upgrades.
 Before starting the upgrade check that the Ceph cluster is healthy:
 
 ```zsh
@@ -30,7 +30,7 @@ If you have just upgraded Talos Linux, make sure the Ceph cluster is in a good s
 Let's first take a snapshot of the `etcd` database, just in case something goes horribly wrong.
 
 ```zsh
-talosctl -n 10.10.30.2 etcd snapshot etcd.backup
+talosctl -n 10.10.30.2 etcd snapshot etcd-yyyymmdd.backup
 ```
 
 Now I'm ready to run the upgrade!

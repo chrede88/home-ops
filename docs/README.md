@@ -18,7 +18,15 @@ Each server is identical so I'll only list the specs once.
 - Storage: Samsung 980 PRO 2TB M.2 NVME SSD
 
 ### Network
-The network setup is very minimal as it is just a Ubiqiuti UDR. The router has a build-in 4 port Gbit/s switch, which for now is just enough. This is probably the first thing I'll replace.
+I updated my network equipment in the begining of April 2024. All I had before was a Unifi Dream Router from Ubiquiti. The UDR has a 1Gb/s 4-port switch, which was just enough for my three kubernetes nodes and my backup pihole running on a RPi 4. I've been planing on upgrading to 2.5Gb/s for a while now, and when I saw that Ubiquiti released the Unifi Gateway Max I picked one up. It has a single 2.5Gb/s WAN port plus a 4-port 2.5Gb/s switch.
+
+Here follows a list of network equipment that I currently have deployed:
+
+1) Unifi Gateway Max (UXG)
+2) Unifi Cloudkey Gen 2+
+3) Unifi Switch Ultra
+4) Unifi U6+ Access Point
+
 
 ## Files
 This is a list of the documentation I've put together so far (in order):
@@ -33,6 +41,7 @@ This is a list of the documentation I've put together so far (in order):
 8) Renovate: [renovate.md](./renovate.md)
 9) Cloudnative PostgreSQL: [cloudnative-pg.md](./cloudnative-pg.md)
 10) Prometheus and Grafana: [prometheus.md](./prometheus.md)
+11) External-dns: [external-dns.md](./external-dns.md)
 
 ### Updating cluster
 Keeping the cluster up-to-date is important. Both Talos Linux and Kubernetes itself should be kept up-to-date. See more in [update.md](./update.md).
