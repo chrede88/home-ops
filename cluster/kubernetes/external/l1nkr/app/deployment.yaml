@@ -16,7 +16,7 @@ spec:
         app: l1nkr
     spec:
       containers:
-      - image: ghcr.io/chrede88/l1nkrdocker:v1.1.7
+      - image: ghcr.io/chrede88/l1nkrdocker:v1.1.8
         name: l1nkr
         imagePullPolicy: Always
       imagePullSecrets:
