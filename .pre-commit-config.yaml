@@ -15,6 +15,6 @@ repos:
     - id: remove-tabs
       args: [--whitespaces-count, '2']
 - repo: https://github.com/onedr0p/sops-pre-commit
-  rev: v2.1.0
+  rev: v2.1.1
   hooks:
     - id: forbid-secrets
