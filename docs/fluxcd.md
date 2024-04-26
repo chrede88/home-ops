@@ -31,7 +31,7 @@ metadata:
   name: flux-system
 ```
 
-See section on [Sops/Age](#sops--age). 
+See section on [Sops/Age](#sops--age).
 
 ## Bootstrap
 

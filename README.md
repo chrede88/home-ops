@@ -42,7 +42,7 @@ The layout of the repo is as follows:
 ```sh
 📁 .github              # Github related files
 📁 docs                 # My running documentation
-📁 network              # My internal network setup 
+📁 network              # My internal network setup
 📁 cluster
 ├─📁 kubernetes         # Kubernetes cluster definitions
 └─📁 talos              # Talos configuration stuff

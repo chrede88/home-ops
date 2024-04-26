@@ -188,7 +188,7 @@ If Cert-manager should get a certificate the following conditions must be met:
 4) `tls.certificateRef.name` must not be empty.
 5) `tls.certificateRef.kind` must be set to `Secret` (if set).
 6) `tls.certificateRef.group` must be set to `core` (if set).
-7) `tls.certificateRef.namespace` must be the same namespace as the Gateway (if set). 
+7) `tls.certificateRef.namespace` must be the same namespace as the Gateway (if set).
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
