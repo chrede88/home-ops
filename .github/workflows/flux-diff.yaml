@@ -27,7 +27,7 @@ jobs:
         uses: fluxcd/flux2/action@main
         with:
           version: 2.2.3
-      - uses: allenporter/flux-local/action/diff@5.2.0
+      - uses: allenporter/flux-local/action/diff@5.3.1
         id: diff
         with:
           live-branch: main
