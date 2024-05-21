@@ -6,7 +6,7 @@ The two main components I need are a commandline interface and a text editor. I 
 
 ### talosctl
 ```zsh
-curl -sL https://talos.dev/install | sh
+brew install talosctl
 ```
 
 After the bineary is installed, check that it works.

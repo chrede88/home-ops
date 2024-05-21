@@ -9,7 +9,10 @@ I'll leave my renovate config here:
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:base",
+    "github>chrede88/home-ops//.github/renovate/grafanadashboards.json",
+    "github>chrede88/home-ops//.github/renovate/groups.json",
+    "github>chrede88/home-ops//.github/renovate/privatepackages.json"
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "commitMessagePrefix": "🤖",
@@ -38,6 +41,9 @@ I'll leave my renovate config here:
       "(^|/)cluster/kubernetes/.+\\.ya?ml$"
     ]
   },
+  "pre-commit": {
+    "enabled": true
+  },
   "packageRules": [
     {
       "matchUpdateTypes": ["major"],
@@ -58,6 +64,94 @@ I'll leave my renovate config here:
     {
       "matchDatasources": ["docker"],
       "commitMessageTopic": "image {{depName}}"
+    }
+  ]
+}
+```
+
+```json
+// .github/renovate/grafanadashboards.json
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "customDatasources": {
+    "grafana-dashboards": {
+      "defaultRegistryUrlTemplate": "https://grafana.com/api/dashboards/{{packageName}}",
+      "format": "json",
+      "transformTemplates": [
+        "{\"releases\":[{\"version\": $string(revision)}]}"
+      ]
+    }
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": ["Process Grafana dashboards"],
+      "fileMatch": [
+        "(^|/)cluster/kubernetes/.+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "depName=\"(?<depName>.*)\"\\n(?<indentation>\\s+)gnetId: (?<packageName>\\d+)\\n.+revision: (?<currentValue>\\d+)"
+      ],
+      "autoReplaceStringTemplate": "depName=\"{{{depName}}}\"\n{{{indentation}}}gnetId: {{{packageName}}}\n{{{indentation}}}revision: {{{newValue}}}",
+      "datasourceTemplate": "custom.grafana-dashboards",
+      "versioningTemplate": "regex:^(?<major>\\d+)$"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": ["custom.grafana-dashboards"],
+      "matchUpdateTypes": ["major"],
+      "semanticCommitType": "chore",
+      "semanticCommitScope": "grafana-dashboards",
+      "commitMessageTopic": "dashboard {{depName}}",
+      "commitMessageExtra": "({{currentVersion}} → {{newVersion}})"
+    }
+  ]
+}
+```
+
+```json
+// .github/renovate/groups.json
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "description": ["Rook-Ceph Group"],
+      "groupName": "Rook-Ceph",
+      "matchPackagePatterns": ["rook-ceph"],
+      "matchDatasources": ["helm"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    },
+    {
+      "description": ["Flux Group"],
+      "groupName": "Flux",
+      "matchPackagePatterns": ["fluxcd"],
+      "matchDatasources": ["docker", "github-tags"],
+      "versioning": "semver",
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    }
+  ]
+}
+```
+
+```json
+// .github/renovate/privatepackages.json
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "hostRules": [
+    {
+      "matchHost": "ghcr.io",
+      "hostType": "docker",
+      "username": "chree88",
+      "encrypted": {
+        "password": "..."
+      }
     }
   ]
 }

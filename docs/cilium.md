@@ -22,7 +22,7 @@ I shouldn't have to do anything apart from setting up the Cilium helm chart usin
 I'll setup a Helm repository for Flux. I'll keep all the repositories I need in the same folder so they are easy to find: `./kubernetes/flux-resources/`. These are the files I need to add:
 
 ```yaml
-# # ./cluster/kubernetes/flux-resources/kustomization.yaml
+# ./cluster/kubernetes/flux-resources/kustomization.yaml
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -31,7 +31,7 @@ resources:
 ```
 
 ```yaml
-# # ./cluster/kubernetes/flux-resources/helm/kustomization.yaml
+# ./cluster/kubernetes/flux-resources/helm/kustomization.yaml
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -140,7 +140,7 @@ spec:
   chart:
     spec:
       chart: cilium
-      version: 1.15.1
+      version: 1.15.5
       sourceRef:
         kind: HelmRepository
         name: cilium
