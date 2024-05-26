@@ -197,7 +197,7 @@ metadata:
   name: example
   namespace: default
   annotations:
-    cert-manager.io/issuer: foo # <- 1.
+    cert-manager.io/cluster-issuer: foo # <- 1.
 spec:
   gatewayClassName: foo
   addresses:
