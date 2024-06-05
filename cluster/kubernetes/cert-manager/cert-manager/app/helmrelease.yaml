@@ -23,7 +23,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    installCRDs: true
+    crds:
+      enabled: true
+      keep: true
     replicaCount: 1
     dns01RecursiveNameservers: 1.1.1.1:53,1.0.0.1:53
     dns01RecursiveNameserversOnly: true
