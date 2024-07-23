@@ -16,7 +16,7 @@ spec:
         app: cloudflare-ddns
     spec:
       containers:
-      - image: favonia/cloudflare-ddns:edge
+      - image: favonia/cloudflare-ddns:1.13.1
         name: cloudflare-ddns
         imagePullPolicy: Always
         envFrom:
@@ -24,6 +24,6 @@ spec:
               name: cloudflare-ddns-configmap
           - secretRef:
               name: cloudflare-ddns-secret
-        # securityContext:
-        #   runAsUser: 314
-        #   runAsGroup: 314
+        securityContext:
+          runAsUser: 314
+          runAsGroup: 314
