@@ -24,3 +24,5 @@ spec:
               name: cloudflare-ddns-configmap
           - secretRef:
               name: cloudflare-ddns-secret
+      securityContext:
+        runAsNonRoot: true
