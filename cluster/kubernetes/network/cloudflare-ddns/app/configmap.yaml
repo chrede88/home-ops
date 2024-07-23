@@ -10,4 +10,4 @@ data:
   IP6_PROVIDER: "none"
   DELETE_ON_STOP: "false"
   UPDATE_CRON: "@every 10m"
-  QUIET: "true"
+  QUIET: "false"
