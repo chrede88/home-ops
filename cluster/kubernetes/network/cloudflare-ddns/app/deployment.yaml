@@ -19,9 +19,11 @@ spec:
       - image: favonia/cloudflare-ddns:1.13.1
         name: cloudflare-ddns
         imagePullPolicy: Always
-        user: "1000:1000"
         envFrom:
           - configMapRef:
               name: cloudflare-ddns-configmap
           - secretRef:
               name: cloudflare-ddns-secret
+        securityContext:
+          runAsUser: 314
+          runAsGroup: 314
