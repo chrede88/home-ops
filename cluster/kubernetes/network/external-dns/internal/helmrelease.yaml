@@ -36,8 +36,6 @@ spec:
           verbs: ["get","watch","list"]
     sources:
       - gateway-httproute
-      - gateway-grpcroute
-      - gateway-tlsroute
     policy: upsert-only
     registry: noop
     provider: pihole
