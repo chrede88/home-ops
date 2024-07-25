@@ -32,7 +32,7 @@ spec:
           resources: ["namespaces"]
           verbs: ["get","watch","list"]
         - apiGroups: ["gateway.networking.k8s.io"]
-          resources: ["gateways","httproutes","grpcroutes","tlsroutes"]
+          resources: ["gateways","httproutes"]
           verbs: ["get","watch","list"]
     sources:
       - gateway-httproute
