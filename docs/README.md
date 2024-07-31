@@ -43,6 +43,9 @@ This is a list of the documentation I've put together so far (in order):
 10) Prometheus and Grafana: [prometheus.md](./prometheus.md)
 11) External-dns: [external-dns.md](./external-dns.md)
 
+### Interacting with a Ceph cluster
+I'm keeping a short list of general commands that are good to know when interacting with a Ceph cluster. See more in [ceph-cluster.md](./ceph-cluster.md).
+
 ### Updating cluster
 Keeping the cluster up-to-date is important. Both Talos Linux and Kubernetes itself should be kept up-to-date. See more in [update.md](./update.md).
 
