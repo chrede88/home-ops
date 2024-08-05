@@ -44,6 +44,13 @@ spec:
               mountPath: /etc/pihole
             - name: pihole-etc-dnsmasq
               mountPath: /etc/dnsmasq.d
+    topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: DoNotSchedule
+      labelSelector:
+        matchLabels:
+          app: pihole
   volumeClaimTemplates:
     - metadata:
         name: pihole-etc-pihole
