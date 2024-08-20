@@ -33,30 +33,23 @@ spec:
               tag: v0.4.1
             env:
               PROMETHEUS_URL: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
-              PORT: 8080
+              SERVER_HOST: 0.0.0.0
+              SERVER_PORT: &serverPort 8080
+              HEALTH_HOST: 0.0.0.0
+              HEALTH_PORT: &healthPort 8888
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: /-/ready
-                    port: 8080
+                    path: /readyz
+                    port: *healthPort
                   initialDelaySeconds: 5
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /-/ready
-                    port: 8080
-                  initialDelaySeconds: 5
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
+              readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -76,7 +69,10 @@ spec:
         controller: kromgo
         ports:
           http:
-            port: 8080
+            primary: true
+             port: *serverPort
+           health:
+             port: *healthPort
     persistence:
       config-file:
         type: configMap
