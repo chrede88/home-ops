@@ -150,9 +150,9 @@ spec:
               name: cloudflare-api-token-secret
               key: api-token
 ```
-My domain is hosted by Cloudflare, so that's where the certificates should be verified. I provide my Cloudflare API token through a secret.
+My domain is hosted by Cloudflare, so that's where the certificates should be verified. I'll provide my Cloudflare API token through a secret.
 
-I've used this setup before, I know it works. If this is not the case, setup another clusterissuer that uses the staging environment of Lets Encrypt. This way you won't hit the rate limit, if something isn't working correctly. Once everything is good, swtich to the production issuer. Here is an example of a test issuer:
+I've used this setup before, I know it works. If this is not the case, setup another ClusterIssuer that uses the staging environment of Lets Encrypt. This way you won't hit the rate limit, if something isn't working correctly. Once everything is good, swtich to the production issuer. Here is an example of a test issuer:
 
 ```yaml
 ---

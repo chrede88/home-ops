@@ -1,9 +1,9 @@
 # Flux
 
-The next thing to setup is [Fluxcd](https://fluxcd.io) or just Flux for short. By running Flux my git repository becomes the source of truth for my Kubernetes cluster. Any changes made to the manifests in the git repository is automatically reflected in the cluster. Pairing Flux with Renovate is a potent combi, see [renovate.md](./renovate.md) for more info.
+The next thing to setup is [Fluxcd](https://fluxcd.io) or just Flux for short. By running Flux my git repository becomes the source of truth for my Kubernetes cluster. Any changes made to the manifests in the git repository is automatically reflected in the cluster. Pairing Flux with Renovate is a potent combi that makes it easy to keep everything up-to-date, see [renovate.md](./renovate.md) for more info.
 
 ## Setting up Flux
-I'll use an ssh key to authenticate with Github. So first item on the agenda is to generate a ssh key for Flux.
+I'll use a ssh key to authenticate with Github. So first item on the agenda is to generate a ssh key for Flux.
 
 ```zsh
 ssh-keygen -t ed25519 -C "christian@cjsolsen.com"
@@ -82,9 +82,7 @@ kubectl create secret generic sops-age \
 --namespace=flux-system \
 --from-file=flux.agekey=/dev/stdin
 ```
-Before encrypting this file, I'll setup a SOPS config file, so I don't have to apply the age public key everytime.
-
-I've to add a file called `.sops.yaml` to the root of my repository, with the following content:
+Before encrypting this file, I'll setup a SOPS config file, so I don't have to apply the age public key everytime. I've to add a file called `.sops.yaml` to the root of my repository, with the following content:
 
 ```yaml
 creation_rules:
@@ -104,7 +102,7 @@ I would like to store the secret manifest in a yaml file so I can easily find it
 kubectl get secret sops-age -n flux-system -o yaml > flux-system/config/sops-age.yaml
 ```
 
-With this file I can now very easily encrypt the kubernetes secret I just created:
+With the SOPS config file in the root of the repository I can now very easily encrypt the kubernetes secret I just created:
 
 ```zsh
 sops -e -i sops-age.yaml
@@ -128,7 +126,7 @@ This tells Flux to look in the `sops-age` secret for the decryption key.
 Flux can push notification/alerts to a long list of different platforms. I'll setup a [Slack bot](https://api.slack.com/start/quickstart#creating) called `Flux`. Very original, I know...
 
 I need the bot token so I can create a Kubernetes secret, as well as a flux notification provider and a Flux alert.
-I'll add these files to each namespace I'll create, so Flux can send alerts for all reconcile errors.
+I'll add these files to each namespace I'll create, so Flux can send alerts for all reconciliation errors.
 
 ```yaml
 # notifications.yaml
@@ -197,7 +195,7 @@ The Flux CLI tools defaults to the `flux-system` namepace. To check for other na
 
 ## General notes on Kustomization
 Kustomizations are great and I rely heavily on them for my Flux setup. It's a great way to tell Flux what to look for.
-Flux sets up a `GitRepository` and a main Kustomiation at bootstrap. These are located in `./kubernetes/flux-system/gotk-sync.yaml`.
+Flux sets up a `GitRepository` and a main Kustomziation at bootstrap. These are located in `./kubernetes/flux-system/gotk-sync.yaml`.
 The Kustomization defines the general path `./cluster/kubernetes`, so all Kustomizations on this path (including subpaths) are automatically found.
 
 My general repository layout is by namespace. So I'll have a folder for each namespace on my cluster. I do however have one extra folder called `flux-resources`. Here I declare the Helm repositories etc. that I use to install stuff. I like to keep them all in one place, so they are easy to find.
@@ -229,7 +227,7 @@ metadata:
     kustomize.toolkit.fluxcd.io/prune: disabled # <- don't delete stuff in this namespace
 ```
 
-For each app I'll have a file that points to the folder containing the helm release or normal kubernetes files.
+For each app I'll have a file that points to the folder containing the helm release or normal Kubernetes manifest files.
 
 ```yaml
 # ./cluster/kubernetes/kube-system/cilium/ks.yaml
@@ -245,7 +243,7 @@ spec:
     labels:
       app.kubernetes.io/name: cilium
   path: ./kubernetes/kube-system/cilium/app
-  prune: false # never should be deleted
+  prune: false # should never be deleted
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -265,3 +263,6 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
 ```
+
+### Hang on - Are there two types of Kostomizations
+Yes! Which is a bit unfortunate. It took me a bit to figure out what the difference is and when to use what. In short you can think of the `kustomize.config.k8s.io/v1beta1` kind as a pointer to resources, while the `kustomize.toolkit.fluxcd.io/v1` kind defines a (for lack of a better name) Kustomization, that controls how often flux checks for changes and if it depends on other Kustomizations to reconcile before it starts reconciling, etc. See the [fluxcd docs](https://fluxcd.io/flux/faq/#are-there-two-kustomization-types) for an example.

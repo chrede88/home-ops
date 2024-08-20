@@ -56,10 +56,10 @@ flux --version
 ```
 
 ## Talos configuration
-The Talos configuration files can be setup using talosctl. I'm pretty sure all the generated configuration files should not be made public unless you encrypt the sensitive parts. I'll use SOPS with age, but if not then remember to add the config files to `.gitignore`.
+The Talos configuration files can be setup using talosctl. I'm pretty sure all the generated configuration files should not be made public unless you encrypt the sensitive parts. I'll use SOPS with age, but if not then remember to add the config files to your `.gitignore`.
 
 ### What not to do!
-I used `inlineManifests` to install Cilium on boot. This worked nicely, but because all the resources now don't have the correct helm labels Flux can't gracefully take over when Flux bootstraps.
+I used `inlineManifests` for my first attempt at installing Cilium. This worked nicely, but because all the resources now don't have the correct helm labels Flux can't gracefully take over when Flux bootstraps.
 The best way to do install Cilium seems to be to wait for the cluster install to hang because of the missing CNI and then install Cilium manually with Helm.
 
 ### Second try
@@ -70,9 +70,9 @@ First generate the cluster secrets:
 talosctl gen secrets -o secrets.yaml
 ```
 
-Next I'll generate the configuration files using the freshly created secrets. The default configuration needs to be tweaked, this can be done using patches. I'll need seven patches:
+Next I'll generate the configuration files using the freshly created secrets. The default configuration needs to be tweaked, this can be done using patches. I'll need seven patches.
 
-As I only have three nodes I need to be schedule workloads on the control-plane nodes.
+As I only have three nodes, I need to be able to schedule workloads on the control-plane nodes.
 ```yaml
 # allow-workloads-controlplane.yaml
 cluster:
@@ -132,7 +132,7 @@ machine:
     wipe: true
 ```
 
-Disable CNI, I'll manually install Cilium at the right time. Cilium also needs to run the proxy, so I'll also disable `Kube-proxy`.
+As already mentioned, I'm disabling the install of the default CNI (Flannel) that ships with Talos. I therefore need to add a patch that tells Talos not to install that. I'll manually install Cilium at the right time, see [Kubernetes Bootstrap](#kubernetes-bootstrap). Cilium also needs to run the proxy, so I'll also disable `kube-proxy`.
 
 ```yaml
 # disable-cni-proxy.yaml
@@ -144,7 +144,7 @@ cluster:
     disabled: true
 ```
 
-We can now generate the configuration files using the seven patches. I'm using names from the old Nordic mythology, so I'll call my cluster Asgard.
+We can now generate the configuration files using the six patches defined so far. The last patch is different for each note, so I'll create an intermediate configuration file for now. I'm using names from the old Nordic mythology, so I'll call my cluster Asgard.
 
 ```zsh
 talosctl gen config asgard https://10.10.30.30:6443 \
@@ -157,9 +157,11 @@ talosctl gen config asgard https://10.10.30.30:6443 \
 --config-patch-control-plane @patches/vip.yaml \
 --config-patch-control-plane @patches/disable-cni-proxy.yaml
 ```
-One could ask why I'm seperating out the `dhcp` and `vip` patches, since all my nodes are control-plane it shouldn't make a difference. I do that simply because it then makes it easier to setup an additional worker node later if needed.
+Here the `URL` should point to the IP of the VIP defined above. Port 6443 is default, unless you've changed it in another patch. Change the Kubernetes version to the lastest stable version unless you've a good reason not to!
 
-The configuration files have now been generated😄🎉
+Notice that the last two patch are only applied to the `controlplane` configuration. This is not that important for me, as I only have controlplane nodes. But I might get some more nodes in the future, which then should only run as worker nodes. This is also why I'm seperating out the `dhcp` and `vip` patches. I do that simply because it then makes it easier to setup an additional worker node later if needed.
+
+Executing the above command will generate the configuration files😄🎉
 Three files have been generated:
 - controlplane.yaml
 - worker.yaml
@@ -184,7 +186,7 @@ machine:
 
 The other two nodes should get a similar patch, with another hostname. I'll use `thor` and `baldr`.
 
-It's time to add the configuration to the nodes, one at a time.
+It's time to add the configuration to the nodes, one at a time. Remember to give the right configuration to the right machine, so the hostname matches the allocated IP.
 
 ```zsh
 talosctl apply-config -f controlplane-odin.yaml -n 10.10.30.2 --insecure
@@ -214,7 +216,7 @@ This is super simple with Talos:
 ```zsh
 talosctl bootstrap -n 10.10.30.2
 ```
-Only send this command to **one** node. After a bit the `kubeconfig` file can be retreived.
+Only send this command to ***one*** node. After a bit the `kubeconfig` file can be retreived.
 
 ```zsh
 talosctl kubeconfig -n 10.10.30.2

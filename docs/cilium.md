@@ -1,6 +1,6 @@
 # Cilium
 
-I installed Cilium at boot, so it could replace Flannel and Kubeproxy. As it was installed using Helm, Flux should be able to take over gracefully.
+I installed Cilium at boot, so it could replace Flannel and Kube-proxy. As it was installed using Helm, Flux should be able to take over gracefully.
 
 ## Cilium CLI
 It can be useful to have the Cilium CLI tool installed on your local dev machine.
@@ -87,7 +87,7 @@ spec:
     labels:
       app.kubernetes.io/name: cilium
   path: ./kubernetes/kube-system/cilium/app
-  prune: false # never should be deleted
+  prune: false # should never be deleted
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -109,7 +109,7 @@ spec:
   dependsOn:
     - name: cilium
   path: ./kubernetes/kube-system/cilium/config
-  prune: false # never should be deleted
+  prune: false # should never be deleted
   sourceRef:
     kind: GitRepository
     name: flux-system
