@@ -102,7 +102,7 @@ spec:
         cloudnative-pg:
           # renovate: depName="CloudNativePG"
           gnetId: 20417
-          revision: 2
+          revision: 3
           datasource: Prometheus
         cilium-agent:
           url: https://raw.githubusercontent.com/cilium/cilium/main/install/kubernetes/cilium/files/cilium-agent/dashboards/cilium-dashboard.json
