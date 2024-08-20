@@ -70,9 +70,9 @@ spec:
         ports:
           http:
             primary: true
-             port: *serverPort
-           health:
-             port: *healthPort
+            port: *serverPort
+          health:
+            port: *healthPort
     persistence:
       config-file:
         type: configMap
