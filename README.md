@@ -33,7 +33,7 @@ This repo hold all the manifests for my kubernetes cluster and acts as the sourc
 
 ### Docs
 
-I keep running docs where I try to document my journey. Hopefully others will find them helpful.
+I keep running [docs](./docs/README.md) where I try to document my journey. Hopefully others will find them helpful.
 
 ### Directories
 
