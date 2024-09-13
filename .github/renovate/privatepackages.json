@@ -5,9 +5,7 @@
       "matchHost": "ghcr.io",
       "hostType": "docker",
       "username": "chree88",
-      "encrypted": {
-        "password": "wcFMA/xDdHCJBTolAQ//S7yzozy+nYIyF+sNOzC1OZO4cOH1CxIkhxvyZEJLB/FNqmYvVl/JHOXClbkbwMQnOh01rMNvmJ2g8Q2lWo610SOcC8CYQDQKRY4oLi1Lytvj5/xLugSouuuf9iloLDSi/XR9R4UftU5DBwVxUEK4MBrVSiR6vBM9G+QfCTeKy2elt8evZlXMvGIwtPFNPkhYRFja14d9CYZWb+7jZSp8Pb3O3+D6DMz/RYxAhDYZLXDi9imeJvSOvhz6cxxV/UfBaThO5ZvDM1kZCEm6nHdrpPGkRcs0ZMnB/J83tGBJ/V4pbc+8BWAD1ijh8yXcaeqVWIgav6aIWqBZRN+GBDj2SJ9H85BWuHm6rpZD5tzaFBk9gKgNtqocturT8cFdIbnYtWd5oZ9omCaWSgWb71tbGXXEbMUTxkXwCxbUS3zcet1Xsi+JDga0G3ShKRkFeTLDGZBweY/e4rz9N8wq1L2LDjLAAWpyh0Wl0+zgv73Y3pglMDCgMRq+jsKuzh5R/W5GSoscwRG15Of0bdq4yub47xMTqdaHC2zUTVkKhR8CwPY6Ad+D2IFlCEMICqhsvK5XuFzhqKS0XgRNxSJT81Nil15v19JwHcGHTIV/Tgq+VWNXxs6du0cTAb1Y8kaR8kvT3kc+xqe5tzu9kL9mxqHc+nJIDtWHznYbrxe1qSZoK7jSdwF1uIqUe4tjwPC4l13FZYOApA0Wq0xhPBESNqhzae2n9n06Ymreh8nFfUGUzbCjTwTbjkcizGH5cAl2+L32aatvnnk4JPfjedSUbP7ZYov5/wSDeL06ubhRR6Wg4hZwlmaNzatyYHBJDOHHjpmGqokmw7c5TWJu"
-      }
+      "password": "{{ secrets.github_private_repo }}"
     }
   ]
 }
