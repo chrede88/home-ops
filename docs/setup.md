@@ -2,7 +2,7 @@
 
 ## Local dev machine
 The first thing to do before starting the install of Talos Linux and Kubernetes is to make sure my local dev machine has all the components needed installed. I'm using a Macbook Pro, so I'll use `brew` where I can.
-The two main components I need are a commandline interface and a text editor. I use [Alacritty](https://alacritty.org) and [VS Code](https://code.visualstudio.com). In order to talk to Talos and Kubernetes I need to install the two binearies.
+The two main components I need are a commandline interface and a text editor. I use [Kitty](https://sw.kovidgoyal.net/kitty/) and [VS Code](https://code.visualstudio.com). In order to talk to Talos and Kubernetes I need to install the two binearies.
 
 ### talosctl
 ```zsh
