@@ -8,8 +8,8 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   gatewayClassName: cilium
-  # addresses:
-  #   - value: 10.10.30.80
+  addresses:
+    - value: 10.10.30.72
   listeners:
     # catch all external http -> https
     - name: http-redirect-external

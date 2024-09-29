@@ -12,7 +12,7 @@ metadata:
 spec:
   gatewayClassName: cilium
   addresses:
-    - value: 10.10.30.80
+    - value: 10.10.30.71
   listeners:
     # catch all local http -> https
     - name: http-redirect

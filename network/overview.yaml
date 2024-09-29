@@ -7,24 +7,24 @@ network:
     dhcp-end: 10.10.30.29
 physical-machines: 3
 servers:
-  - name: odin
+  - name: death
     mac: 48:21:0b:50:f4:8b
     ip: 10.10.30.2
     cpu: 12c/16t
     ram: 64GB
-    udr-port: 2
-  - name: thor
+    uxg-port: 2
+  - name: black
     mac: 48:21:0b:55:e0:97
     ip: 10.10.30.3
     cpu: 12c/16t
     ram: 64GB
-    udr-port: 3
-  - name: baldr
+    uxg-port: 3
+  - name: thrash
     mac: 48:21:0b:58:f0:1f
     ip: 10.10.30.4
     cpu: 12c/16t
     ram: 64GB
-    udr-port: 4
+    uxg-port: 4
 control-plane:
   vip: 10.10.30.30
 exposed-ips:
