@@ -86,7 +86,7 @@ talosctl disks -n 10.10.30.x --insecure
 ```
 I need the `--insecure` flag because Talos is not fully installed.
 
-The install disk I want to use (500GB SATA SSD) is called `/dev/sda`.
+The install disk I want to use (500GB SATA SSD) is called `/dev/sdb`.
 
 As for the network interface, Talos uses `predictable interface names` which means the network interface may be called something stupid. I want to disable this.
 
@@ -144,12 +144,13 @@ cluster:
     disabled: true
 ```
 
-We can now generate the configuration files using the six patches defined so far. The last patch is different for each note, so I'll create an intermediate configuration file for now. I'm using names from the old Nordic mythology, so I'll call my cluster Asgard.
+We can now generate the configuration files using the six patches defined so far. The last patch is different for each note, so I'll create an intermediate configuration file for now. I'm using metal music genres as names for my nodes, so I'll call my cluster `metal`.
 
 ```zsh
-talosctl gen config asgard https://10.10.30.30:6443 \
+talosctl gen config metal https://10.10.30.30:6443 \
 --with-secrets secrets.yaml \
---kubernetes-version 1.29.2 \
+--kubernetes-version 1.30.5 \
+--install-image "factory.talos.dev/installer/a67adf43d3bcbfb16d4fb6227edcf6f5ff039c493372f759d2dfcf8c21c932df:v1.8.0" \
 --config-patch @patches/dhcp.yaml \
 --config-patch @patches/install-disk.yaml \
 --config-patch @patches/allow-workloads-controlplane.yaml \
@@ -172,7 +173,7 @@ I'll only need the `controlplane.yaml` as I don't have any worker nodes. I'll co
 We need to add one more patch! Each node need a hostname. We can create 3 new controlplane configs, one for each node using the following command:
 
 ```zsh
-talosctl machineconfig patch controlplane.yaml --patch @patches/odin-hostname.yaml -o controlplane-odin.yaml
+talosctl machineconfig patch controlplane.yaml --patch @patches/death-hostname.yaml -o controlplane-death.yaml
 ```
 
 where the patch is:
@@ -181,17 +182,17 @@ where the patch is:
 # odin-hostname.yaml
 machine:
   network:
-    hostname: odin
+    hostname: death
 ```
 
-The other two nodes should get a similar patch, with another hostname. I'll use `thor` and `baldr`.
+The other two nodes should get a similar patch, with another hostname. I'll use `black` and `thrash`.
 
 It's time to add the configuration to the nodes, one at a time. Remember to give the right configuration to the right machine, so the hostname matches the allocated IP.
 
 ```zsh
-talosctl apply-config -f controlplane-odin.yaml -n 10.10.30.2 --insecure
-talosctl apply-config -f controlplane-thor.yaml -n 10.10.30.3 --insecure
-talosctl apply-config -f controlplane-baldr.yaml -n 10.10.30.4 --insecure
+talosctl apply-config -f controlplane-death.yaml -n 10.10.30.2 --insecure
+talosctl apply-config -f controlplane-black.yaml -n 10.10.30.3 --insecure
+talosctl apply-config -f controlplane-thrash.yaml -n 10.10.30.4 --insecure
 ```
 This should be last time I need to use the `--insecure` flag.
 
@@ -250,3 +251,112 @@ helmfile apply
 ```
 
 The boot process should now finish!🎉
+
+## Clean Ceph Disks
+I had to reinstall Talos as the cluster pooped itself when I tried to upgrade to `v1.8.0` without the extra kernel drivers needed.
+
+I therefore have data and partition tables on the nvme drives I use for Ceph. Before reinstalling Ceph I need to wipe these drives completely. This can be done by injecting some pods that can clean the drives.
+
+But first we need to create a temp priviliged namespace to run the pods in:
+
+```yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ceph-clean
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
+```
+
+
+```yaml
+# ceph-remove-meta-<node>.yaml
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-clean # <-- change to unique name
+  namespace: cpeh-clean
+spec:
+  restartPolicy: Never
+  nodeName: <storage-node-name> # <-- change to actual nodenames
+  volumes:
+  - name: rook-data-dir
+    hostPath:
+      path: <dataDirHostPath> # <-- /var/lib/rook is the default
+  containers:
+  - name: disk-clean
+    image: busybox
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - name: rook-data-dir
+      mountPath: /node/rook-data
+    command: ["/bin/sh", "-c", "rm -rf /node/rook-data/*"]
+```
+
+Apply the pod to the cluster:
+
+```zsh
+kubectl apply -f ceph-remove-meta-<node>.yaml
+```
+
+Wait for confirmation:
+
+```zsh
+kubectl wait --timeout=1800s --for=jsonpath='{.status.phase}=Succeeded' pod disk-clean-<node> # Or whatever the pod is named
+```
+
+Once it's done, delete the pod again:
+
+```zsh
+kubectl delete pod disk-clean-<node>
+```
+
+These pods should wipe the drives, but the partition tables etc are still left behind. We need yet another set of pods for wipe these as well:
+
+```yaml
+# ceph-remove-tables-<node>.yaml
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-wipe-<node>
+  namespace: cpeh-clean
+spec:
+  restartPolicy: Never
+  nodeName: <storage-node-name> # <-- cahnge to actual nodename
+  containers:
+  - name: disk-wipe
+    image: busybox
+    securityContext:
+      privileged: true
+    command: ["/bin/sh", "-c", "dd if=/dev/zero bs=1M count=100 oflag=direct of=<device>"] # <-- change "<device>" to the actual device name, i.e. /dev/nvme0n1 or something similar
+```
+
+Apply the pod to the cluster:
+
+```zsh
+kubectl apply -f ceph-remove-tables-<node>.yaml
+```
+
+Wait for confirmation:
+
+```zsh
+kubectl wait --timeout=1800s --for=jsonpath='{.status.phase}=Succeeded' pod disk-wipe-<node> # Or whatever the pod is named
+```
+
+Once it's done, delete the pod again:
+
+```zsh
+kubectl delete pod disk-wipe-<node>
+```
+
+The drives should now be ready to use again!:tada:
+
+Lastly, let's clean up by deleting the namespace.
+
+```zsh
+kubectl delete ns ceph-clean
+```

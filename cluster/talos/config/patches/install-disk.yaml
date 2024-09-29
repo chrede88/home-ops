@@ -1,4 +1,4 @@
 machine:
   install:
-    disk: /dev/sda
+    disk: /dev/sdb
     wipe: true
