@@ -6,4 +6,4 @@ resources:
 - gotk-sync.yaml
 - slack-token.yaml
 - notifications.yaml
-- pod-monitor.yaml
+# - pod-monitor.yaml
