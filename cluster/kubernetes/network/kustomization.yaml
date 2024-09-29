@@ -7,7 +7,7 @@ resources:
   - ./slack-token.yaml
   - ./notifications.yaml
   # Flux-Kustomizations
-  - ./pihole/ks.yaml
+  # - ./pihole/ks.yaml
   # - ./orbitalsync/ks.yaml
   # - ./gateways/ks.yaml
   # - ./cloudflare-ddns/ks.yaml
