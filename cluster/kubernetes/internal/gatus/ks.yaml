@@ -1,48 +1,48 @@
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: gatus
-  namespace: flux-system
-spec:
-  targetNamespace: internal
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: gatus
-  dependsOn:
-    - name: cloudnative-pg-clusters
-  path: ./cluster/kubernetes/internal/gatus/app
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: gatus-ingress
-  namespace: flux-system
-spec:
-  targetNamespace: internal
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: gatus-ingress
-  dependsOn:
-    - name: gatus
-  path: ./cluster/kubernetes/internal/gatus/ingress
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: gatus
+#   namespace: flux-system
+# spec:
+#   targetNamespace: internal
+#   commonMetadata:
+#     labels:
+#       app.kubernetes.io/name: gatus
+#   dependsOn:
+#     - name: cloudnative-pg-clusters
+#   path: ./cluster/kubernetes/internal/gatus/app
+#   prune: true
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   wait: false
+#   interval: 30m
+#   retryInterval: 1m
+#   timeout: 5m
+#   decryption:
+#     provider: sops
+#     secretRef:
+#       name: sops-age
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: gatus-ingress
+#   namespace: flux-system
+# spec:
+#   targetNamespace: internal
+#   commonMetadata:
+#     labels:
+#       app.kubernetes.io/name: gatus-ingress
+#   dependsOn:
+#     - name: gatus
+#   path: ./cluster/kubernetes/internal/gatus/ingress
+#   prune: true
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   wait: false
+#   interval: 30m
+#   retryInterval: 1m
+#   timeout: 5m

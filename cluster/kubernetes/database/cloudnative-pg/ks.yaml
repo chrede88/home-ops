@@ -1,48 +1,48 @@
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: cloudnative-pg
-  namespace: flux-system
-spec:
-  targetNamespace: database
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: cloudnative-pg
-  dependsOn:
-    - name: rook-ceph-cluster
-  path: ./cluster/kubernetes/database/cloudnative-pg/app
-  prune: false # never deleted
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: cloudnative-pg-clusters
-  namespace: flux-system
-spec:
-  targetNamespace: database
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: cloudnative-pg-clusters
-  dependsOn:
-    - name: cloudnative-pg
-  path: ./cluster/kubernetes/database/cloudnative-pg/clusters
-  prune: false # never deleted
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: cloudnative-pg
+#   namespace: flux-system
+# spec:
+#   targetNamespace: database
+#   commonMetadata:
+#     labels:
+#       app.kubernetes.io/name: cloudnative-pg
+#   dependsOn:
+#     - name: rook-ceph-cluster
+#   path: ./cluster/kubernetes/database/cloudnative-pg/app
+#   prune: false # never deleted
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   wait: false
+#   interval: 30m
+#   retryInterval: 1m
+#   timeout: 5m
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: cloudnative-pg-clusters
+#   namespace: flux-system
+# spec:
+#   targetNamespace: database
+#   commonMetadata:
+#     labels:
+#       app.kubernetes.io/name: cloudnative-pg-clusters
+#   dependsOn:
+#     - name: cloudnative-pg
+#   path: ./cluster/kubernetes/database/cloudnative-pg/clusters
+#   prune: false # never deleted
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   wait: true
+#   interval: 30m
+#   retryInterval: 1m
+#   timeout: 5m
+#   decryption:
+#     provider: sops
+#     secretRef:
+#       name: sops-age
