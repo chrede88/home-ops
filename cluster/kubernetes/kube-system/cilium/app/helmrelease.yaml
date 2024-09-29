@@ -37,7 +37,7 @@ spec:
       relay:
         enabled: true
       ui:
-        enabled: true
+        enabled: false
     prometheus:
       enabled: true
       serviceMonitor:
