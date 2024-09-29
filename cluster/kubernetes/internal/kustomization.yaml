@@ -4,8 +4,8 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
-  - ./slack-token.yaml
-  - ./notifications.yaml
+  # - ./slack-token.yaml
+  # - ./notifications.yaml
   # Flux-Kustomizations
-  - ./homepage/ks.yaml
-  - ./gatus/ks.yaml
+  # - ./homepage/ks.yaml
+  # - ./gatus/ks.yaml
