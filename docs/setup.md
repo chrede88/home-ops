@@ -316,6 +316,7 @@ kubectl delete pod disk-clean-<node>
 
 These pods should wipe the drives, but the partition tables etc are still left behind. We need yet another set of pods for wipe these as well:
 
+I've tried `dd` without much luck. Some stuff still remained on the drives with prevents the creation of OSDs. What ended up working for me was to use `blkdiscard <device>`.
 ```yaml
 # ceph-remove-tables-<node>.yaml
 ---
@@ -332,7 +333,7 @@ spec:
     image: busybox
     securityContext:
       privileged: true
-    command: ["/bin/sh", "-c", "dd if=/dev/zero bs=1M count=100 oflag=direct of=<device>"] # <-- change "<device>" to the actual device name, i.e. /dev/nvme0n1 or something similar
+    command: ["/bin/sh", "-c", "blkdiscard <device>"] # <-- change "<device>" to the actual device name, i.e. /dev/nvme0n1 or something similar
 ```
 
 Apply the pod to the cluster:

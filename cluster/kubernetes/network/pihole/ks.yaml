@@ -1,48 +1,48 @@
-# ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1
-# kind: Kustomization
-# metadata:
-#   name: pihole
-#   namespace: flux-system
-# spec:
-#   targetNamespace: network
-#   commonMetadata:
-#     labels:
-#       app.kubernetes.io/name: pihole
-#   dependsOn:
-#     - name: rook-ceph-cluster
-#   path: ./cluster/kubernetes/network/pihole/app
-#   prune: true
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#   wait: false
-#   interval: 30m
-#   retryInterval: 1m
-#   timeout: 5m
-#   decryption:
-#     provider: sops
-#     secretRef:
-#       name: sops-age
-# ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1
-# kind: Kustomization
-# metadata:
-#   name: pihole-ingress
-#   namespace: flux-system
-# spec:
-#   targetNamespace: network
-#   commonMetadata:
-#     labels:
-#       app.kubernetes.io/name: pihole-ingress
-#   dependsOn:
-#     - name: pihole
-#   path: ./cluster/kubernetes/network/pihole/ingress
-#   prune: true
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#   wait: false
-#   interval: 30m
-#   retryInterval: 1m
-#   timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: pihole
+  namespace: flux-system
+spec:
+  targetNamespace: network
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: pihole
+  dependsOn:
+    - name: rook-ceph-cluster
+  path: ./cluster/kubernetes/network/pihole/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: pihole-ingress
+  namespace: flux-system
+spec:
+  targetNamespace: network
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: pihole-ingress
+  dependsOn:
+    - name: pihole
+  path: ./cluster/kubernetes/network/pihole/ingress
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
