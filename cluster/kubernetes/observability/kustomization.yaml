@@ -4,10 +4,10 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
-  # - ./slack-token.yaml
-  # - ./notifications.yaml
+  - ./slack-token.yaml
+  - ./notifications.yaml
   # Flux-Kustomizations
-  # - ./kube-prometheus-stack/ks.yaml
-  # - ./grafana/ks.yaml
+  - ./kube-prometheus-stack/ks.yaml
+  - ./grafana/ks.yaml
   # - ./unpoller/ks.yaml
   # - ./kromgo/ks.yaml
