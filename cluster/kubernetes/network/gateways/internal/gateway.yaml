@@ -33,31 +33,31 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - name: pihole-cjsolsen-com
-    # # catch traffic for the pihole1 dashboard
-    # - name: pihole1-dashboard
-    #   hostname: pihole1.local.cjsolsen.com
-    #   protocol: HTTPS
-    #   port: 443
-    #   allowedRoutes:
-    #     namespaces:
-    #       from: Same
-    #   tls:
-    #     mode: Terminate
-    #     certificateRefs:
-    #       - name: pihole1-cjsolsen-com
-    # # catch traffic for the pihole2 dashboard
-    # - name: pihole2-dashboard
-    #   hostname: pihole2.local.cjsolsen.com
-    #   protocol: HTTPS
-    #   port: 443
-    #   allowedRoutes:
-    #     namespaces:
-    #       from: Same
-    #   tls:
-    #     mode: Terminate
-    #     certificateRefs:
-    #       - name: pihole2-cjsolsen-com
+          - name: pihole0-cjsolsen-com
+    # catch traffic for the pihole1 dashboard
+    - name: pihole1-dashboard
+      hostname: pihole1.local.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Same
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: pihole1-cjsolsen-com
+    # catch traffic for the pihole2 dashboard
+    - name: pihole2-dashboard
+      hostname: pihole2.local.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Same
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: pihole2-cjsolsen-com
     # # catch traffic for the ceph dashboard
     # - name: ceph-dashboard
     #   hostname: ceph.local.cjsolsen.com
