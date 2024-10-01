@@ -25,6 +25,9 @@ spec:
     - name: kube-prometheus-stack
       namespace: observability
   values:
+    service:
+      enabled: true
+      port: 8080
     replicas: 1
     grafana.ini:
       analytics:

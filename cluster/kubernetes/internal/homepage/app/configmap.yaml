@@ -89,7 +89,7 @@ data:
             description: Grafana
             widget:
               type: grafana
-              url: http://grafana.observability.svc.cluster.local
+              url: http://grafana.observability.svc.cluster.local:8080
               username: "{{HOMEPAGE_VAR_GRAFANA_USER}}"
               password: "{{HOMEPAGE_VAR_GRAFANA_PASSWD}}"
         - Gatus:
