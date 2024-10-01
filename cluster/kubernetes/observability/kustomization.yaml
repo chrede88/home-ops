@@ -9,5 +9,5 @@ resources:
   # Flux-Kustomizations
   - ./kube-prometheus-stack/ks.yaml
   - ./grafana/ks.yaml
-  # - ./unpoller/ks.yaml
-  # - ./kromgo/ks.yaml
+  - ./unpoller/ks.yaml
+  - ./kromgo/ks.yaml
