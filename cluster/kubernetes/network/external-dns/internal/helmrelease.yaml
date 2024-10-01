@@ -37,6 +37,7 @@ spec:
     sources:
       - gateway-httproute
     registry: noop
+    policy: sync
     provider: pihole
     env:
       - name: EXTERNAL_DNS_PIHOLE_SERVER
