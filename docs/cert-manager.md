@@ -95,7 +95,7 @@ spec:
   chart:
     spec:
       chart: cert-manager
-      version: v1.14.3
+      version: v1.15.3
       sourceRef:
         kind: HelmRepository
         name: cert-manager
@@ -119,8 +119,10 @@ spec:
       nameservers:
         - 1.1.1.1
         - 1.0.0.1
-    extraArgs:
-      - --feature-gates=ExperimentalGatewayAPISupport=true
+   config:
+      apiVersion: controller.config.cert-manager.io/v1alpha1
+      kind: ControllerConfiguration
+      enableGatewayAPI: true
 ```
 I'm hardcoding the DNS here, as other people have had issues with cert-manager not resolving DNS names, when not setting the DNS resolvers in the chart.
 

@@ -58,108 +58,108 @@ spec:
         mode: Terminate
         certificateRefs:
           - name: pihole2-cjsolsen-com
-    # # catch traffic for the ceph dashboard
-    # - name: ceph-dashboard
-    #   hostname: ceph.local.cjsolsen.com
-    #   protocol: HTTPS
-    #   port: 443
-    #   allowedRoutes:
-    #     namespaces:
-    #       from: Selector
-    #       selector:
-    #         matchLabels:
-    #           internal-gateway-access: "true"
-    #   tls:
-    #     mode: Terminate
-    #     certificateRefs:
-    #       - name: ceph-cjsolsen-com
-    # # catch traffic for the hubble dashboard
-    # - name: hubble-dashboard
-    #   hostname: hubble.local.cjsolsen.com
-    #   protocol: HTTPS
-    #   port: 443
-    #   allowedRoutes:
-    #     namespaces:
-    #       from: Selector
-    #       selector:
-    #         matchLabels:
-    #           internal-gateway-access: "true"
-    #   tls:
-    #     mode: Terminate
-    #     certificateRefs:
-    #       - name: hubble-cjsolsen-com
-    # # catch traffic for the homepage dashboard
-    # - name: homepage
-    #   hostname: homepage.local.cjsolsen.com
-    #   protocol: HTTPS
-    #   port: 443
-    #   allowedRoutes:
-    #     namespaces:
-    #       from: Selector
-    #       selector:
-    #         matchLabels:
-    #           internal-gateway-access: "true"
-    #   tls:
-    #     mode: Terminate
-    #     certificateRefs:
-    #       - name: homepage-cjsolsen-com
-    # # catch traffic for the gatus dashboard
-    # - name: gatus
-    #   hostname: gatus.local.cjsolsen.com
-    #   protocol: HTTPS
-    #   port: 443
-    #   allowedRoutes:
-    #     namespaces:
-    #       from: Selector
-    #       selector:
-    #         matchLabels:
-    #           internal-gateway-access: "true"
-    #   tls:
-    #     mode: Terminate
-    #     certificateRefs:
-    #       - name: gatus-cjsolsen-com
-    # # catch traffic for the grafana dashboard
-    # - name: grafana
-    #   hostname: grafana.local.cjsolsen.com
-    #   protocol: HTTPS
-    #   port: 443
-    #   allowedRoutes:
-    #     namespaces:
-    #       from: Selector
-    #       selector:
-    #         matchLabels:
-    #           internal-gateway-access: "true"
-    #   tls:
-    #     mode: Terminate
-    #     certificateRefs:
-    #       - name: grafana-cjsolsen-com
-    # # catch traffic for the prometheus dashboard
-    # - name: prometheus
-    #   hostname: prometheus.local.cjsolsen.com
-    #   protocol: HTTPS
-    #   port: 443
-    #   allowedRoutes:
-    #     namespaces:
-    #       from: Selector
-    #       selector:
-    #         matchLabels:
-    #           internal-gateway-access: "true"
-    #   tls:
-    #     mode: Terminate
-    #     certificateRefs:
-    #       - name: prometheus-cjsolsen-com
-    # # catch traffic for the alertmanager dashboard
-    # - name: alertmanager
-    #   hostname: alertmanager.local.cjsolsen.com
-    #   protocol: HTTPS
-    #   port: 443
-    #   allowedRoutes:
-    #     namespaces:
-    #       from: Selector
-    #       selector:
-    #         matchLabels:
-    #           internal-gateway-access: "true"
-    #   tls:
-    #     mode: Terminate
-    #     certificateRefs:
-    #       - name: alertmanager-cjsolsen-com
+    # catch traffic for the ceph dashboard
+    - name: ceph-dashboard
+      hostname: ceph.local.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              internal-gateway-access: "true"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: ceph-cjsolsen-com
+    # catch traffic for the hubble dashboard
+    - name: hubble-dashboard
+      hostname: hubble.local.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              internal-gateway-access: "true"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: hubble-cjsolsen-com
+    # catch traffic for the homepage dashboard
+    - name: homepage
+      hostname: homepage.local.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              internal-gateway-access: "true"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: homepage-cjsolsen-com
+    # catch traffic for the gatus dashboard
+    - name: gatus
+      hostname: gatus.local.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              internal-gateway-access: "true"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: gatus-cjsolsen-com
+    # catch traffic for the grafana dashboard
+    - name: grafana
+      hostname: grafana.local.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              internal-gateway-access: "true"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: grafana-cjsolsen-com
+    # catch traffic for the prometheus dashboard
+    - name: prometheus
+      hostname: prometheus.local.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              internal-gateway-access: "true"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: prometheus-cjsolsen-com
+    # catch traffic for the alertmanager dashboard
+    - name: alertmanager
+      hostname: alertmanager.local.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              internal-gateway-access: "true"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: alertmanager-cjsolsen-com
