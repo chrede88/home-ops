@@ -41,6 +41,12 @@ metrics:
     colors:
       - { color: cba6f7, min: 0, max: 9999 }
 
+  - name: cluster_age_days
+    query: round((time() - min(kube_node_created) ) / 86400, 0.1)
+    suffix: "d"
+    colors:
+      - { color: cba6f7, min: 0, max: 9999 }
+
   - name: ceph_health_status
     query: ceph_health_status
     colors:
