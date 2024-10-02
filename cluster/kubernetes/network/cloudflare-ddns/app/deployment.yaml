@@ -16,7 +16,7 @@ spec:
         app: cloudflare-ddns
     spec:
       containers:
-      - image: favonia/cloudflare-ddns:1.14.2
+      - image: favonia/cloudflare-ddns:1.15.0
         name: cloudflare-ddns
         imagePullPolicy: Always
         envFrom:
