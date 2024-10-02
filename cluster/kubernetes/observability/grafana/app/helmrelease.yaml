@@ -29,6 +29,10 @@ spec:
       enabled: true
       port: 8080
     replicas: 1
+    admin:
+      existingSecret: grafana-secret
+      userKey: admin-user
+      passwordKey: admin-password
     grafana.ini:
       analytics:
         check_for_updates: false

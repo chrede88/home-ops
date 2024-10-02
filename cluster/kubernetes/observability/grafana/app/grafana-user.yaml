@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: grafana-secret
+    namespace: observability
+type: Opaque
+data:
+    admin-user: ENC[AES256_GCM,data:eVFlXGpxDzM=,iv:l6/ufGjw+otj3T7AB7tZsr/E4q4/5+bGWrdWZd3c/e8=,tag:7J7gK2zdV7wDY8FmEuHWXg==,type:str]
+    admin-password: ENC[AES256_GCM,data:ubqBwTKgidJZ2f6oecmYE7769MEQjQNRrKEduG7nLLetsI5nSrXSaTDzR6JISfGiyx0cr+vl3nU=,iv:S/U2X6dpyfSj/G9of9Hfn2yZWgCwxNSSAF2Mp2aGPRo=,tag:JJ9pMLv78lTfOXxlmrUDrQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1nqn46tdx7vazgkjuglseduk52plfrpz60zcqjqk83rfg8gwuv95qd4cem4
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA0RStxZHNKanY5UmxJb2g2
+            N2JSN08xa2ZtREY5UXdJY2Y5ZVozU0x4d1U0CmxDZURTWiswamFreWZIanhTS3Jl
+            TXhOMytSbzNWajM4QTE1ODNFUHA3OTAKLS0tIEtmekR5VncreGRKSkRKUWNLQzIz
+            Tm1KenhzN3dOVHRVZTRidEpCZCsvOFUKDDi6qcTlgLoT3dROjwuK2MHLP+2WkFIk
+            eW1J1uOGO7/yJ8fNFy9LsWQ8bcKtgKhgWC7C56AuYipqxctzEazIuw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-10-02T20:10:20Z"
+    mac: ENC[AES256_GCM,data:gcKeyw+Vo0vHMRIwhCDGOB+4g4olEM5y/SF4UjJSqz6PdSAxryqPQxDnYSo2/EFwm+kLmm0BJhbpQPL/l436YUgxc6KVttYsdgRXIqxZ9s/8yF6QreeTET4ERvVVA2C8CoujxVmXtATFgl3xQnSiT6q6fY/b3fMwK1ad/Y+dVLk=,iv:VP4khbf63fnuNhOUSO0SZffWrad9wrBDWLv0FsyF8Yk=,tag:/CbaUGEx8h0aX2WOmW/BfA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.9.0
