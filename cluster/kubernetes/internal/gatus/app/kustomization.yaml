@@ -7,3 +7,4 @@ resources:
   - ./serviceaccount.yaml
   - ./web-service.yaml
   - ./deployment.yaml
+  - ./service-monitor.yaml
