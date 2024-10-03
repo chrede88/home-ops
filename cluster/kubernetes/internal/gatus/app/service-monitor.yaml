@@ -10,4 +10,4 @@ spec:
       port: http
   selector:
     matchLabels:
-      name: gatus-web-svc
+      app: gatus

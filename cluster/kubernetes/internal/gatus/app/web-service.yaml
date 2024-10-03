@@ -4,6 +4,8 @@ kind: Service
 metadata:
   name: gatus-web-svc
   namespace: internal
+  labels:
+    app: gatus
 spec:
   ports:
     - name: http
