@@ -9,7 +9,7 @@ data:
       type: postgres
       path: postgres://${GATUS_USER}:${GATUS_PASSWD}@gatus-cluster-rw.database.svc.cluster.local:5432/gatus?sslmode=disable
       caching: true
-    metrics: false # <- change when Prometheus is running
+    metrics: true
     debug: false
     ui:
       title: Status | Gatus
@@ -24,7 +24,7 @@ data:
           failure-threshold: 2
           success-threshold: 2
     endpoints:
-      - name: Odin - Ping
+      - name: Death - Ping
         group: Nodes
         url: "icmp://10.10.30.2"
         interval: 1m
@@ -32,7 +32,7 @@ data:
           - "[CONNECTED] == true"
         alerts:
           - type: pushover
-      - name: Thor - Ping
+      - name: Black - Ping
         group: Nodes
         url: "icmp://10.10.30.3"
         interval: 1m
@@ -40,7 +40,7 @@ data:
           - "[CONNECTED] == true"
         alerts:
           - type: pushover
-      - name: Baldr - Ping
+      - name: Thrash - Ping
         group: Nodes
         url: "icmp://10.10.30.4"
         interval: 1m
