@@ -26,6 +26,15 @@ spec:
             - containerPort: 8080
               name: http
               protocol: TCP
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
+            runAsNonRoot: true
+            runAsUser: 314
+            runAsGroup: 314
           envFrom:
             - secretRef:
                 name: gatus-secret
