@@ -34,8 +34,6 @@ spec:
               protocol: TCP
           securityContext:
             allowPrivilegeEscalation: false
-            capabilities:
-              drop: ["ALL"]
             seccompProfile:
               type: RuntimeDefault
             runAsNonRoot: true
