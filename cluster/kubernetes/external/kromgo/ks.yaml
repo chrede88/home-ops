@@ -11,7 +11,7 @@ spec:
       app.kubernetes.io/name: kromgo
   dependsOn:
     - name: kube-prometheus-stack
-  path: ./cluster/kubernetes/observability/kromgo/app
+  path: ./cluster/kubernetes/external/kromgo/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -33,7 +33,7 @@ spec:
       app.kubernetes.io/name: kromgo-ingress
   dependsOn:
     - name: kromgo
-  path: ./cluster/kubernetes/observability/kromgo/ingress
+  path: ./cluster/kubernetes/external/kromgo/ingress
   prune: true
   sourceRef:
     kind: GitRepository
