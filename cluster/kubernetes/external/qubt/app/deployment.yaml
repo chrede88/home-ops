@@ -19,5 +19,12 @@ spec:
       - image: ghcr.io/chrede88/qubtdocker:v1.1.1
         name: qubt
         imagePullPolicy: Always
+        securityContext:
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
+          seccompProfile:
+            type: RuntimeDefault
       imagePullSecrets:
         - name: ghcr-secret
