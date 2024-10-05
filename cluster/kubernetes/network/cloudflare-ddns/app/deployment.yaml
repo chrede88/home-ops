@@ -19,6 +19,10 @@ spec:
       - image: favonia/cloudflare-ddns:1.15.0
         name: cloudflare-ddns
         imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
         envFrom:
           - configMapRef:
               name: cloudflare-ddns-configmap
