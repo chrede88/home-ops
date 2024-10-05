@@ -9,3 +9,4 @@ resources:
   # Flux-Kustomizations
   - ./qubt/ks.yaml
   - ./l1nkr/ks.yaml
+  - ./kromgo/ks.yaml

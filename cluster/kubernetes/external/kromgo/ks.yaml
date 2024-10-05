@@ -5,7 +5,7 @@ metadata:
   name: kromgo
   namespace: flux-system
 spec:
-  targetNamespace: observability
+  targetNamespace: external
   commonMetadata:
     labels:
       app.kubernetes.io/name: kromgo
@@ -27,7 +27,7 @@ metadata:
   name: kromgo-ingress
   namespace: flux-system
 spec:
-  targetNamespace: observability
+  targetNamespace: external
   commonMetadata:
     labels:
       app.kubernetes.io/name: kromgo-ingress
