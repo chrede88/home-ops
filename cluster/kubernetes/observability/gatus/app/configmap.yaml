@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: gatus
-  namespace: internal
+  namespace: observability
 data:
   config.yaml: |
     storage:

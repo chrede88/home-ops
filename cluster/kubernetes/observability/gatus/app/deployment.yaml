@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gatus
-  namespace: internal
+  namespace: observability
 spec:
   replicas: 1
   selector:

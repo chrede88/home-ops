@@ -10,3 +10,4 @@ resources:
   - ./kube-prometheus-stack/ks.yaml
   - ./grafana/ks.yaml
   - ./unpoller/ks.yaml
+  - ./gatus/ks.yaml
