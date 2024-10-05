@@ -32,6 +32,15 @@ spec:
             - name: svc-53-tcp-dns
               containerPort: 53
               protocol: TCP
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
+            runAsNonRoot: true
+            runAsUser: 568
+            runAsGroup: 568
           # livenessProbe:
           #   httpGet:
           #     port: svc-80-tcp-web
