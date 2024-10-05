@@ -10,4 +10,3 @@ data:
   SECONDARY_HOST_2_BASE_URL: "http://pihole-2.pihole.network.svc.cluster.local"
   SECONDARY_HOST_3_BASE_URL: "http://10.10.30.60"
   INTERVAL_MINUTES: "30"
-  SYNC_V5_FLUSH_TABLES: "false"
