@@ -15,15 +15,15 @@ spec:
       labels:
         app: l1nkr
     spec:
-      securityContext:
-        runAsNonRoot: true
-        allowPrivilegeEscalation: false
-        capabilities:
-          drop: ["ALL"]
-        seccompProfile: RuntimeDefault
       containers:
       - image: ghcr.io/chrede88/l1nkrdocker:v1.1.8
         name: l1nkr
         imagePullPolicy: Always
+        securityContext:
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
+          seccompProfile: RuntimeDefault
       imagePullSecrets:
         - name: ghcr-secret
