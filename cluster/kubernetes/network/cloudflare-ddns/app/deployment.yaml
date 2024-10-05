@@ -23,8 +23,6 @@ spec:
           allowPrivilegeEscalation: false
           capabilities:
             drop: ["ALL"]
-          seccompProfile:
-            type: RuntimeDefault
         envFrom:
           - configMapRef:
               name: cloudflare-ddns-configmap
