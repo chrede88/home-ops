@@ -10,6 +10,12 @@ spec:
   selector:
     matchLabels:
       app: l1nkr
+  securityContext:
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    seccompProfile: RuntimeDefault
   template:
     metadata:
       labels:
