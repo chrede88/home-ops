@@ -15,7 +15,16 @@ spec:
     spec:
       containers:
       - name: orbital-sync
-        image: mattwebbio/orbital-sync:1.8.2
+        image: mattwebbio/orbital-sync:1.8.2-distroless
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
+          seccompProfile:
+            type: RuntimeDefault
+          runAsNonRoot: true
+          runAsUser: 314
+          runAsGroup: 314
         envFrom:
           - configMapRef:
               name: orbital-sync-config
