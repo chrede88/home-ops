@@ -24,6 +24,7 @@ spec:
           allowPrivilegeEscalation: false
           capabilities:
             drop: ["ALL"]
-          seccompProfile: RuntimeDefault
+          seccompProfile:
+            type: RuntimeDefault
       imagePullSecrets:
         - name: ghcr-secret
