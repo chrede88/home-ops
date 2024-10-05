@@ -19,16 +19,17 @@ spec:
       - image: favonia/cloudflare-ddns:1.15.0
         name: cloudflare-ddns
         imagePullPolicy: Always
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop: ["ALL"]
         envFrom:
           - configMapRef:
               name: cloudflare-ddns-configmap
           - secretRef:
               name: cloudflare-ddns-secret
         securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
+          seccompProfile:
+            type: RuntimeDefault
           runAsNonRoot: true
           runAsUser: 314
           runAsGroup: 314
