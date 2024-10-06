@@ -5,3 +5,4 @@ resources:
   - ./ghcr-secret.yaml
   - ./service.yaml
   - ./deployment.yaml
+  - ./pod-monitor.yaml
