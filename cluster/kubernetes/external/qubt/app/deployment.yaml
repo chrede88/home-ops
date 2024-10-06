@@ -16,7 +16,7 @@ spec:
         app: qubt
     spec:
       containers:
-      - image: ghcr.io/chrede88/qubtdocker:v1.1.1
+      - image: ghcr.io/chrede88/qubtdocker:v2.0.0
         name: qubt
         imagePullPolicy: Always
         securityContext:
