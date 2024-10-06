@@ -8,3 +8,4 @@ resources:
   - ./notifications.yaml
   # Flux-Kustomizations
   - ./homepage/ks.yaml
+  - ./qubt-caddy/ks.yaml

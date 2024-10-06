@@ -163,3 +163,18 @@ spec:
         mode: Terminate
         certificateRefs:
           - name: alertmanager-cjsolsen-com
+    # catch traffic for the qubt-caddy
+    - name: qubt-caddy
+      hostname: qubt-caddy.local.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              internal-gateway-access: "true"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: qubt-caddy-cjsolsen-com
