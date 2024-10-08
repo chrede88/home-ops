@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./service.yaml
   - ./deployment.yaml
+  - ./pod-monitor.yaml
