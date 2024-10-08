@@ -127,7 +127,7 @@ spec:
         caddy-server:
           # renovate: depName="caddy"
           gnetId: 22038
-          revision: 1
+          revision: 2
           datasource: Prometheus
       ceph:
         ceph-cluster:
