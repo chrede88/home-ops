@@ -124,6 +124,11 @@ spec:
           gnetId: 15038
           revision: 3
           datasource: Prometheus
+        caddy-server:
+          # renovate: depName="caddy"
+          gnetId: 22038
+          revision: 1
+          datasource: Prometheus
       ceph:
         ceph-cluster:
           # renovate: depName="Ceph Cluster"
