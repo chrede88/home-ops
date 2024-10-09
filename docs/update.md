@@ -15,6 +15,8 @@ If the Ceph cluster is healthy, we can procide to upgrading the first node.
 talosctl upgrade -n 10.10.30.2 -i ghcr.io/siderolabs/installer:vX.Y.Z
 ```
 
+If you're using an image from the [Talos Image Factory](https://factory.talos.dev), then you should absolutely **not** use the standatd image when upgrading! The upgrade image url looks somerthing like this: `factory.talos.dev/installer/<longSerialNum>:vX.Y.Z`
+
 Before moving on to the next node, make sure the Ceph cluster is back in a healthy state. Run this right after starting the node upgrade:
 
 ```zsh
