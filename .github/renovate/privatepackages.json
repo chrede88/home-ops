@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "hostRules": [
     {
-      "matchHost": "ghcr.io",
+      "matchHost": "ghcr.io/chrede88",
       "hostType": "docker",
       "username": "chrede88",
       "password": "process.env.RENOVATE_GITHUB_TOKEN"
