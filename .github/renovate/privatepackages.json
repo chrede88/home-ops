@@ -4,7 +4,7 @@
     {
       "matchHost": "ghcr.io",
       "hostType": "docker",
-      "username": "chree88",
+      "username": "chrede88",
       "password": "process.env.RENOVATE_GITHUB_TOKEN"
     }
   ]
