@@ -5,7 +5,7 @@
       "matchHost": "ghcr.io",
       "hostType": "docker",
       "username": "chree88",
-      "password": "{{ secrets.github_private_repo }}"
+      "password": "process.env.RENOVATE_GITHUB_TOKEN"
     }
   ]
 }
