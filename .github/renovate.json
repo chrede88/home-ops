@@ -11,27 +11,20 @@
   "commitMessageTopic": "{{depName}}",
   "commitMessageExtra": "to {{newVersion}}",
   "commitMessageSuffix": "",
+  "prConcurrentLimit": 0,
+  "prHourlyLimit": 0,
   "reviewers": ["chrede88"],
   "timezone": "Europe/Zurich",
-  "schedule": [
-    "after 6pm and before 6am every weekday",
-    "every weekend"
-  ],
-  "ignorePaths": ["/docs/*","/network/*"],
+  "onboarding": false,
+  "ignorePaths": ["/docs/*", "/network/*"],
   "flux": {
-    "fileMatch": [
-      "(^|/)cluster/kubernetes/.+\\.ya?ml"
-    ]
+    "fileMatch": ["(^|/)cluster/kubernetes/.+\\.ya?ml"]
   },
   "helm-values": {
-    "fileMatch": [
-      "(^|/)cluster/kubernetes/.+\\.ya?ml$"
-    ]
+    "fileMatch": ["(^|/)cluster/kubernetes/.+\\.ya?ml$"]
   },
   "kubernetes": {
-    "fileMatch": [
-      "(^|/)cluster/kubernetes/.+\\.ya?ml$"
-    ]
+    "fileMatch": ["(^|/)cluster/kubernetes/.+\\.ya?ml$"]
   },
   "pre-commit": {
     "enabled": true
