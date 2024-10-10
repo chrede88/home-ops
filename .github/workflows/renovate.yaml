@@ -25,7 +25,7 @@ env:
   RENOVATE_AUTODISCOVER_FILTER: "${{ github.repository }}"
   RENOVATE_PLATFORM: github
   RENOVATE_PLATFORM_COMMIT: true
-  RENOVATE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  RENOVATE_GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
   RENOVATE_BOT_NAME: "bb-17"
 
 jobs:
