@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommened",
+    "config:recommended",
     "github>chrede88/home-ops//.github/renovate/grafanadashboards.json",
     "github>chrede88/home-ops//.github/renovate/groups.json"
   ],
