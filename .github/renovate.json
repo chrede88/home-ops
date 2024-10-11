@@ -15,12 +15,7 @@
   "reviewers": ["chrede88"],
   "timezone": "Europe/Zurich",
   "onboarding": false,
-  "ignorePaths": [
-    "/docs/*",
-    "/network/*",
-    "/cluster/kubernetes/external/qubt/**/*",
-    "/cluster/kubernetes/external/l1nkr/**/*"
-  ],
+  "ignorePaths": ["/docs/*", "/network/*", "**/qubt/**", "**/l1nkr/**"],
   "flux": {
     "fileMatch": ["(^|/)cluster/kubernetes/.+\\.ya?ml"]
   },
