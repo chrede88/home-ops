@@ -14,6 +14,7 @@
   "prHourlyLimit": 0,
   "reviewers": ["chrede88"],
   "timezone": "Europe/Zurich",
+  "requireConfig": "ignored",
   "onboarding": false,
   "ignorePaths": ["/docs/*", "/network/*", "**/qubt/**", "**/l1nkr/**"],
   "flux": {
