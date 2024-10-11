@@ -1,45 +1,156 @@
 # Renovate
 
-Using Renovate to automatically search for updates makes it very easy to keep everything in the cluster up-to-date. The easiest way to setup Renovate, is to use the [Renovate bot](https://github.com/renovatebot/renovate).
+Using Renovate to automatically search for updates to the resources you've deployed in your cluster, and automatically open PRs with when new versions are published, makes it very easy to keep everything in the cluster up-to-date. Combining it with a CD tool like Fluxcd or Argocd, makes a great CI/CD pipeline that all self hosters should consider setting up.
 
-I'll leave my renovate config here:
+I'll focus exclusively on Github, as that's what I've experience with. Renovate can also be used for Gitlab and BitBucket. You'll have to look elsewhere for documentation on these implimentations.
+
+## Official Renovate Bot
+
+The easiest way to get started with Renovate, is to use the offical [Renovate bot](https://github.com/apps/renovate). The install and inital configuration is quite easy to follow. After the inital setup, the Renovate bot will open an onboarding issue to further guide the final part of the setup.
+
+Setting up the configuration can be a bit more envolved, depending on how many `customManagers`, `packageRules`, `hostRules` etc. you'll need. The official Renovate documentation can be hard to parse and I find the docs a bit confusing to navigate. I'll try to layout my [config](#my-renovate-config) at the end of this document.
+
+## Self Hosting Renovate
+
+Another option is to self host Renovate. You can either run Renovate in your Kubernetes cluster or run it through Github Actions. I'll focus on the Github Actions path. For running Renovate in your own cluster, a good starting point is the github repo for the [Renovate Community Edition](https://github.com/mend/renovate-ce-ee) image.
+
+### Github Action
+Running Renovate through Github Actions are essentially the same as using the official Renovate bot. You'll have to create your own Github bot, that'll play the same role as the Renovate bot. Using your own bot gives you more control over the whole process, like how often and when Renovate should check for updated resources. And as long as you don't get hit by rate limits, you can run this more or less 24/7. The configuration is identical and the only downside I know of is that you can't easily pass secrets to the Renovate configuration in a Github Action. This means that using Renovate for any private packages you might have on Github's container repository is a hard to accomblish right now. There are ways around this limitation, but they rely on writing the Renovate config in Javascript instead of JSON. I might get around to rewriting my config in JS, but it's just as likely that Github will change the package access for bots before I get to it :wink: I'll try to sketch a way to do it at the end of this section.
+
+Let's get to acutally setting up Renovate!
+
+1) Create a new Github bot
+
+The first step is to create a new Github bot. You can find this under `Settings -> Developer Settings -> Github Apps`. Give your bot a name. This is the name that will show up for commits and PRs that your bot will create, so pick a nice name. You can change this later without breaking anything (I think). You'll also need to provide a URL to the bot's website, this can just point to your own github profile. Leave the `webhook` and `callback url` stuff blank, you won't need any of this. You'll also have to set the permissions for your bot, these are important as the bot wont work correctly. Set the following `repository` permissions:
+
+| **Type**      | **Access**      |
+| ------------- | ------------- |
+| Administration | Read-only |
+| Checks | Read & Write |
+| Commit statuses | Read & Write |
+| Contents | Read & Write |
+| Dependabot alerts | Read-only |
+| Issues | Read & Write |
+| Metadata | Read-only |
+| Pull requests  | Read & Write |
+| Workflows | Read & Write |
+
+At the time of writing (Oct. 2024) there is a `packages` permission, but it doesn't seem to be completely implimented yet. This might be enough for accessing your own private packages in the future.
+
+And set the following `organization` permissions:
+
+| **Type**      | **Access**      |
+| ------------- | ------------- |
+| Members | Read-only |
+
+Leave the rest of the settings as default and click on `Create Github App`.
+
+2) Finish Setup of Bot
+
+The next thing to do is to upload a `logo` (profile picture) for your bot. A nice AI generated image of a robot might be nice. A nice logo will give your bot some personality! You should also install the bot to your account. Do this under the `Install` section of the your bots settings. Here you can also choose which repositories the bot should have access to. Either leave it at all repositories, or (a better option) choose your cluster repository.
+Lastly, you should generate a private key for the bot and download the `.pem` file and note down the bots `App id`. We'll need both for the next part.
+
+3) Setup Github Action
+
+First thing you'll need to do is to create two new repository secrets in your cluster repository. Head over to `Settings -> Secrets and variables -> Actions`, and create a secret called `BOT_APP_ID`. Place your bots ID in this secret. Call the other secret `BOT_PRIVATE_KEY` and place the content of the `.pem` file you just downloaded in this secret.
+
+You're now ready to create the Github Action manifest. Create a new file on the path `.github/workflows/renovate.yaml`. Dump the following `yaml` in this new file:
+
+```yaml
+---
+name: "Renovate"
+
+on: # <- when this action should run
+  workflow_dispatch: # <- this allows you to run it manually
+
+  schedule: # <- we will run it on a schedule
+    - cron: "0 * * * *" # Every hour
+  push: # <- run if we update the configuration
+    branches: ["main"]
+    paths:
+      - .github/renovate.json
+      - .github/renovate/**.json
+
+concurrency: # <- ensure workflow triggers are handled concurrently
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+
+env: # <- define some env variables
+  LOG_LEVEL: "debug" # <- info or debug
+  RENOVATE_AUTODISCOVER: true # <- let renovate discover your repositoties
+  RENOVATE_AUTODISCOVER_FILTER: "${{ github.repository }}" # <- limit to this repo only
+  RENOVATE_PLATFORM: github # <- pretty obvious
+  RENOVATE_PLATFORM_COMMIT: true # <- This will allow the bot to sign the commits (using the private key we just created)
+
+jobs:
+  renovate:
+    name: Renovate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate Token # <- Generate an access token for the bot
+        uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: "${{ secrets.BOT_APP_ID }}" # <- Change this if you called the secret something else
+          private-key: "${{ secrets.BOT_PRIVATE_KEY }}" # <- Change this if you called the secret something else
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: "${{ steps.app-token.outputs.token }}" # <- we are using the generated token
+
+      - name: Renovate # <- Run Renovate
+        uses: renovatebot/github-action@v40.3.2
+        with:
+          configurationFile: .github/renovate.json
+          token: "${{ steps.app-token.outputs.token }}"
+```
+
+I think the action should run automatically when created, if not you can run it manually. Find the action under the `Action` tab in your repository. If Renovate doesn't find a configuration file in your repository, it should open a new onboarding PR. This PR should contain a starting configuration. Renovate wants to create the configuration file (`renovate.json`) under the root path. I suggest you move it to the `.github` folder once the PR is merged. Renovate also supports the `.json5` format, which allows for comments and some other things.
+
+Congratulations, you know have Renovate running :tada:
+
+#### Private Github packages
+We can use the default `GITHUB_TOKEN` to access private packages. The tedious part is passing this token to your Renovate config. Here follows a list of things to do in order to get this to work:
+
+1) Rewrite your Renovate config in Javascript
+2) Add a new environment variable to the Renovate Action that contains the `GITHUB_TOKEN`.
+3) Make sure to set the `packages` permission for the token.
+4) Under the private package setting, add the cluster repository to the list of allowed repositories.
+5) The Github token can be accessed using the following JS variable: `process.env.<ENV VAR>`
+
+See this [link](https://github.com/renovatebot/github-action?tab=readme-ov-file#environment-variables) for more info.
+
+## My Renovate Config
+I'll update this later with more details on the different parts of my configuration. For now I'll leave my renovate config here for reference:
 
 ```json
 // .github/renovate.json
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
+    "config:recommended",
     "github>chrede88/home-ops//.github/renovate/grafanadashboards.json",
-    "github>chrede88/home-ops//.github/renovate/groups.json",
-    "github>chrede88/home-ops//.github/renovate/privatepackages.json"
+    "github>chrede88/home-ops//.github/renovate/groups.json"
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "commitMessagePrefix": "🤖",
   "commitMessageTopic": "{{depName}}",
   "commitMessageExtra": "to {{newVersion}}",
   "commitMessageSuffix": "",
+  "prConcurrentLimit": 0,
+  "prHourlyLimit": 0,
   "reviewers": ["chrede88"],
   "timezone": "Europe/Zurich",
-  "schedule": [
-    "after 6pm and before 6am every weekday",
-    "every weekend"
-  ],
-  "ignorePaths": ["/docs/*","/network/*"],
+  "ignorePaths": ["/docs/*", "/network/*", "**/qubt/**", "**/l1nkr/**"],
   "flux": {
-    "fileMatch": [
-      "(^|/)cluster/kubernetes/.+\\.ya?ml"
-    ]
+    "fileMatch": ["(^|/)cluster/kubernetes/.+\\.ya?ml"]
   },
   "helm-values": {
-    "fileMatch": [
-      "(^|/)cluster/kubernetes/.+\\.ya?ml$"
-    ]
+    "fileMatch": ["(^|/)cluster/kubernetes/.+\\.ya?ml$"]
   },
   "kubernetes": {
-    "fileMatch": [
-      "(^|/)cluster/kubernetes/.+\\.ya?ml$"
-    ]
+    "fileMatch": ["(^|/)cluster/kubernetes/.+\\.ya?ml$"]
   },
   "pre-commit": {
     "enabled": true
@@ -140,129 +251,10 @@ I'll leave my renovate config here:
 }
 ```
 
-```json
-// .github/renovate/privatepackages.json
-{
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "hostRules": [
-    {
-      "matchHost": "ghcr.io",
-      "hostType": "docker",
-      "username": "chree88",
-      "encrypted": {
-        "password": "..."
-      }
-    }
-  ]
-}
-```
-
 ## Other github work flows
-I've also setup a couple of workflows for github labels.
-
-### Sync Labels
-The first workflow makes sure the labels I want to use are created and the rest are removed.
+Another Github Action that I find very useful is to use `flux-diff` to generate nice git diffs for each new PR.
 
 ```yaml
-# .github/workflows/sync_labels.yaml
-name: Sync labels
-on:
-  push:
-    paths: [".github/labels.yaml"]
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  issues: write
-
-jobs:
-  labels:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-
-      - name: sync-labels
-        uses: EndBug/label-sync@v2
-        with:
-          config-file: .github/labels.yaml
-          delete-other-labels: true
-          token: ${{ secrets.GITHUB_TOKEN }}
-```
-The labels are defined in `.github/labels.yaml`.
-
-```yaml
-# .github/labels.yaml
-# Semantic Type
-- name: type/digest
-  color: "FFEC19"
-- name: type/patch
-  color: "FFEC19"
-- name: type/minor
-  color: "FF9800"
-- name: type/major
-  color: "F6412D"
-# Area
-- name: area/kubernetes
-  color: "72ccf3"
-  description: "Changes made to kubernetes resources"
-- name: area/github
-  color: "72ccf3"
-  description: "Changes made in the github directory"
-# Others
-- name: bug
-  color: "d73a4a"
-  description: "Something isn't working"
-- name: keep
-  color: "01717f"
-  description: "Keep issue open"
-```
-
-### Adding labels to pull requests
-The second workflow automatically adds labels to pull requests.
-
-```yaml
-# .github/workflows/label_marker.yaml
-name: "Labeler"
-
-on:
-  workflow_dispatch:
-  pull_request:
-    branches: ["main"]
-
-permissions:
-  contents: read
-  pull-requests: write
-
-jobs:
-  labeler:
-    name: Labeler
-    runs-on: ubuntu-latest
-    steps:
-      - name: Labeler
-        uses: actions/labeler@v5
-        with:
-          configuration-path: .github/labeler.yaml
-```
-
-The workflow uses the config set in `.github/labeler.yaml`.
-
-```yaml
-# .github/labeler.yaml
-area/kubernetes:
-- changed-files:
-  - any-glob-to-any-file: "cluster/kubernetes/**/*"
-
-area/github:
-- changed-files:
-  - any-glob-to-any-file: ".github/**/*"
-```
-
-### Flux diff
-I'm also using a workflow to generate a flux diff on each PR.
-
-````yaml
 # .github/workflows/flux-diff.yaml
 name: "Flux Diff"
 
@@ -275,6 +267,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
+permissions:
+  pull-requests: write
+
 jobs:
   flux-diff:
     name: Flux Diff
@@ -286,10 +281,8 @@ jobs:
           - kustomization
     steps:
       - name: Setup Flux CLI
-        uses: fluxcd/flux2/action@main
-        with:
-          version: 2.2.3
-      - uses: allenporter/flux-local/action/diff@4.3.1
+        uses: fluxcd/flux2/action@v2.4.0
+      - uses: allenporter/flux-local/action/diff@6.0.0
         id: diff
         with:
           live-branch: main
@@ -306,4 +299,4 @@ jobs:
             ```diff
             ${{ steps.diff.outputs.diff }}
             ```
-````
+```
