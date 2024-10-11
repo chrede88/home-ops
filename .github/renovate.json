@@ -14,8 +14,6 @@
   "prHourlyLimit": 0,
   "reviewers": ["chrede88"],
   "timezone": "Europe/Zurich",
-  "requireConfig": "optional",
-  "onboarding": false,
   "ignorePaths": ["/docs/*", "/network/*", "**/qubt/**", "**/l1nkr/**"],
   "flux": {
     "fileMatch": ["(^|/)cluster/kubernetes/.+\\.ya?ml"]
