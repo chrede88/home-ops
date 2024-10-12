@@ -122,7 +122,13 @@ We can use the default `GITHUB_TOKEN` to access private packages. The tedious pa
 See this [link](https://github.com/renovatebot/github-action?tab=readme-ov-file#environment-variables) for more info.
 
 ## My Renovate Config
-I'll update this later with more details on the different parts of my configuration. For now I'll leave my renovate config here for reference:
+The Renovate configuration is the sole place you can configure Renovate. It can get quite large, so it's a good idea to split it up into smaller sections. You can then reference all the individual parts in the `extends` field, using a list.
+
+Below I've pasted my configuration file(s). Here the first ten keys after `extends`, are general settings that configure looks and other global settings.
+
+In the next three sections I define paths for the build-in Managers for `flux`, `helm` and `kubernetes`. The build-in Managers should work out of the box. The `fileMatch` sets the path Renovate should look at for these types of resources. Renovate uses standard Regex. Regex can be quite tough to parse, I generally use online tools like [regex101](https://regex101.com) to test my Regex.
+
+The last section sets some packageRules, that tells Renovate to add labels to the PR based on the type of update and what kind of resource it is.
 
 ```json
 // .github/renovate.json
@@ -180,6 +186,19 @@ I'll update this later with more details on the different parts of my configurat
 }
 ```
 
+The configuration below defines a special Manager (called a customManager) that looks for Grafana dashboards updates. Because these updates don't conform to any standard naming schemes, I need a customManager. The basic idea is that we can help Renovate by providing some information that points Renovate to where the dashboards are kept. We do this by adding comments in the resource definitions and then defining a Regex that match the comment plus the part of the manifest that define the current version.
+
+Looking at my [Grafana helm release](../cluster/kubernetes/observability/grafana/app/helmrelease.yaml), helps to understand the idea.
+The following a single dashboard definition:
+```yaml
+node-exporter-full:
+  # renovate: depName="Node Exporter Full"
+  gnetId: 1860
+  revision: 37
+```
+
+Notice how the defined `matchStrings` in the `customManager` below matches the comment plus the `getId` and `revision` keys. This allows Renovate to extract the current version of this dashboard, which it can then compare using the defined `defaultRegistryUrlTemplate`. You can read more about customManagers [here](https://docs.renovatebot.com/configuration-options/#custommanagers).
+
 ```json
 // .github/renovate/grafanadashboards.json
 {
@@ -220,6 +239,8 @@ I'll update this later with more details on the different parts of my configurat
   ]
 }
 ```
+
+The last part of my configuration defines two `groups`. Groups tell Renovate to create a single PR for all the resources defined in the group. This is useful if you have resources spred over more than one helm release.
 
 ```json
 // .github/renovate/groups.json
