@@ -98,7 +98,7 @@ data:
             description: Gatus
             widget:
               type: gatus
-              url: http://gatus-web-svc.internal.svc.cluster.local:8080
+              url: http://gatus-web-svc.observability.svc.cluster.local:8080
         - Prometheus:
             icon: prometheus.svg
             href: https://prometheus.local.cjsolsen.com
