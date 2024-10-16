@@ -16,7 +16,7 @@ spec:
         app: qubt
     spec:
       containers:
-      - image: ghcr.io/chrede88/qubtdocker:v2.0.0
+      - image: ghcr.io/chrede88/qubtdocker:v2.0.1
         name: qubt
         ports:
           - name: web
