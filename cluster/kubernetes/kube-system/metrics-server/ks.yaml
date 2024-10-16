@@ -10,6 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: metrics-server
   path: ./cluster/kubernetes/kube-system/metrics-server/app
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
