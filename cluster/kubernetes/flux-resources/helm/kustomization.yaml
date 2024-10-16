@@ -10,3 +10,4 @@ resources:
   - ./grafana.yaml
   - ./bjw-s.yaml
   - ./external-dns.yaml
+  - ./metrics-server.yaml
