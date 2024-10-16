@@ -67,25 +67,25 @@ spec:
       enabled: true
     # kubeApiServer
     kubeApiServer:
-      enabled: true
+      serviceMonitor:
+        selector:
+          k8s-app: kube-apiserver
     # coreDNS
     coreDns:
       enabled: true
     # kubeControllerManager
-    kubeControllerManager:
-      enabled: true
-      endpoints: &controlplane
-        - 10.10.30.2
-        - 10.10.30.3
-        - 10.10.30.4
+    kubeControllerManager: &kubeControllerManager
+      service:
+        selector:
+          k8s-app: kube-controller-manager
     # kubeEtcd
     kubeEtcd:
-      enabled: true
-      endpoints: *controlplane
+      <<: *kubeControllerManager # etcd runs on control plane nodes
     # kubeScheduler
     kubeScheduler:
-      enabled: true
-      endpoints: *controlplane
+      service:
+        selector:
+          k8s-app: kube-scheduler
     # kubeProxy
     kubeProxy:
       enabled: false
