@@ -10,7 +10,7 @@ spec:
       chart: flux-operator
       version: v0.10.0
       sourceRef:
-        kind: OCIRepository
+        kind: HelmRepository
         name: flux-operator
         namespace: flux-system
   install:

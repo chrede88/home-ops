@@ -11,3 +11,4 @@ resources:
   - ./bjw-s.yaml
   - ./external-dns.yaml
   - ./metrics-server.yaml
+  - ./flux-operator.yaml
