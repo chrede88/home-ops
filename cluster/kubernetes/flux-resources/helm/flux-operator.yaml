@@ -7,4 +7,4 @@ metadata:
 spec:
   type: oci
   interval: 2h
-  url: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
+  url: oci://ghcr.io/controlplaneio-fluxcd/charts
