@@ -2,6 +2,13 @@
 
 The next thing to setup is [Fluxcd](https://fluxcd.io) or just Flux for short. By running Flux my git repository becomes the source of truth for my Kubernetes cluster. Any changes made to the manifests in the git repository is automatically reflected in the cluster. Pairing Flux with Renovate is a potent combi that makes it easy to keep everything up-to-date, see [renovate.md](./renovate.md) for more info.
 
+## Moving to the Flux Operator
+I recently moved to the flux operator. Most of the following is still useful information. The old way of bootstrapping Flux is no longer valid. You still need to setup Sops/Age if you want to store secrets in your git repository, so that section is still valid. The stuff about notification and alerts are also still valid.
+
+See the [Flux operator docs](https://fluxcd.control-plane.io/operator/install/) for installing the Flux operator in a fresh cluster.
+
+I've documented my migration process [here](./flux-operator.md)
+
 ## Setting up Flux
 I'll use a ssh key to authenticate with Github. So first item on the agenda is to generate a ssh key for Flux.
 
