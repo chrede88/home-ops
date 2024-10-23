@@ -4,7 +4,7 @@ metadata:
     name: slack-token
     namespace: external
 stringData:
-    token: ENC[AES256_GCM,data:zo2storoETmS4BSpm1oOcpkw191azRhcRXIaL9HRxSJNlhD+aib7YQLUadpQqEvtH2Ih2YNlj4Vb,iv:Ay+lHmDyqyxf/nyPeQcrNh7hrQ5yWaF4o8Aiy+3tqns=,tag:LHsaS9Z4Tl8MC1uOmSUfLQ==,type:str]
+    token: ENC[AES256_GCM,data:Le3cYWBGDP/z3XOpWTdWxY/OrVAMtxmyEb18LI+GNv1eeptfsh7JjZo76nhLwdgQJB91lKi7PjrR,iv:rc6DypIU3CAlqI6IhDkW5twtYx5XT5w7cKGsGxo85eM=,tag:HYuWBrH1qB27bX/2O6eViA==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -14,14 +14,14 @@ sops:
         - recipient: age1nqn46tdx7vazgkjuglseduk52plfrpz60zcqjqk83rfg8gwuv95qd4cem4
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBNNEVOdnRjRzdrUEtVWWhJ
-            Mm83M05UaHVqY1VteVgzdnhNQnhNSklFbVVrCituN0I4NTFQV3pVM1ZZYlYyU2RI
-            WDJ2Rm1OeGtobWxhWmkrcnN4L1FRUlEKLS0tIDVIRDZQbGJ0dUxobnVnNXdZYy8v
-            TzlIYzhMSEpLNDZ4Q1V1RE5uRndiQmMKR5oI9w74qhPP9VPrPTqXhLsXUGg6vIPX
-            zMD5J7YdFIoojJjwvW0HVYtrFGm3elUZASPGyjw3ch1Lfe0ykWru0A==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBNWU5hTFMvUmJkeGRWUUgw
+            TDU1bUhMUWt3a2E2eGo1VVZPL0tGaTMzWjFrCk50WFlzM29TekZTNm8vUFZQVXhr
+            UUFmdnVMSVcxd1lnT1hMZjV3VSt2MEUKLS0tIHhuS0dlOTFJRWJIZVBrT1RQU1Y5
+            RmZYOWlTMkhJVTJ6NEhrdGdYMmhtV3MKBa2evEsiWTGWZ4zy1rAjmaTDHEoNojyl
+            Z/giKMBgBQAPPrZj1gpmb+5wMW9xHOyOCXlZ44t1lbKP4pwHAPv/MQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-09T16:08:39Z"
-    mac: ENC[AES256_GCM,data:e4n8yqcqgNXQkLwHif3HXupMpnnnglqrRpwbQYQxjFQjxE4MrB3L8+it9TQQxJzsmxCrEZkk4xpc+9hAtPWO2CNWCtmfaalPGvQgSI1iCDqX/XB7+k0wfbNYp0Z7ChTWzZ7C4PVu7EsA2EUyxMvA7sTvHtt2UonrcKmaaTd3hG4=,iv:pTehelgRv4+LJ4BZqNtnQJSz//6ZIhUIegdvOZ9+WZc=,tag:GwoQRaupolgmdbszUgNd7g==,type:str]
+    lastmodified: "2024-10-23T19:15:56Z"
+    mac: ENC[AES256_GCM,data:o4SyLqqyK8aicfIKQwsttRFogfVuQCpaaCqGkIJgdnI4ySguBzwwtu6QuUXgG8I9XVcbytJC3clp4Qs8tIoF1c/rc0hY2knuSo7gubw4nNXvjvsJTJ84TuIKTFOwORtDxaahUfKC1uoEXjJrwEk4CBnY0DGEGDqP1UJX/mFeCvY=,iv:V9gHt5LlKTFIFSVDTLdqJKPWSnVS8+z63aXcxS1h7v8=,tag:7BcAGhONws2PRoN0dZP2zA==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
-    version: 3.8.1
+    version: 3.9.1
