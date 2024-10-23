@@ -1,30 +1,30 @@
 apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Provider
 metadata:
-    name: slack-bot
-    namespace: external
+  name: slack-bot
+  namespace: external
 spec:
-    type: slack
-    channel: flux-cd
-    address: https://slack.com/api/chat.postMessage
-    secretRef:
-        name: slack-token
+  type: slack
+  channel: flux-cd
+  address: https://slack.com/api/chat.postMessage
+  secretRef:
+    name: slack-token
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Alert
 metadata:
-    name: slack
-    namespace: external
+  name: slack
+  namespace: external
 spec:
-    providerRef:
-        name: slack-bot
-    eventSeverity: info
-    eventSources:
-        - kind: GitRepository
-          name: '*'
-        - kind: HelmRelease
-          name: '*'
-        - kind: HelmRepository
-          name: '*'
-        - kind: Kustomization
-          name: "*"
+  providerRef:
+    name: slack-bot
+  eventSeverity: error
+  eventSources:
+    - kind: GitRepository
+      name: "*"
+    - kind: HelmRelease
+      name: "*"
+    - kind: HelmRepository
+      name: "*"
+    - kind: Kustomization
+      name: "*"
