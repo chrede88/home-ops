@@ -3,7 +3,8 @@
   "extends": [
     "config:recommended",
     "github>chrede88/home-ops//.github/renovate/grafanadashboards.json",
-    "github>chrede88/home-ops//.github/renovate/groups.json"
+    "github>chrede88/home-ops//.github/renovate/groups.json",
+    "github>chrede88/home-ops//.github/renovate/flux.json"
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "commitMessagePrefix": "🤖",
