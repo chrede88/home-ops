@@ -16,20 +16,20 @@ spec:
         app: qubt
     spec:
       containers:
-      - image: ghcr.io/chrede88/qubtdocker:v2.0.1
-        name: qubt
-        ports:
-          - name: web
-            containerPort: 8080
-          - name: metrics
-            containerPort: 2019
-        imagePullPolicy: Always
-        securityContext:
-          runAsNonRoot: true
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop: ["ALL"]
-          seccompProfile:
-            type: RuntimeDefault
+        - image: ghcr.io/chrede88/qubtdocker:v2.1.0
+          name: qubt
+          ports:
+            - name: web
+              containerPort: 8080
+            - name: metrics
+              containerPort: 2019
+          imagePullPolicy: Always
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
       imagePullSecrets:
         - name: ghcr-secret
