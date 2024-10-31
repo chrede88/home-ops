@@ -36,13 +36,13 @@ metrics:
       - { color: f38ba8, min: 76, max: 9999 }
 
   - name: cluster_uptime_days
-    query: round(avg(node_time_seconds - node_boot_time_seconds) / 86400, 0.1)
+    query: round(avg(node_time_seconds - node_boot_time_seconds) / 86400)
     suffix: "d"
     colors:
       - { color: cba6f7, min: 0, max: 9999 }
 
   - name: cluster_age_days
-    query: round((time() - min(kube_node_created) ) / 86400, 0.1)
+    query: round((time() - min(kube_node_created) ) / 86400)
     suffix: "d"
     colors:
       - { color: cba6f7, min: 0, max: 9999 }
