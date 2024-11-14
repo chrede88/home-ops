@@ -9,3 +9,4 @@ resources:
   # Flux-Kustomizations
   - ./cilium/ks.yaml
   - ./metrics-server/ks.yaml
+  - ./descheduler/ks.yaml

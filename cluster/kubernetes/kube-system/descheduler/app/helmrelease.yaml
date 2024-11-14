@@ -1,0 +1,65 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: descheduler
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: descheduler
+      version: 0.31.0
+      sourceRef:
+        kind: HelmRepository
+        name: kubernetes-sigs-descheduler
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    replicas: 1
+    kind: Deployment
+    deschedulerPolicyAPIVersion: descheduler/v1alpha2
+    deschedulerPolicy:
+      profiles:
+        - name: Default
+          pluginConfig:
+            - name: DefaultEvictor
+              args:
+                evictFailedBarePods: true
+                evictLocalStoragePods: true
+                evictSystemCriticalPods: false
+                nodeFit: true
+            - name: LowNodeUtilization
+              args:
+                targetThresholds:
+                  pods: 50
+                thresholds:
+                  pods: 20
+            - name: RemoveDuplicates
+            - name: RemovePodsHavingTooManyRestarts
+              args:
+                podRestartThreshold: 10
+                includingInitContainers: true
+            - name: RemovePodsViolatingTopologySpreadConstraint
+              args:
+                constraints:
+                  - DoNotSchedule
+          plugins:
+            balance:
+              enabled:
+                - LowNodeUtilization
+                - RemoveDuplicates
+                - RemovePodsViolatingTopologySpreadConstraint
+            deschedule:
+              enabled:
+                - RemovePodsHavingTooManyRestarts
+    service:
+      enabled: true
+    serviceMonitor:
+      enabled: true
