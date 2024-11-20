@@ -30,6 +30,7 @@ jobs:
           live-branch: main
           path: cluster/kubernetes/flux-system
           resource: ${{ matrix.resource }}
+          debug: true
       - name: PR Comments
         uses: mshick/add-pr-comment@v2
         if: ${{ steps.diff.outputs.diff != '' }}
