@@ -28,7 +28,7 @@ jobs:
         id: diff
         with:
           live-branch: main
-          path: cluster/kubernetes/flux-system
+          path: cluster/kubernetes
           resource: ${{ matrix.resource }}
           debug: true
       - name: PR Comments
