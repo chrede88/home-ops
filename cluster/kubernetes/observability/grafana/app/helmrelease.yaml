@@ -99,7 +99,7 @@ spec:
         cert-manager:
           # renovate: depName="Cert-manager-Kubernetes"
           gnetId: 20842
-          revision: 2
+          revision: 3
           datasource: Prometheus
         flux:
           # renovate: depName="Flux2"
