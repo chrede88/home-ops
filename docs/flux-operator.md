@@ -154,3 +154,25 @@ kubectl -n flux-system get fluxreport flux -o yaml
 
 ### Removing the Old Resources
 You can now remove the resources installed by the "old" Flux. If you installed Flux using the standard `bootstrap` method, you should have two files called `gotk-components.yaml` abd `gotk-sync.yaml`. It's now save to remove these from your repository.
+
+Because the main `kustomization` in `gotk-components.yaml` is now not in my repo anymore. This is a problem for the `flux-local` diff action I'm running on renovate PR's. The flux operator creates it automatically, so all I have to do is to add it to my repo again.
+
+```yaml
+# home-ops/cluster/kubernetes/flux-system/flux/flux-instance/flux-sync.yaml
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: flux-system
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: cluster/kubernetes
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+```
