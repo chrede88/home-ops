@@ -10,3 +10,4 @@ resources:
   - ./cilium/ks.yaml
   - ./metrics-server/ks.yaml
   - ./descheduler/ks.yaml
+  - ./irqbalance/ks.yaml
