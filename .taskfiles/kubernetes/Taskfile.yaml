@@ -1,0 +1,26 @@
+---
+version: '3'
+
+vars:
+  KUBERNETES_RESOURCES_DIR: '/Users/cjso/git/Github/home-ops/.taskfiles/kubernetes/resources'
+
+tasks:
+  privileged-alpine:
+    desc: Run a privileged alpine pod
+    cmd: |
+      kubectl run privileged-{{.node}} -i --rm --image=null -n observability \
+        --overrides="$(yq {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod-alpine.tmpl.yaml -o=json | envsubst)"
+    env:
+      node: '{{.node}}'
+    preconditions:
+      - test -f {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod-alpine.tmpl.yaml
+
+  privileged-ubuntu:
+    desc: Run a privileged ubuntu pod
+    cmd: |
+      kubectl run privileged-{{.node}} -i --rm --image=null -n observability \
+        --overrides="$(yq {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod-ubuntu.tmpl.yaml -o=json | envsubst)"
+    env:
+      node: '{{.node}}'
+    preconditions:
+      - test -f {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod-ubuntu.tmpl.yaml
