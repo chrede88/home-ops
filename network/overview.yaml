@@ -27,6 +27,31 @@ servers:
     uxg-port: 4
 control-plane:
   vip: 10.10.30.30
+thunderbolt-ring-network:
+  death:
+    ip: 169.254.255.2/32
+    thunderbolt0:
+      bus-path: 0-1
+      connected-to: thrash
+    thunderbolt1:
+      bus-path: 1-1
+      connected-to: black
+  black:
+    ip: 169.254.255.3/32
+    thunderbolt0:
+      bus-path: 0-1
+      connected-to: death
+    thunderbolt1:
+      bus-path: 1-1
+      connected-to: thrash
+  thrash:
+    ip: 169.254.255.4/32
+    thunderbolt0:
+      bus-path: 0-1
+      connected-to: black
+    thunderbolt1:
+      bus-path: 1-1
+      connected-to: thrash
 exposed-ips:
   - name: DNS (cluster)
     ip: 10.10.30.70

@@ -1,0 +1,21 @@
+machine:
+  network:
+    interfaces:
+      - deviceSelector:
+          busPath: 0-1.0 # to death
+        dhcp: false
+        mtu: 65520
+        addresses:
+          - 169.254.255.3/32
+        routes:
+          - network: 169.254.255.2/32
+            metric: 2048
+      - deviceSelector:
+          busPath: 1-1.0 # to thrash
+        dhcp: false
+        mtu: 65520
+        addresses:
+          - 169.254.255.3/32
+        routes:
+          - network: 169.254.255.4/32
+            metric: 2048
