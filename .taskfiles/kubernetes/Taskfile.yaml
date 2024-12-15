@@ -8,7 +8,7 @@ tasks:
   privileged-alpine:
     desc: Run a privileged alpine pod
     cmd: |
-      kubectl run privileged-{{.node}} -i --rm --image=null -n observability \
+      kubectl run privileged-{{.node}} -i --rm --image=null -n kube-system \
         --overrides="$(yq {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod-alpine.tmpl.yaml -o=json | envsubst)"
     env:
       node: '{{.node}}'
@@ -18,7 +18,7 @@ tasks:
   privileged-ubuntu:
     desc: Run a privileged ubuntu pod
     cmd: |
-      kubectl run privileged-{{.node}} -i --rm --image=null -n observability \
+      kubectl run privileged-{{.node}} -i --rm --image=null -n kube-system \
         --overrides="$(yq {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod-ubuntu.tmpl.yaml -o=json | envsubst)"
     env:
       node: '{{.node}}'
