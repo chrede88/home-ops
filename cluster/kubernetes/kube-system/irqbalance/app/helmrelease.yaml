@@ -31,8 +31,9 @@ spec:
               repository: ghcr.io/buroa/irqbalance
               tag: 1.9.4
             env:
-              IRQBALANCE_BANNED_CPULIST: 8-15 # 8-15 are E-cores
               # See: https://gist.github.com/gavinmcfall/ea6cb1233d3a300e9f44caf65a32d519
+              IRQBALANCE_BANNED_CPULIST: 8-15 # 8-15 are E-cores
+              IRQBALANCE_DEBUG: true
             resources:
               requests:
                 cpu: 25m
