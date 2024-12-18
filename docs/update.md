@@ -25,6 +25,21 @@ kubectl -n rook-ceph wait --timeout=1800s --for=jsonpath='{.status.ceph.health}=
 
 This command won't retrun until the Ceph cluster status changes back to `HEALTH_OK`. At this point it's okay to move forward with the update and start updating the next node. Again, wait until the Ceph cluster is back in a healthy state.
 
+### SystemExtensions & KernelArgs
+I'm currently including the following systemextensions:
+- siderolabs/i915
+- siderolabs/intel-ice-firmware
+- siderolabs/intel-ucode
+- siderolabs/mei
+- siderolabs/thunderbolt
+- siderolabs/util-linux-tools
+
+And the following kernel args:
+- intel_iommu=on
+- iommu=pt
+- mitigations=off
+- net.ifnames=0
+
 ## Kubernetes
 Upgrading Kubernetes is very easy with Talos Linux. The talosctl cli has an uatomated upgrade command build-in.
 If you have just upgraded Talos Linux, make sure the Ceph cluster is in a good state before upgrading Kubernetes.
