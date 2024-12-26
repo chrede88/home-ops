@@ -6,7 +6,8 @@
     "github>chrede88/home-ops//.github/renovate/groups.json",
     "github>chrede88/home-ops//.github/renovate/flux.json",
     "github>chrede88/home-ops//.github/renovate/labels.json",
-    "github>chrede88/home-ops//.github/renovate/postgresql.json"
+    "github>chrede88/home-ops//.github/renovate/postgresql.json",
+    "github>chrede88/home-ops//.github/renovate/allowedVersions.json"
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "commitMessagePrefix": "🤖",
