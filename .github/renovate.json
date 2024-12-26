@@ -4,7 +4,9 @@
     "config:recommended",
     "github>chrede88/home-ops//.github/renovate/grafanadashboards.json",
     "github>chrede88/home-ops//.github/renovate/groups.json",
-    "github>chrede88/home-ops//.github/renovate/flux.json"
+    "github>chrede88/home-ops//.github/renovate/flux.json",
+    "github>chrede88/home-ops//.github/renovate/labels.json",
+    "github>chrede88/home-ops//.github/renovate/postgresql.json"
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "commitMessagePrefix": "🤖",
@@ -27,27 +29,5 @@
   },
   "pre-commit": {
     "enabled": true
-  },
-  "packageRules": [
-    {
-      "matchUpdateTypes": ["major"],
-      "labels": ["type/major"]
-    },
-    {
-      "matchUpdateTypes": ["minor"],
-      "labels": ["type/minor"]
-    },
-    {
-      "matchUpdateTypes": ["patch"],
-      "labels": ["type/patch"]
-    },
-    {
-      "matchDatasources": ["helm"],
-      "commitMessageTopic": "chart {{depName}}"
-    },
-    {
-      "matchDatasources": ["docker"],
-      "commitMessageTopic": "image {{depName}}"
-    }
-  ]
+  }
 }
