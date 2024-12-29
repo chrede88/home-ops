@@ -19,7 +19,7 @@ spec:
       serviceAccountName: gatus
       terminationGracePeriodSeconds: 5
       containers:
-        - image: twinproduction/gatus:v5.14.0
+        - image: twinproduction/gatus:v5.15.0
           imagePullPolicy: IfNotPresent
           name: gatus
           ports:
