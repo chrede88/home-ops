@@ -5,7 +5,7 @@
 
 <div align=center>
 
-### My Home-ops Repository :zap:
+### My Home-ops Repository <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/26a1/512.gif" alt="⚡" width="16" height="16">
 
 _... powered by Talos Linux and Kubernetes_
 
@@ -32,11 +32,11 @@ _... powered by Talos Linux and Kubernetes_
 
 This repo hold all the manifests for my kubernetes cluster and acts as the source of truth. I use Flux to keep my cluster state up-to-date with this repo. I also use Renovate to automatically open PR's when new versions of the applications I have in my cluster becomes avaliable.
 
-### Docs
+### Docs <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f440/512.gif" alt="👀" width="16" height="16">
 
 I keep running [docs](./docs/README.md) where I try to document my journey. Hopefully others will find them helpful.
 
-### Directories
+### Directories <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f6a7/512.gif" alt="🚧" width="16" height="16">
 
 The layout of the repo is as follows:
 
