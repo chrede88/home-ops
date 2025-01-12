@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/unpoller/unpoller
-              tag: v2.13.1
+              tag: v2.14.0
             env:
               - name: TZ
                 value: Europe/Zurich
@@ -41,15 +41,13 @@ spec:
                 value: https://10.10.0.252:443
               - name: UP_UNIFI_DEFAULT_VERIFY_SSL
                 value: false
-              - name: UP_UNIFI_DEFAULT_USER
-                value: unifipoller
               - name: UP_INFLUXDB_DISABLE
                 value: true
-              - name: UP_UNIFI_DEFAULT_PASS
+              - name: UP_UNIFI_DEFAULT_API_KEY
                 valueFrom:
                   secretKeyRef:
                     name: unpoller-secret
-                    key: unifi-pass
+                    key: unifi-api-key
             # probes:
             #   liveness:
             #     enabled: true
@@ -60,7 +58,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: { drop: ['ALL'] }
             resources:
               requests:
                 cpu: 10m
