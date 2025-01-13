@@ -1,0 +1,14 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": ["Process Talos"],
+      "fileMatch": ["(^|/)cluster/talos/.+\\.ya?ml"],
+      "matchStrings": [
+        "depName=(?<depName>.*?) datasource=(?<datasource>.*?)\n.*?\"(?<currentValue>.*)\"\n"
+      ],
+      "extractVersionTemplate": "^v?(?<version>.*)$"
+    }
+  ]
+}
