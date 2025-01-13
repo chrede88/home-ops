@@ -1,0 +1,177 @@
+# talconfig for cluster: metal
+
+clusterName: metal
+endpoint: https://10.10.30.30:6443
+
+# renovate: depName=ghcr.io/siderolabs/installer datasource=docker
+talosVersion: v1.9.1
+# renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
+kubernetesVersion: v1.32.0
+
+domain: cluster.local
+allowSchedulingOnControlPlanes: true
+cniConfig:
+  name: none
+clusterPodNets:
+  - 10.244.0.0/16
+clusterSvcNets:
+  - 10.96.0.0/12
+additionalMachineCertSans: &sans
+  - 10.10.30.30
+additionalApiServerCertSans: *sans
+
+nodes:
+  - hostname: death
+    ipAddress: 10.10.30.2
+    controlPlane: true
+    installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+        vip:
+          ip: 10.10.30.30
+      - deviceSelector:
+          busPath: 0-1.0 # to thrash
+        addresses:
+          - 169.254.255.2/32
+        routes:
+          - network: 169.254.255.4/32
+            gateway: ''
+            metric: 2048
+        mtu: 65520
+        dhcp: false
+      - deviceSelector:
+          busPath: 1-1.0 # to black
+        addresses:
+          - 169.254.255.2/32
+        routes:
+          - network: 169.254.255.3/32
+            gateway: ''
+            metric: 2048
+        mtu: 65520
+        dhcp: false
+
+  - hostname: black
+    ipAddress: 10.10.30.3
+    controlPlane: true
+    installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+        vip:
+          ip: 10.10.30.30
+      - deviceSelector:
+          busPath: 0-1.0 # to death
+        addresses:
+          - 169.254.255.3/32
+        routes:
+          - network: 169.254.255.2/32
+            gateway: ''
+            metric: 2048
+        mtu: 65520
+        dhcp: false
+      - deviceSelector:
+          busPath: 1-1.0 # to thrash
+        addresses:
+          - 169.254.255.3/32
+        routes:
+          - network: 169.254.255.4/32
+            gateway: ''
+            metric: 2048
+        mtu: 65520
+        dhcp: false
+
+  - hostname: thrash
+    ipAddress: 10.10.30.4
+    controlPlane: true
+    installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+        vip:
+          ip: 10.10.30.30
+      - deviceSelector:
+          busPath: 0-1.0 # to black
+        addresses:
+          - 169.254.255.4/32
+        routes:
+          - network: 169.254.255.3/32
+            gateway: ''
+            metric: 2048
+        mtu: 65520
+        dhcp: false
+      - deviceSelector:
+          busPath: 1-1.0 # to death
+        addresses:
+          - 169.254.255.4/32
+        routes:
+          - network: 169.254.255.2/32
+            gateway: ''
+            metric: 2048
+        mtu: 65520
+        dhcp: false
+
+controlPlane:
+  schematic:
+    customization:
+      extraKernelArgs:
+        - intel_iommu=on
+        - iommu=pt
+        - mitigations=off
+        - net.ifnames=0
+
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/i915
+          - siderolabs/intel-ice-firmware
+          - siderolabs/intel-ucode
+          - siderolabs/mei
+          - siderolabs/thunderbolt
+          - siderolabs/util-linux-tools
+
+  patches:
+    # wipe install disk
+    - |-
+      machine:
+        install:
+          wipe: true
+
+    # disable proxy
+    - |-
+      cluster:
+        proxy:
+          disabled: true
+
+    # Enable thunderbolt + net
+    - |-
+      machine:
+        kernel:
+          modules:
+            - name: nbd
+            - name: thunderbolt
+            - name: thunderbolt_net
+
+    # udev rules
+    - |-
+      machine:
+        udev:
+          rules:
+            # Thunderbolt
+            - ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
+            # Intel GPU
+            - SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
+
+    # features
+    - |-
+      machine:
+        features:
+          rbac: true
+          stableHostname: true
+          apidCheckExtKeyUsage: true
+          diskQuotaSupport: true
+          kubePrism:
+            enabled: true
+            port: 7445
+          hostDNS:
+            enabled: true
+            forwardKubeDNSToHost: true

@@ -1,4 +1,0 @@
-machine:
-  install:
-    disk: /dev/sdb
-    wipe: true

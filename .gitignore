@@ -2,8 +2,7 @@
 .DS_Store
 
 # Talos
-cluster/talos/config/*
-!cluster/talos/config/patches
+cluster/talos/config/oldConfig/
 cluster/talos/cleanup/
 
 # etcd snapshots
