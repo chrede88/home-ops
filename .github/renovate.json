@@ -26,7 +26,10 @@
     "fileMatch": ["(^|/)cluster/kubernetes/.+\\.ya?ml$"]
   },
   "kubernetes": {
-    "fileMatch": ["(^|/)cluster/kubernetes/.+\\.ya?ml$"]
+    "fileMatch": [
+      "(^|/)cluster/kubernetes/.+\\.ya?ml$",
+      "(^|/)cluster/talos/.+\\.ya?ml$"
+    ]
   },
   "pre-commit": {
     "enabled": true

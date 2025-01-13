@@ -1,23 +1,26 @@
 # Semantic Type
 - name: type/digest
-  color: "FFEC19"
+  color: 'FFEC19'
 - name: type/patch
-  color: "FFEC19"
+  color: 'FFEC19'
 - name: type/minor
-  color: "FF9800"
+  color: 'FF9800'
 - name: type/major
-  color: "F6412D"
+  color: 'F6412D'
 # Area
 - name: area/kubernetes
-  color: "72ccf3"
-  description: "Changes made to kubernetes resources"
+  color: '72ccf3'
+  description: 'Changes made to kubernetes resources'
+- name: area/talos
+  color: '72ccf3'
+  description: 'Changes made to talos resources'
 - name: area/github
-  color: "72ccf3"
-  description: "Changes made in the github directory"
+  color: '72ccf3'
+  description: 'Changes made in the github directory'
 # Others
 - name: bug
-  color: "d73a4a"
+  color: 'd73a4a'
   description: "Something isn't working"
 - name: keep
-  color: "01717f"
-  description: "Keep issue open"
+  color: '01717f'
+  description: 'Keep issue open'

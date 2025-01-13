@@ -1,7 +1,11 @@
 area/kubernetes:
-- changed-files:
-  - any-glob-to-any-file: "cluster/kubernetes/**/*"
+  - changed-files:
+      - any-glob-to-any-file: 'cluster/kubernetes/**/*'
+
+area/talos:
+  - changed-files:
+      - any-glob-to-any-file: 'cluster/talos/**/*'
 
 area/github:
-- changed-files:
-  - any-glob-to-any-file: ".github/**/*"
+  - changed-files:
+      - any-glob-to-any-file: '.github/**/*'
