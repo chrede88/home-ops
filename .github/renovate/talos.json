@@ -8,7 +8,7 @@
       "matchStrings": [
         "depName=(?<depName>.*?) datasource=(?<datasource>.*?)\n.*?(?<currentValue>.*)\n"
       ],
-      "extractVersionTemplate": "^v?(?<version>.*)$"
+      "extractVersionTemplate": "^.*v(?<version>.*)$"
     }
   ]
 }
