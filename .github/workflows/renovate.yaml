@@ -20,7 +20,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  LOG_LEVEL: 'info'
+  LOG_LEVEL: 'debug'
   RENOVATE_AUTODISCOVER: true
   RENOVATE_AUTODISCOVER_FILTER: '${{ github.repository }}'
   RENOVATE_PLATFORM: github

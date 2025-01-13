@@ -6,9 +6,9 @@
       "description": ["Process Talos"],
       "fileMatch": ["(^|/)cluster/talos/.+\\.ya?ml"],
       "matchStrings": [
-        "depName=(?<depName>.*?) datasource=(?<datasource>.*?)\n.*?(?<currentValue>.*)\n"
+        "depName=(?<depName>.*?) datasource=(?<datasource>.*?)\n.*?:(?<currentValue>.*)\n"
       ],
-      "extractVersionTemplate": "^.*v(?<version>.*)$"
+      "extractVersionTemplate": "^v?(?<version>.*)$"
     }
   ]
 }
