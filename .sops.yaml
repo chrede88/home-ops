@@ -7,3 +7,7 @@ creation_rules:
     input_type: yaml
     encrypted_regex: ^(data|stringData)$
     age: age1nqn46tdx7vazgkjuglseduk52plfrpz60zcqjqk83rfg8gwuv95qd4cem4
+
+stores:
+  yaml:
+    indent: 2
