@@ -175,3 +175,20 @@ controlPlane:
           hostDNS:
             enabled: true
             forwardKubeDNSToHost: true
+
+    # bind address for controllerManager & scheduler
+    - |-
+      cluster:
+        controllerManager:
+          extraArgs:
+            bind-address: 0.0.0.0
+        scheduler:
+          extraArgs:
+            bind-address: 0.0.0.0
+
+    # metric address for etcd
+    - |-
+      cluster:
+        etcd:
+          extraArgs:
+            listen-metrics-urls: http://0.0.0.0:2381
