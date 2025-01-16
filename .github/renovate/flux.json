@@ -6,7 +6,7 @@
       "description": ["Process Flux"],
       "fileMatch": ["(^|/)cluster/kubernetes/flux-system/.+\\.ya?ml$"],
       "matchStrings": [
-        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\n.*?\"(?<currentValue>.*)\"\n"
+        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\\n.*?\"(?<currentValue>.*)\""
       ],
       "extractVersionTemplate": "^v?(?<version>.*)$"
     }
