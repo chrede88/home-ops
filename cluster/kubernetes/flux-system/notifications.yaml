@@ -1,23 +1,20 @@
 apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Provider
 metadata:
-  name: slack-bot
+  name: alertmanager
   namespace: flux-system
 spec:
-  type: slack
-  channel: flux-cd
-  address: https://slack.com/api/chat.postMessage
-  secretRef:
-    name: slack-token
+  type: alertmanager
+  address: http://alertmanager-operated.observability.svc.cluster.local:9093/api/v2/alerts/
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Alert
 metadata:
-  name: slack
+  name: alertmanager
   namespace: flux-system
 spec:
   providerRef:
-    name: slack-bot
+    name: alertmanager
   eventSeverity: error
   eventSources:
     - kind: GitRepository
