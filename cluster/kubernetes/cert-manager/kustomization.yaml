@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
-  - ./slack-token.yaml
   - ./notifications.yaml
   # Flux-Kustomizations
   - ./cert-manager/ks.yaml
