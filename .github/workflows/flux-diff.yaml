@@ -1,9 +1,9 @@
-name: "Flux Diff"
+name: 'Flux Diff'
 
 on:
   pull_request:
-    branches: ["main"]
-    paths: ["cluster/kubernetes/**"]
+    branches: ['main']
+    paths: ['cluster/kubernetes/**']
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
@@ -24,11 +24,12 @@ jobs:
     steps:
       - name: Setup Flux CLI
         uses: fluxcd/flux2/action@v2.4.0
-      - uses: allenporter/flux-local/action/diff@7.0.0
+      - name: Run diff
+        uses: allenporter/flux-local/action/diff@7.0.0
         id: diff
         with:
           live-branch: main
-          path: cluster/kubernetes/flux-system
+          path: cluster/kubernetes/flux/main
           resource: ${{ matrix.resource }}
           debug: true
       - name: PR Comments
