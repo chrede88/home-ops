@@ -7,8 +7,8 @@ resources:
   - pod-monitor.yaml
   # new flux operator
   - ./flux/ks.yaml
-# components:
-#   - ../../flux/components/alerts
+components:
+  - ../../flux/components/alerts
 transformers:
   - |-
     apiVersion: builtin
