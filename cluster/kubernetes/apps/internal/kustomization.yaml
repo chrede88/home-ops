@@ -6,8 +6,8 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./homepage/ks.yaml
-components:
-  - ../../flux/components/alerts
+# components:
+#   - ../../flux/components/alerts
 transformers:
   - |-
     apiVersion: builtin

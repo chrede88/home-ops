@@ -8,8 +8,8 @@ resources:
   - ./qubt/ks.yaml
   - ./l1nkr/ks.yaml
   - ./kromgo/ks.yaml
-components:
-  - ../../flux/components/alerts
+# components:
+#   - ../../flux/components/alerts
 transformers:
   - |-
     apiVersion: builtin
