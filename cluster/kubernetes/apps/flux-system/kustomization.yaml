@@ -15,5 +15,5 @@ transformers:
     kind: NamespaceTransformer
     metadata:
       name: not-used
-      namespace: cert-manager
+      namespace: flux-system
     unsetOnly: true

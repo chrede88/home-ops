@@ -17,5 +17,5 @@ transformers:
     kind: NamespaceTransformer
     metadata:
       name: not-used
-      namespace: cert-manager
+      namespace: kube-system
     unsetOnly: true

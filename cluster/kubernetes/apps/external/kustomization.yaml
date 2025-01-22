@@ -16,5 +16,5 @@ transformers:
     kind: NamespaceTransformer
     metadata:
       name: not-used
-      namespace: cert-manager
+      namespace: external
     unsetOnly: true
