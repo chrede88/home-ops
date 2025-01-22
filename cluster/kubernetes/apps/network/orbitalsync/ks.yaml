@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: pihole
   path: ./cluster/kubernetes/apps/network/orbitalsync/app
-  prune: false # change back
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

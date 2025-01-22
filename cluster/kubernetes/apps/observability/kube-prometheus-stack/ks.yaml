@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
   path: ./cluster/kubernetes/apps/observability/kube-prometheus-stack/app
-  prune: false # change back
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -38,7 +38,7 @@ spec:
   dependsOn:
     - name: kube-prometheus-stack
   path: ./cluster/kubernetes/apps/observability/kube-prometheus-stack/ingress
-  prune: false # change back
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
