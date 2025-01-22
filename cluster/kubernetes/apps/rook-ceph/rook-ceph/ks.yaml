@@ -1,0 +1,64 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app rook-ceph
+  namespace: flux-system
+spec:
+  targetNamespace: rook-ceph
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./cluster/kubernetes/apps/rook-ceph/rook-ceph/app
+  prune: false # never deleted
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app rook-ceph-cluster
+  namespace: flux-system
+spec:
+  targetNamespace: rook-ceph
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: rook-ceph
+  path: ./cluster/kubernetes/apps/rook-ceph/rook-ceph/cluster
+  prune: false # never deleted
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: internal-rook-ceph-ingress
+  namespace: flux-system
+spec:
+  targetNamespace: rook-ceph
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: internal-ingress
+  dependsOn:
+    - name: cilium-crd
+  path: ./cluster/kubernetes/apps/rook-ceph/rook-ceph/ingress
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m

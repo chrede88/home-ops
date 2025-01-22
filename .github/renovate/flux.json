@@ -4,9 +4,9 @@
     {
       "customType": "regex",
       "description": ["Process Flux"],
-      "fileMatch": ["(^|/)cluster/kubernetes/flux-system/.+\\.ya?ml$"],
+      "fileMatch": ["(^|/)cluster/kubernetes/apps/flux-system/.+\\.ya?ml$"],
       "matchStrings": [
-        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\\n.*?\"(?<currentValue>.*)\""
+        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\\n.*?(?<currentValue>.*)"
       ],
       "extractVersionTemplate": "^v?(?<version>.*)$"
     }
