@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: kube-prometheus-stack
   path: ./cluster/kubernetes/apps/external/kromgo/app
-  prune: false # change back
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -34,7 +34,7 @@ spec:
   dependsOn:
     - name: kromgo
   path: ./cluster/kubernetes/apps/external/kromgo/ingress
-  prune: false # change back
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
