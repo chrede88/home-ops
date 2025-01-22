@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: kube-prometheus-stack
   path: ./cluster/kubernetes/observability/grafana/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -38,7 +38,7 @@ spec:
   dependsOn:
     - name: grafana
   path: ./cluster/kubernetes/observability/grafana/ingress
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system

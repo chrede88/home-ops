@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: qubt
   path: ./cluster/kubernetes/external/qubt/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -34,7 +34,7 @@ spec:
     labels:
       app.kubernetes.io/name: qubt-ingress
   path: ./cluster/kubernetes/external/qubt/ingress
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system

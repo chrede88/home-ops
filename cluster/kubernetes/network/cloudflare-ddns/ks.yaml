@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: cloudflare-ddns
   path: ./cluster/kubernetes/network/cloudflare-ddns/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system

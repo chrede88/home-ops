@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: kube-prometheus-stack
   path: ./cluster/kubernetes/observability/unpoller/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system

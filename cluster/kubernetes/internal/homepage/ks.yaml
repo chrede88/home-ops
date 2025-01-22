@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: homepage
   path: ./cluster/kubernetes/internal/homepage/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -34,7 +34,7 @@ spec:
     labels:
       app.kubernetes.io/name: homepage-ingress
   path: ./cluster/kubernetes/internal/homepage/ingress
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
