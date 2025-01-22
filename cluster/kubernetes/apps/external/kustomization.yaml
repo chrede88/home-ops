@@ -1,7 +1,6 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: external
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
@@ -11,3 +10,11 @@ resources:
   - ./kromgo/ks.yaml
 components:
   - ../../flux/components/alerts
+transformers:
+  - |-
+    apiVersion: builtin
+    kind: NamespaceTransformer
+    metadata:
+      name: not-used
+      namespace: cert-manager
+    unsetOnly: true
