@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: cilium
   path: ./cluster/kubernetes/apps/cert-manager/cert-manager/app
-  prune: true
+  prune: false # change back
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -34,7 +34,7 @@ spec:
   dependsOn:
     - name: cert-manager
   path: ./cluster/kubernetes/apps/cert-manager/cert-manager/issuer
-  prune: true
+  prune: false # change back
   sourceRef:
     kind: GitRepository
     name: flux-system

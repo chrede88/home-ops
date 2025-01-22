@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: cloudnative-pg-clusters
   path: ./cluster/kubernetes/apps/observability/gatus/app
-  prune: true
+  prune: false # change back
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -38,7 +38,7 @@ spec:
   dependsOn:
     - name: gatus
   path: ./cluster/kubernetes/apps/observability/gatus/ingress
-  prune: true
+  prune: false # change back
   sourceRef:
     kind: GitRepository
     name: flux-system

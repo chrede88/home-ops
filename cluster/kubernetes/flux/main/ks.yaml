@@ -6,7 +6,7 @@ metadata:
 spec:
   interval: 30m
   path: ./cluster/kubernetes/flux/resources
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -27,7 +27,7 @@ metadata:
 spec:
   interval: 30m
   path: ./cluster/kubernetes/apps
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
