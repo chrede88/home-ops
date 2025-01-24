@@ -6,7 +6,7 @@ External DNS is great little service that automates the creation of dns records.
 Let's first define the Flux resources I need. The first thing is a helm repository:
 
 ```yaml
-# ./cluster/kubernets/flux-resources/helm/external-dns.yaml
+# ./cluster/kubernets/flux/resources/helm/external-dns.yaml
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
@@ -21,18 +21,18 @@ spec:
 Next the kustomization:
 
 ```yaml
-# ./cluster/kubernetes/network/external-dns/ks.yaml
+# ./cluster/kubernetes/apps/network/external-dns/ks.yaml
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: external-dns-internal
+  name: &app external-dns-internal
   namespace: flux-system
 spec:
   targetNamespace: network
   commonMetadata:
     labels:
-      app.kubernetes.io/name: external-dns-internal
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: pihole
   path: ./cluster/kubernetes/network/external-dns/internal
@@ -54,12 +54,12 @@ spec:
 Depending on what service you use for Ingress, you'll have to set different environment variables. I'm using Gateway API, so I'll have to set some `additionalPermissions` in the values.
 
 ```yaml
-# ./cluster/kubernetes/network/external-dns/internal/helmrelease.yaml
+# ./cluster/kubernetes/apps/network/external-dns/internal/helmrelease.yaml
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: external-dns-internal
+  name: &app external-dns-internal
 spec:
   interval: 30m
   chart:
@@ -79,7 +79,7 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    fullnameOverride: external-dns-internal
+    fullnameOverride: *app
     serviceMonitor:
       enabled: true
     rbac:
