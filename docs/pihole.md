@@ -12,7 +12,7 @@ I'll first define the Flux resources I need.
 First pihole itself:
 
 ```yaml
-# ./cluster/kuberntes/network/pihole/ks.yaml
+# ./cluster/kuberntes/apps/network/pihole/ks.yaml
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -44,7 +44,7 @@ spec:
 And OrbitalSync next:
 
 ```yaml
-# ./cluster/kuberntes/network/orbitalsync/ks.yaml
+# ./cluster/kuberntes/apps/network/orbitalsync/ks.yaml
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -78,7 +78,7 @@ spec:
 Here are the yaml manifests for pihole itself:
 
 ```yaml
-# ./cluster/kuberntes/network/pihole/app/statefulset-pihole.yaml
+# ./cluster/kuberntes/apps/network/pihole/app/statefulset-pihole.yaml
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -157,7 +157,7 @@ spec:
 Next the configmap for pihole:
 
 ```yaml
-# ./cluster/kuberntes/network/pihole/app/configmap-pihole.yaml
+# ./cluster/kuberntes/apps/network/pihole/app/configmap-pihole.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -174,7 +174,7 @@ Next I'll need three types services:
 3) Some services for the pihole dashboards.
 
 ```yaml
-# ./cluster/kuberntes/network/pihole/app/dns-service.yaml
+# ./cluster/kuberntes/apps/network/pihole/app/dns-service.yaml
 ---
 apiVersion: v1
 kind: Service
@@ -203,7 +203,7 @@ Here I'm using annotations to request a specefic IP: `"io.cilium/lb-ipam-ips"`.
 Because pihole should respond to both UDP and TCP request on port 53, I've added both ports to the service.
 
 ```yaml
-# ./cluster/kuberntes/network/pihole/app/headless-service.yaml
+# ./cluster/kuberntes/apps/network/pihole/app/headless-service.yaml
 ---
 apiVersion: v1
 kind: Service
@@ -219,7 +219,7 @@ spec:
 ```
 
 ```yaml
-# ./cluster/kuberntes/network/pihole/app/dashboard-service.yaml
+# ./cluster/kuberntes/apps/network/pihole/app/dashboard-service.yaml
 ---
 kind: Service
 apiVersion: v1
@@ -280,7 +280,7 @@ The deployment of OrbitalSync is much easier. I'll only need two yaml manifests.
 First the deployment:
 
 ```yaml
-# ./cluster/kuberntes/network/orbitalsync/app/deployment-orbitalsync.yaml
+# ./cluster/kuberntes/apps/network/orbitalsync/app/deployment-orbitalsync.yaml
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -325,7 +325,7 @@ spec:
 And the configmap:
 
 ```yaml
-# ./cluster/kuberntes/network/orbitalsync/app/configmap-orbitalsync.yaml
+# ./cluster/kuberntes/apps/network/orbitalsync/app/configmap-orbitalsync.yaml
 ---
 apiVersion: v1
 kind: ConfigMap
