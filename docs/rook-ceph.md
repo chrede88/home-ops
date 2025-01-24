@@ -13,7 +13,7 @@ The first chart installs the Rook operator and the second sets up the actual Cep
 First I'll create the Flux resources needed for the install.
 
 ```yaml
-# ./cluster/kubernetes/flux-resources/helm/rook-ceph.yaml
+# ./cluster/kubernetes/flux/resources/helm/rook-ceph.yaml
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
@@ -26,7 +26,7 @@ spec:
 ```
 
 ```yaml
-# ./cluster/kubernetes/rook-ceph/rook-ceph/ks.yaml
+# ./cluster/kubernetes/apps/rook-ceph/rook-ceph/ks.yaml
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -78,7 +78,7 @@ Notice that the `rook-ceph-cluster` kustomization depends on the `rook-ceph` kus
 First the Rook operator chart:
 
 ```yaml
-# /cluster/kubernetes/rook-ceph/rook-ceph/app/helmrelease.yaml
+# /cluster/kubernetes/apps/rook-ceph/rook-ceph/app/helmrelease.yaml
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
@@ -124,7 +124,7 @@ Once I've Prometheus runnig I'll enable the `serviceMonitor` and `monitoring` va
 And the Ceph cluster chart:
 
 ```yaml
-# /cluster/kubernetes/rook-ceph/rook-ceph/cluster/helmrelease.yaml
+# /cluster/kubernetes/apps/rook-ceph/rook-ceph/cluster/helmrelease.yaml
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
@@ -322,7 +322,7 @@ I've set the `dashboard.port` to 8080 instead of the default 8443, mostly becaus
 Some of the pods need to run in a privileged state. Therefore I need to tell Kubernetes to bypass the normal admission policies for the `rook-ceph` namespace. This can be done by adding a label to the namespace definition:
 
 ```yaml
-# /cluster/kubernetes/rook-ceph/rook-ceph/namespace.yaml
+# /cluster/kubernetes/apps/rook-ceph/rook-ceph/namespace.yaml
 ---
 apiVersion: v1
 kind: Namespace
