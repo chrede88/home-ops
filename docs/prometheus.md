@@ -9,7 +9,7 @@ As always, I need bunch of Flux resources. I'll install Prometheus and Grafana i
 Before I get to the namespace specific resources, I first have to add the two new helm repositories to my cluster, so flux can find them.
 
 ```yaml
-# ./cluster/kuberntes/flux-resources/helm/prometheus-community.yaml
+# ./cluster/kuberntes/flux/resources/helm/prometheus-community.yaml
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
@@ -22,7 +22,7 @@ spec:
 ```
 
 ```yaml
-# ./cluster/kuberntes/flux-resources/helm/grafana.yaml
+# ./cluster/kuberntes/flux/resources/helm/grafana.yaml
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
@@ -37,7 +37,7 @@ spec:
 Next all the new stuff to setup a new namespace and the two helm charts.
 
 ```yaml
-# ./cluster/kuberntes/observability/kustomization.yaml
+# ./cluster/kuberntes/apps/observability/kustomization.yaml
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -53,7 +53,7 @@ resources:
 This is completely standard, so I won't put all the manifests here. The namespace is a little special.
 
 ```yaml
-# ./cluster/kuberntes/observability/namespace.yaml
+# ./cluster/kuberntes/apps/observability/namespace.yaml
 ---
 apiVersion: v1
 kind: Namespace
@@ -70,7 +70,7 @@ The first label gives everything running in this namespace extra privileges. The
 As I'm installing two seperate helm charts, I've two seperate kustomizations:
 
 ```yaml
-# ./cluster/kuberntes/observability/kube-prometheus-stack/ks.yaml
+# ./cluster/kuberntes/apps/observability/kube-prometheus-stack/ks.yaml
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -96,7 +96,7 @@ spec:
 ```
 
 ```yaml
-# ./cluster/kuberntes/observability/grafana/ks.yaml
+# ./cluster/kuberntes/apps/observability/grafana/ks.yaml
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -148,7 +148,7 @@ The last kustomization is the ingress resources for grafana.
 Next up are the helm charts. They're both quite long!
 
 ```yaml
-# ./cluster/kuberntes/observability/kube-prometheus-stack/app/helmrelease.yaml
+# ./cluster/kuberntes/apps/observability/kube-prometheus-stack/app/helmrelease.yaml
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
@@ -269,7 +269,7 @@ Lastly, the dashboards. These are pretty self explanatory. A lot of people have 
 I'm using some dashboards that aren't published on the grafana website. These can be loaded by pointing to the url where the dashboard json manifest is storaged.
 
 ```yaml
-# ./cluster/kuberntes/observability/grafana/app/helmrelease.yaml
+# ./cluster/kuberntes/apps/observability/grafana/app/helmrelease.yaml
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
@@ -451,7 +451,7 @@ spec:
 Lastly I need to setup ingress to grafana. For this I need to add a listener to the `internal` gateway.
 
 ```yaml
-# ./cluster/kubernetes/network/ingress/internal/gateway.yaml
+# ./cluster/kubernetes/apps/network/ingress/internal/gateway.yaml
 ...
 # catch traffic for the grafana dashboard
     - name: grafana
@@ -473,7 +473,7 @@ Lastly I need to setup ingress to grafana. For this I need to add a listener to 
 And add `httproute` to the `observability` namespace.
 
 ```yaml
-# ./cluster/kuberntes/observability/grafana/ingress/grafana-http-route.yaml
+# ./cluster/kuberntes/apps/observability/grafana/ingress/grafana-http-route.yaml
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
@@ -509,7 +509,7 @@ There is also an option to deploy a dashboard for grafana. But I already have on
 And then in each pg `cluster` definition I need to set another flag.
 
 ```yaml
-# ./cluster/kubernetes/database/cloudnative-pg/clusters/gatus-cluster.yaml
+# ./cluster/kubernetes/apps/database/cloudnative-pg/clusters/gatus-cluster.yaml
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
@@ -551,7 +551,7 @@ spec:
 I need to add a bit of yaml to the helm chart values:
 
 ```yaml
-# ./cluster/kubernetes/kube-system/cilium/app/helmrelease.yaml
+# ./cluster/kubernetes/apps/kube-system/cilium/app/helmrelease.yaml
 prometheus:
   enabled: true
   serviceMonitor:
@@ -568,7 +568,7 @@ operator:
 In order to get cert-manager to pushlish metrics for Prometheus I need to add a bit of yaml to the helm chart values:
 
 ```yaml
-# ./cluster/kubernetes/cert-manager/cert-manager/app/helmrelease.yaml
+# ./cluster/kubernetes/apps/cert-manager/cert-manager/app/helmrelease.yaml
 prometheus:
   enabled: true
   servicemonitor:
@@ -579,7 +579,7 @@ prometheus:
 Both the Rook operator and the Ceph cluster can provide metrics. I'll have to enable that in both helm charts:
 
 ```yaml
-# ./cluster/kubernetes/rook-ceph/rook-ceph/app/helmrelease.yaml
+# ./cluster/kubernetes/apps/rook-ceph/rook-ceph/app/helmrelease.yaml
 csi:
   serviceMonitor:
     enabled: true
@@ -590,7 +590,7 @@ monitoring:
 And for the Ceph cluster:
 
 ```yaml
-# ./cluster/kubernetes/rook-ceph/rook-ceph/cluster/helmrelease.yaml
+# ./cluster/kubernetes/apps/rook-ceph/rook-ceph/cluster/helmrelease.yaml
 monitoring:
   enabled: true
   createPrometheusRules: true
@@ -601,7 +601,7 @@ monitoring:
 Flux can also be monitored using Prometheus. All I need to do is to deploy a `podMonitor`:
 
 ```yaml
-# ./cluster/kubernetes/flux-system/pod-monitor.yaml
+# ./cluster/kubernetes/apps/flux-system/pod-monitor.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:

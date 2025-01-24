@@ -22,7 +22,7 @@ I shouldn't have to do anything apart from setting up the Cilium helm chart usin
 I'll setup a Helm repository for Flux. I'll keep all the repositories I need in the same folder so they are easy to find: `./kubernetes/flux-resources/`. These are the files I need to add:
 
 ```yaml
-# ./cluster/kubernetes/flux-resources/kustomization.yaml
+# ./cluster/kubernetes/flux/resources/kustomization.yaml
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -31,7 +31,7 @@ resources:
 ```
 
 ```yaml
-# ./cluster/kubernetes/flux-resources/helm/kustomization.yaml
+# ./cluster/kubernetes/flux/resources/helm/kustomization.yaml
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -40,7 +40,7 @@ resources:
 ```
 
 ```yaml
-# ./cluster/kubernetes/flux-resources/helm/cilium.yaml
+# ./cluster/kubernetes/flux/resources/helm/cilium.yaml
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
@@ -60,32 +60,40 @@ The actual helm deployment is defined in the `kube-system` folder, as this is th
 These are the files I need:
 
 ```yaml
-# ./cluster/kubernetes/kube-system/kustomization.yaml
+# ./cluster/kubernetes/apps/kube-system/kustomization.yaml
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
-  - ./slack-token.yaml
-  - ./notifications.yaml
   # Flux-Kustomizations
   - ./cilium/ks.yaml # <- adding this line to the main kustomization
+components:
+  - ../../flux/components/alerts
+transformers:
+  - |-
+    apiVersion: builtin
+    kind: NamespaceTransformer
+    metadata:
+      name: not-used
+      namespace: kube-system
+    unsetOnly: true
 ```
 
 ```yaml
-# ./cluster/kubernetes/kube-system/cilium/ks.yaml
+# ./cluster/kubernetes/apps/kube-system/cilium/ks.yaml
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cilium
+  name: &app cilium
   namespace: flux-system
 spec:
   targetNamespace: kube-system
   commonMetadata:
     labels:
-      app.kubernetes.io/name: cilium
+      app.kubernetes.io/name: *app
   path: ./kubernetes/kube-system/cilium/app
   prune: false # should never be deleted
   sourceRef:
@@ -99,13 +107,13 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cilium-config
+  name: &app cilium-config
   namespace: flux-system
 spec:
   targetNamespace: kube-system
   commonMetadata:
     labels:
-      app.kubernetes.io/name: cilium-config
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: cilium
   path: ./kubernetes/kube-system/cilium/config
@@ -120,7 +128,7 @@ spec:
 ```
 
 ```yaml
-# ./cluster/kubernetes/kube-system/app/kustomization.yaml
+# ./cluster/kubernetes/apps/kube-system/app/kustomization.yaml
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -129,7 +137,7 @@ resources:
 ```
 
 ```yaml
-# ./cluster/kubernetes/kube-system/cilium/app/helmrelease.yaml
+# ./cluster/kubernetes/apps/kube-system/cilium/app/helmrelease.yaml
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
@@ -199,7 +207,7 @@ The values are identical to the flags set on the initial helm install of Cilium 
 And finally some configuration to setup an L2 IP address pool for Services of type LoadBalancer and an L2 Annocement Policy.
 
 ```yaml
-# ./cluster/kubernetes/kube-system/cilium/config/kustomization.yaml
+# ./cluster/kubernetes/apps/kube-system/cilium/config/kustomization.yaml
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -208,7 +216,7 @@ resources:
 ```
 
 ```yaml
-# ./cluster/kubernetes/kube-system/cilium/config/l2config.yaml
+# ./cluster/kubernetes/apps/kube-system/cilium/config/l2config.yaml
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumL2AnnouncementPolicy

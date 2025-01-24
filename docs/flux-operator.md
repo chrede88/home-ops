@@ -7,6 +7,7 @@ I'll layout how I migrated my old Flux to use the operator. This was done with *
 The operator can be installed using a Helm chart. This is very convinient and will be the approach I'll take. It may seem a little crazy, but I'll get Flux to install the Flux operator. A bit like training a guy to take over your current job I guess! For this I'll need to define a HelmRepository and a HelmRelease:
 
 ```yaml
+# ./cluster/kubernets/flux/resources/helm/flux-operator.yaml
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
@@ -18,6 +19,7 @@ spec:
   interval: 2h
   url: oci://ghcr.io/controlplaneio-fluxcd/charts
 ---
+# ./cluster/kubernets/apps/flux-system/flux/flux-operator/helmrelease.yaml
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -49,17 +51,18 @@ spec:
 The operator will need a `FluxInstance` to start managing the cluster. In order to make sure the operator is in place and the CRD's are installed I'll make a seperate kustomization for the `FluxInstance` that depends on the kustomization for the Flux operator.
 
 ```yaml
+# ./cluster/kubernets/apps/flux-system/flux/ks.yaml
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: flux-operator
+  name: &app flux-operator
   namespace: flux-system
 spec:
   targetNamespace: flux-system
   commonMetadata:
     labels:
-      app.kubernetes.io/name: flux-operator
+      app.kubernetes.io/name: *app
   path: ./cluster/kubernetes/flux-system/flux/flux-operator
   prune: false
   sourceRef:
@@ -73,13 +76,13 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: flux-instance
+  name: &app flux-instance
   namespace: flux-system
 spec:
   targetNamespace: flux-system
   commonMetadata:
     labels:
-      app.kubernetes.io/name: flux-instance
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: flux-operator
   path: ./cluster/kubernetes/flux-system/flux/flux-instance
@@ -96,6 +99,7 @@ spec:
 And finally I'll define the `FluxInstance`.
 
 ```yaml
+# ./cluster/kubernets/apps/flux-system/flux/flux-instance/instance.yaml
 ---
 apiVersion: fluxcd.controlplane.io/v1
 kind: FluxInstance
@@ -154,25 +158,3 @@ kubectl -n flux-system get fluxreport flux -o yaml
 
 ### Removing the Old Resources
 You can now remove the resources installed by the "old" Flux. If you installed Flux using the standard `bootstrap` method, you should have two files called `gotk-components.yaml` abd `gotk-sync.yaml`. It's now save to remove these from your repository.
-
-Because the main `kustomization` in `gotk-components.yaml` is now not in my repo anymore. This is a problem for the `flux-local` diff action I'm running on renovate PR's. The flux operator creates it automatically, so all I have to do is to add it to my repo again.
-
-```yaml
-# home-ops/cluster/kubernetes/flux-system/flux/flux-instance/flux-sync.yaml
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: flux-system
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  path: cluster/kubernetes
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-```

@@ -9,7 +9,7 @@ Cert-manager can be installed using their official Helm chart.
 Let me first define the Flux resources:
 
 ```yaml
-# ./cluster/kubernetes/flux-resources/helm/cert-manager.yaml
+# ./cluster/kubernetes/flux/resources/helm/cert-manager.yaml
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
@@ -22,38 +22,47 @@ spec:
 ```
 
 ```yaml
-# ./cluster/kubernetes/cert-manager/kustomization.yaml
+# ./cluster/kubernetes/apps/cert-manager/kustomization.yaml
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
-  - ./slack-token.yaml
-  - ./notifications.yaml
   # Flux-Kustomizations
   - ./cert-manager/ks.yaml
+components:
+  - ../../flux/components/alerts
+transformers:
+  - |-
+    apiVersion: builtin
+    kind: NamespaceTransformer
+    metadata:
+      name: not-used
+      namespace: cert-manager
+    unsetOnly: true
 ```
 
 ```yaml
-# ./cluster/kubernetes/cert-manager/cert-manager/ks.yaml
+# ./cluster/kubernetes/apps/cert-manager/cert-manager/ks.yaml
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cert-manager
+  name: &app cert-manager
   namespace: flux-system
 spec:
   targetNamespace: cert-manager
   commonMetadata:
     labels:
-      app.kubernetes.io/name: cert-manager
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: cilium-crd
   path: ./cluster/kubernetes/cert-manager/cert-manager/app
   sourceRef:
     kind: GitRepository
     name: flux-system
+  prune: true
   wait: false
   interval: 30m
   retryInterval: 1m
@@ -62,19 +71,20 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cert-manager-issuer
+  name: &app cert-manager-issuer
   namespace: flux-system
 spec:
   targetNamespace: cert-manager
   commonMetadata:
     labels:
-      app.kubernetes.io/name: cert-manager-issuer
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: cert-manager
   path: ./cluster/kubernetes/cert-manager/cert-manager/issuer
   sourceRef:
     kind: GitRepository
     name: flux-system
+  prune: true
   wait: false
   interval: 30m
   retryInterval: 1m
@@ -84,7 +94,7 @@ spec:
 With that out of the way, let's create the Helm release.
 
 ```yaml
-# ./cluster/kubernetes/cert-manager/cert-manager/app/helmrelease.yaml
+# ./cluster/kubernetes/apps/cert-manager/cert-manager/app/helmrelease.yaml
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
@@ -129,7 +139,7 @@ I'm hardcoding the DNS here, as other people have had issues with cert-manager n
 Lastly, I need to setup a `ClusterIssuer`:
 
 ```yaml
-# ./cluster/kubernetes/cert-manager/cert-manager/issuer/letsencrypt-production.yaml
+# ./cluster/kubernetes/apps/cert-manager/cert-manager/issuer/letsencrypt-production.yaml
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
