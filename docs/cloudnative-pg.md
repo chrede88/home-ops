@@ -6,7 +6,7 @@ I'm going to deploy the Cloudnative-pg operator and for now one PostgreSQL clust
 Let's first define the Flux resources I need. The first thing is a helm repository:
 
 ```yaml
-# ./cluster/kubernets/flux-resources/helm/cloudnative-pg.yaml
+# ./cluster/kubernets/flux/resources/helm/cloudnative-pg.yaml
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
@@ -21,18 +21,18 @@ spec:
 And next the kustomizations.
 
 ```yaml
-# ./cluster/kubernetes/database/cloudnative-pg/ks.yaml
+# ./cluster/kubernetes/apps/database/cloudnative-pg/ks.yaml
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cloudnative-pg
+  name: &app cloudnative-pg
   namespace: flux-system
 spec:
   targetNamespace: database
   commonMetadata:
     labels:
-      app.kubernetes.io/name: cloudnative-pg
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: rook-ceph-cluster
   path: ./cluster/kubernetes/database/cloudnative-pg/app
@@ -48,13 +48,13 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cloudnative-pg-clusters
+  name: &app cloudnative-pg-clusters
   namespace: database
 spec:
   targetNamespace: database
   commonMetadata:
     labels:
-      app.kubernetes.io/name: cloudnative-pg-clusters
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: cloudnative-pg
   path: ./cluster/kubernetes/database/cloudnative-pg/clusters
@@ -77,7 +77,7 @@ The first kustomization is the operator. The second defines all clusters (for no
 The operator is defined using a Helm release.
 
 ```yaml
-# ./cluster/kubernetes/database/cloudnative-pg/app/helmrelease.yaml
+# ./cluster/kubernetes/apps/database/cloudnative-pg/app/helmrelease.yaml
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
@@ -116,7 +116,7 @@ The monitoring is turned off for now, as I still haven't deployed Prometheus.
 As I already mentioned, I'll only deploy a single cluster now. But with the operator, it's very simple to define more in the future.
 
 ```yaml
-# ./cluster/kubernetes/database/cloudnative-pg/clusters/gatus-cluster.yaml
+# ./cluster/kubernetes/apps/database/cloudnative-pg/clusters/gatus-cluster.yaml
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
