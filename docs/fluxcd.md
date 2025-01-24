@@ -224,7 +224,7 @@ resources:
 ```
 
 ```yaml
-# # ./cluster/kubernetes/kube-system/namespace.yaml
+# # ./cluster/kubernetes/apps/kube-system/namespace.yaml
 ---
 apiVersion: v1
 kind: Namespace
@@ -237,7 +237,7 @@ metadata:
 For each app I'll have a file that points to the folder containing the helm release or normal Kubernetes manifest files.
 
 ```yaml
-# ./cluster/kubernetes/kube-system/cilium/ks.yaml
+# ./cluster/kubernetes/apps/kube-system/cilium/ks.yaml
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -263,7 +263,7 @@ spec:
 And within `./kubernetes/kube-system/cilium/app` the last Kustomization file:
 
 ```yaml
-# # ./cluster/kubernetes/kube-system/cilium/app/kustomization.yaml
+# # ./cluster/kubernetes/apps/kube-system/cilium/app/kustomization.yaml
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
