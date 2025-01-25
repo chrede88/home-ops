@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/postgresql.cnpg.io/cluster_v1.json
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
@@ -27,7 +28,7 @@ spec:
   postgresql:
     parameters:
       shared_buffers: 128MB
-      timezone: "Europe/Zurich"
+      timezone: 'Europe/Zurich'
   storage:
     size: 5Gi
     storageClass: ceph-block

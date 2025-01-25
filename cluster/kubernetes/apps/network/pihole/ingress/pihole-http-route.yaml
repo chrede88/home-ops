@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -21,6 +22,7 @@ spec:
               replaceFullPath: /admin
             statusCode: 302
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -34,13 +36,14 @@ spec:
       sectionName: pihole0-dashboard
   rules:
     - matches:
-      - path:
-          type: PathPrefix
-          value: /admin
+        - path:
+            type: PathPrefix
+            value: /admin
       backendRefs:
         - name: pihole0-web-svc
           port: 80
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -63,6 +66,7 @@ spec:
               replaceFullPath: /admin
             statusCode: 302
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -76,13 +80,14 @@ spec:
       sectionName: pihole1-dashboard
   rules:
     - matches:
-      - path:
-          type: PathPrefix
-          value: /admin
+        - path:
+            type: PathPrefix
+            value: /admin
       backendRefs:
         - name: pihole1-web-svc
           port: 80
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -105,6 +110,7 @@ spec:
               replaceFullPath: /admin
             statusCode: 302
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -118,9 +124,9 @@ spec:
       sectionName: pihole2-dashboard
   rules:
     - matches:
-      - path:
-          type: PathPrefix
-          value: /admin
+        - path:
+            type: PathPrefix
+            value: /admin
       backendRefs:
         - name: pihole2-web-svc
           port: 80
