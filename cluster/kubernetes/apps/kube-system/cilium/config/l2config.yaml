@@ -1,21 +1,23 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/cilium.io/ciliuml2announcementpolicy_v2alpha1.json
 apiVersion: cilium.io/v2alpha1
 kind: CiliumL2AnnouncementPolicy
 metadata:
   name: l2-policy
 spec:
   loadBalancerIPs: true
-  interfaces: ["^eth[0-9]+"]
+  interfaces: ['^eth[0-9]+']
   nodeSelector:
     matchLabels:
       kubernetes.io/os: linux
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/cilium.io/ciliumloadbalancerippool_v2alpha1.json
 apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
 metadata:
   name: l2-pool
 spec:
-  allowFirstLastIPs: "Yes"
+  allowFirstLastIPs: 'Yes'
   blocks:
     - # Controller VIP: 10.10.30.30
       start: 10.10.30.70

@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -46,20 +47,20 @@ spec:
       datasources.yaml:
         apiVersion: 1
         datasources:
-        - name: Prometheus
-          type: prometheus
-          url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
-          access: proxy
-          isDefault: true
-          jsonData:
-            timeInterval: 1m
+          - name: Prometheus
+            type: prometheus
+            url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
+            access: proxy
+            isDefault: true
+            jsonData:
+              timeInterval: 1m
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
         providers:
           - name: default
             orgId: 1
-            folder: ""
+            folder: ''
             type: file
             disableDeletion: false
             editable: true

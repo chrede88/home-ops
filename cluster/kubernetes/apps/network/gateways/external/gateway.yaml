@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/gateway.networking.k8s.io/gateway_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
@@ -9,11 +10,12 @@ metadata:
 spec:
   gatewayClassName: cilium
   addresses:
-    - value: 10.10.30.72
+    - type: IPAddress
+      value: 10.10.30.72
   listeners:
     # catch all external http -> https
     - name: http-redirect-external
-      hostname: "*.cjsolsen.com"
+      hostname: '*.cjsolsen.com'
       protocol: HTTP
       port: 80
       allowedRoutes:
@@ -29,7 +31,7 @@ spec:
           from: Selector
           selector:
             matchLabels:
-              external-gateway-access: "true"
+              external-gateway-access: 'true'
       tls:
         mode: Terminate
         certificateRefs:
@@ -44,7 +46,7 @@ spec:
           from: Selector
           selector:
             matchLabels:
-              external-gateway-access: "true"
+              external-gateway-access: 'true'
       tls:
         mode: Terminate
         certificateRefs:
@@ -59,7 +61,7 @@ spec:
           from: Selector
           selector:
             matchLabels:
-              external-gateway-access: "true"
+              external-gateway-access: 'true'
       tls:
         mode: Terminate
         certificateRefs:
