@@ -10,6 +10,7 @@ resources:
   - ./grafana/ks.yaml
   - ./unpoller/ks.yaml
   - ./gatus/ks.yaml
+  - ./smartctl-exporter/ks.yaml
 components:
   - ../../flux/components/alerts
 transformers:
