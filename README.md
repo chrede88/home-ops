@@ -30,21 +30,58 @@ _... powered by Talos Linux and Kubernetes_
 
 ---
 
-This repo hold all the manifests for my kubernetes cluster and acts as the source of truth. I use Flux to keep my cluster state up-to-date with this repo. I also use Renovate to automatically open PR's when new versions of the applications I have in my cluster becomes avaliable.
+## <img src=<img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.gif" alt="🚀" width="20" height="20"> Introduction
 
-### Docs <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f440/512.gif" alt="👀" width="16" height="16">
+This repository holds all information about my homelab and kubernetes cluster. I'm doing my best to adhere to the principles of infrastructure as code (IaC) and GitOps.
 
-I keep running [docs](./docs/README.md) where I try to document my journey. Hopefully others will find them helpful.
+---
 
-### Directories <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f6a7/512.gif" alt="🚧" width="16" height="16">
+## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f340/512.gif" alt="🍀" width="20" height="20"> Kubernetes
 
-The layout of the repo is as follows:
+My Kubernetes cluster is deployed with [Talos Linux](https://www.talos.dev), a Linux distribution build spefically for running Kubernetes. I run a three bare-metal node cluster on Intel 12th gen NUC's and using [Rook](https://github.com/rock/rock) for cluster persistence block, object, and file storage.
+
+### GitOps
+
+[Flux](https://github.com/fluxcd/flux2) watches the cluster resources in the [kubernetes](./cluster/kubernetes/) folder (see [Directories](#directories)) and makes the changes to the cluster based on the state of the Git repository.
+
+Flux is pointed at the two top level Flux kustomization ([ks.yaml](./cluster/kubernetes/flux/main/ks.yaml)) which points at the [kubernetes/apps](./cluster/kubernetes/apps) folder and some other general common components. Flux will recursively search the `kubernetes/apps` folder until it finds the most top level `kustomization.yaml` per directory and then apply all the resources listed in it. That aforementioned `kustomization.yaml` will generally only define a few resource and one or many Flux kustomizations. Under the control of those Flux kustomizations there will be the actual resources related to each application.
+
+[Renovate](https://github.com/renovatebot/renovate) watches my **entire** repository looking for dependency updates, when they are found a PR is automatically created. When PRs are merged Flux applies the changes to my cluster.
+
+### Directories
+
+The layout of the repository is as follows:
 
 ```sh
 📁 .github              # Github related files
 📁 docs                 # My running documentation
 📁 network              # My internal network setup
 📁 cluster
-├─📁 kubernetes         # Kubernetes cluster definitions
-└─📁 talos              # Talos configuration stuff
+├─📁 kubernetes        # Kubernetes cluster definitions
+    ├─📁 apps          # application manifests
+    └─📁 flux          # flux system configuration
+└─📁 talos             # Talos configuration stuff
 ```
+
+### Docs
+
+I keep running [docs](./docs/README.md) where I try to document my journey. Hopefully others will find them helpful.
+
+---
+
+## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2699_fe0f/512.gif" alt="⚙" width="20" height="20"> Hardware
+
+| Device                | Num | OS Disk Size   | Data Disk Size | Ram  | OS                  | Function       |
+| --------------------- | --- | -------------- | -------------- | ---- | ------------------- | -------------- |
+| Intel NUC 12th i5     | 3   | 500GB SATA SSD | 2TB NVMe SSD   | 64GB | Talos               | Kubernetes     |
+| Rasberry Pi 4         | 1   | 64GB SD card   | -              | 4GB  | Debian GNU/Linux 12 | PiHole backup  |
+| Unifi Gateway Max     | 1   | -              | -              | -    | -                   | Router         |
+| Unifi Cloudkey Gen 2+ | 1   | -              | -              | -    | -                   | Unifi OS       |
+| Unifi Switch Ultra    | 1   | -              | -              | -    | -                   | PoE 1Gb Switch |
+| Unifi U6+ AP          | 1   | -              | -              | -    | -                   | Wifi           |
+
+---
+
+## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f64f/512.gif" alt="🙏" width="20" height="20"> Thanks
+
+Thanks to all the people who donate their time to the [Home Operations](https://discord.gg/home-operations) Discord community. Be sure to check out [kubesearch.dev](https://kubesearch.dev/) for ideas on how to deploy applications or get ideas on what you could deploy.
