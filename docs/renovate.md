@@ -15,7 +15,7 @@ Setting up the configuration can be a bit more envolved, depending on how many `
 Another option is to self host Renovate. You can either run Renovate in your Kubernetes cluster or run it through Github Actions. I'll focus on the Github Actions path. For running Renovate in your own cluster, a good starting point is the github repo for the [Renovate Community Edition](https://github.com/mend/renovate-ce-ee) image.
 
 ### Github Action
-Running Renovate through Github Actions are essentially the same as using the official Renovate bot. You'll have to create your own Github bot, that'll play the same role as the Renovate bot. Using your own bot gives you more control over the whole process, like how often and when Renovate should check for updated resources. And as long as you don't get hit by rate limits, you can run this more or less 24/7. The configuration is identical and the only downside I know of is that you can't easily pass secrets to the Renovate configuration in a Github Action. This means that using Renovate for any private packages you might have on Github's container repository is hard to accomblish right now. There are ways around this limitation, but they rely on writing the Renovate config in Javascript instead of JSON. I might get around to rewriting my config in JS, but it's just as likely that Github will change the package access for bots before I get to it :wink: I'll try to sketch a way to do it at the end of this section.
+Running Renovate through Github Actions are essentially the same as using the official Renovate bot. You'll have to create your own Github bot, that'll play the same role as the Renovate bot. Using your own bot gives you more control over the whole process, like how often and when Renovate should check for updated resources. And as long as you don't get hit by rate limits, you can run this more or less 24/7. The configuration is identical and the only downside I know of is that you can't easily pass secrets to the Renovate configuration in a Github Action. This means that using Renovate for any private packages you might have on Github's container repository is hard to accomblish right now. There are ways around this limitation, but they might not cover all needs. I need to access my private packages, which is possible with a hack that'll layout [below](#private-github-packages).
 
 Let's get to acutally setting up Renovate!
 
@@ -71,6 +71,9 @@ on: # <- when this action should run
       - .github/renovate.json
       - .github/renovate/**.json
 
+permissions: # <- set permissions for the default github token
+  packages: read
+
 concurrency: # <- ensure workflow triggers are handled concurrently
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
@@ -81,6 +84,9 @@ env: # <- define some env variables
   RENOVATE_AUTODISCOVER_FILTER: "${{ github.repository }}" # <- limit to this repo only
   RENOVATE_PLATFORM: github # <- pretty obvious
   RENOVATE_PLATFORM_COMMIT: true # <- This will allow the bot to sign the commits (using the private key we just created)
+  RENOVATE_BOT_NAME: 'bb-17' # <- my bot name, change this for your bot
+  RENOVATE_HOST_RULES: | # private registries/repos <- needed to pass the github token to renovate
+    [{"hostType": "docker", "matchHost": "ghcr.io", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}"}]
 
 jobs:
   renovate:
@@ -111,15 +117,16 @@ I think the action should run automatically when created, if not you can run it 
 Congratulations, you know have Renovate running :tada:
 
 #### Private Github packages
-We can use the default `GITHUB_TOKEN` to access private packages. The tedious part is passing this token to your Renovate config. Here follows a list of things to do in order to get this to work:
+We can use the default `GITHUB_TOKEN` to access private packages. The tedious part is passing this token to your Renovate config. We can pass it through a Renovate environment variable, which will create a Renovate `Host Rule`. Add the following to the `renovate.yaml` workflow file:
 
-1) Rewrite your Renovate config in Javascript
-2) Add a new environment variable to the Renovate Action that contains the `GITHUB_TOKEN`.
-3) Make sure to set the `packages` permission for the token.
-4) Under the private package setting, add the cluster repository to the list of allowed repositories.
-5) The Github token can be accessed using the following JS variable: `process.env.<ENV VAR>`
+```yaml
+RENOVATE_HOST_RULES: |
+    [{"hostType": "docker", "matchHost": "ghcr.io", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}"}]
+```
 
-See this [link](https://github.com/renovatebot/github-action?tab=readme-ov-file#environment-variables) for more info.
+I'll set the `username` to `github.actor` which points back to my user. And then pass the defualt github token as the password. We need to set the packages permission for the token, which is done by settig the `permissions` key in the workflow file.
+
+Renovate should now be able to read your private packages.
 
 ## My Renovate Config
 The Renovate configuration is the sole place you can configure Renovate. It can get quite large, so it's a good idea to split it up into smaller sections. You can then reference all the individual parts in the `extends` field, using a list.
@@ -307,7 +314,7 @@ jobs:
         id: diff
         with:
           live-branch: main
-          path: cluster/kubernetes/flux-system
+          path: cluster/kubernetes/flux/main
           resource: ${{ matrix.resource }}
       - name: PR Comments
         uses: mshick/add-pr-comment@v2
