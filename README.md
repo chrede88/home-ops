@@ -40,8 +40,6 @@ This repository holds all information about my homelab and kubernetes cluster. I
 
 My Kubernetes cluster is deployed with [Talos Linux](https://www.talos.dev), a Linux distribution build spefically for running Kubernetes. I run a three bare-metal node cluster on Intel 12th gen NUC's and using [Rook](https://github.com/rock/rock) for cluster persistence block, object, and file storage.
 
----
-
 ### GitOps
 
 [Flux](https://github.com/fluxcd/flux2) watches the cluster resources in the [kubernetes](./cluster/kubernetes/) folder (see [Directories](#directories)) and makes the changes to the cluster based on the state of the Git repository.
@@ -49,8 +47,6 @@ My Kubernetes cluster is deployed with [Talos Linux](https://www.talos.dev), a L
 Flux is pointed at the two top level Flux kustomization ([ks.yaml](./cluster/kubernetes/flux/main/ks.yaml)) which points at the [kubernetes/apps](./cluster/kubernetes/apps) folder and some other general common components. Flux will recursively search the `kubernetes/apps` folder until it finds the most top level `kustomization.yaml` per directory and then apply all the resources listed in it. That aforementioned `kustomization.yaml` will generally only define a few resource and one or many Flux kustomizations. Under the control of those Flux kustomizations there will be the actual resources related to each application.
 
 [Renovate](https://github.com/renovatebot/renovate) watches my **entire** repository looking for dependency updates, when they are found a PR is automatically created. When PRs are merged Flux applies the changes to my cluster.
-
----
 
 ### Directories
 
@@ -66,8 +62,6 @@ The layout of the repository is as follows:
     └─📁 flux          # flux system configuration
 └─📁 talos             # Talos configuration stuff
 ```
-
----
 
 ### Docs
 
