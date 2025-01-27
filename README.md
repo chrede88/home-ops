@@ -57,10 +57,10 @@ The layout of the repository is as follows:
 📁 docs                 # My running documentation
 📁 network              # My internal network setup
 📁 cluster
-├─📁 kubernetes        # Kubernetes cluster definitions
-  ├─📁 apps            # application manifests
-  └─📁 flux            # flux system configuration
-└─📁 talos             # Talos configuration stuff
+├── 📁 kubernetes       # Kubernetes cluster definitions
+│   ├── 📁 apps         # application manifests
+│   └── 📁 flux         # flux system configuration
+└── 📁 talos            # Talos configuration stuff
 ```
 
 ### Docs
