@@ -58,8 +58,8 @@ The layout of the repository is as follows:
 📁 network              # My internal network setup
 📁 cluster
 ├─📁 kubernetes        # Kubernetes cluster definitions
-    ├─📁 apps          # application manifests
-    └─📁 flux          # flux system configuration
+  ├─📁 apps            # application manifests
+  └─📁 flux            # flux system configuration
 └─📁 talos             # Talos configuration stuff
 ```
 
