@@ -14,7 +14,7 @@ _... powered by Talos Linux and Kubernetes_
 <div align="center">
   <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.cjsolsen.com%2Ftalos_version&style=for-the-badge&logo=talos&logoColor=fff&label=Talos&labelColor=302d41&color=cba6f7" alt="Talos version">
   <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.cjsolsen.com%2Fkubernetes_version&style=for-the-badge&logo=kubernetes&logoColor=fff&label=Kubernetes&labelColor=302d41&color=cba6f7" alt="Kubernetes version">
-  <img src="https://img.shields.io/badge/Fluxcd-v2.4.0-cba6f7?logo=flux&logoColor=fff&style=for-the-badge&labelColor=302D41" alt="Fluxcd version">
+  <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.cjsolsen.com%2Fflux_version&style=for-the-badge&logo=flux&logoColor=fff&label=Fluxcd&labelColor=302d41&color=cba6f7" alt="Fluxcd version">
   <img src="https://img.shields.io/github/issues-pr/chrede88/home-ops?logo=github&color=f2cdcd&logoColor=fff&style=for-the-badge&labelColor=302d41" alt="Open Pull Requests">
 </div>
 
