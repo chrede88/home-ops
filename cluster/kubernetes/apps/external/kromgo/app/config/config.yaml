@@ -9,6 +9,10 @@ metrics:
     query: kubernetes_build_info{service="kubernetes"}
     label: git_version
 
+  - name: flux_version
+    query: label_replace(flux_instance_info, "revision", "$1", "revision", "(.+)@sha256:.+")
+    label: revision
+
   - name: cluster_node_count
     query: count(count by (node) (kube_node_status_condition{condition="Ready"}))
     colors:
@@ -21,7 +25,7 @@ metrics:
 
   - name: cluster_cpu_usage
     query: round(avg(instance:node_cpu_utilisation:rate5m) * 100, 0.1)
-    suffix: "%"
+    suffix: '%'
     colors:
       - { color: a6e3a1, min: 0, max: 20 }
       - { color: fab387, min: 21, max: 75 }
@@ -29,7 +33,7 @@ metrics:
 
   - name: cluster_memory_usage
     query: round(sum(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / sum(node_memory_MemTotal_bytes) * 100, 0.1)
-    suffix: "%"
+    suffix: '%'
     colors:
       - { color: a6e3a1, min: 0, max: 20 }
       - { color: fab387, min: 21, max: 75 }
@@ -37,13 +41,13 @@ metrics:
 
   - name: cluster_uptime_days
     query: round(avg(node_time_seconds - node_boot_time_seconds) / 86400)
-    suffix: "d"
+    suffix: 'd'
     colors:
       - { color: cba6f7, min: 0, max: 9999 }
 
   - name: cluster_age_days
     query: round((time() - min(kube_node_created) ) / 86400)
-    suffix: "d"
+    suffix: 'd'
     colors:
       - { color: cba6f7, min: 0, max: 9999 }
 
