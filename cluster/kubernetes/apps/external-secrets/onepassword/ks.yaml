@@ -36,7 +36,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: onepassword
-      namespace: external-secrets
+      namespace: flux-system
   interval: 30m
   path: ./cluster/kubernetes/apps/external-secrets/onepassword/store
   prune: true
