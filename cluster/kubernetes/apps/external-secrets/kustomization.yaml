@@ -6,8 +6,8 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  - ./onepassword/ks.yaml
-  - ./external-secrets/ks.yaml
+  # - ./onepassword/ks.yaml
+  # - ./external-secrets/ks.yaml
 components:
   - ../../flux/components/alerts
 transformers:
