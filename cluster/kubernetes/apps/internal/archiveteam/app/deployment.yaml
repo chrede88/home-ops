@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: &app usgovernment-grab
+  labels:
+    app: *app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: *app
+  template:
+    metadata:
+      labels:
+        app: *app
+    spec:
+      containers:
+        - name: *app
+          image: atdr.meo.ws/archiveteam/usgovernment-grab
+          imagePullPolicy: Always
+          env:
+            - name: SHARED_RSYNC_THREADS
+              value: '2'
+          args:
+            - '--concurrent'
+            - '6'
+            - '--disable-web-server'
+            - 'chrede88'
+          volumeMounts:
+            - mountPath: /grab/data
+              name: cache-volume
+      volumes:
+        - name: cache-volume
+          emptyDir:
+            sizeLimit: 4096Mi
