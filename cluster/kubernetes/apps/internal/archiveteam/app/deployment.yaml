@@ -27,6 +27,10 @@ spec:
             - '6'
             - '--disable-web-server'
             - 'chrede88'
+          resources:
+            limits:
+              memory: '128Mi'
+              cpu: '100m'
           volumeMounts:
             - mountPath: /grab/data
               name: cache-volume
