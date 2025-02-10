@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/external-secrets.io/externalsecret_v1beta1.json
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: test-secret
+  namespace: external
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword
+  target:
+    name: ghcr-pull-secret # name of created secret
+    template:
+      type: kubernetes.io/dockerconfigjson
+      data:
+        .dockerconfigjson: '{"auths":{"ghcr.io":"auth":"{{ printf "%s:%s" .username .password | b64enc }}"}}}'
+  # OR
+  dataFrom:
+    - extract:
+        key: ghcr-pull-secret # 1p item name
