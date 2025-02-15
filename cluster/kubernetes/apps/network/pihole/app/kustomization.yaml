@@ -4,7 +4,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./configmap-pihole.yaml
-  - ./dashboard-secret.yaml
+  - ./pihole-password-secret.yaml
   - ./dns-service.yaml
   - ./headless-service.yaml
   - ./dashboard-service.yaml
