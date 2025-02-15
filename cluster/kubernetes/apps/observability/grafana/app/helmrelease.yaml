@@ -31,7 +31,7 @@ spec:
       port: 8080
     replicas: 1
     admin:
-      existingSecret: grafana-secret
+      existingSecret: grafana-user-secret
       userKey: admin-user
       passwordKey: admin-password
     grafana.ini:
