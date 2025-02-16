@@ -2,23 +2,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: l1nkr
+  name: &name l1nkr
   namespace: external
   labels:
-    app: l1nkr
+    app: *name
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: l1nkr
+      app: *name
   template:
     metadata:
       labels:
-        app: l1nkr
+        app: *name
     spec:
       containers:
         - image: ghcr.io/chrede88/l1nkrdocker:v2.0.1
-          name: l1nkr
+          name: *name
           ports:
             - name: web
               containerPort: 8080

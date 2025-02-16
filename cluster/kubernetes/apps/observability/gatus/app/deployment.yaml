@@ -2,26 +2,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gatus
+  name: &name gatus
   namespace: observability
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gatus
+      app: *name
   template:
     metadata:
-      name: gatus
-      namespace: internal
+      name: *name
+      namespace: observability
       labels:
-        app: gatus
+        app: *name
     spec:
-      serviceAccountName: gatus
+      serviceAccountName: *name
       terminationGracePeriodSeconds: 5
       containers:
         - image: twinproduction/gatus:v5.15.0
           imagePullPolicy: IfNotPresent
-          name: gatus
+          name: *name
           ports:
             - containerPort: 8080
               name: http

@@ -2,11 +2,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: pihole
+  name: &name pihole
   namespace: network
   labels:
-    app: pihole
+    app: *name
 spec:
   clusterIP: None
   selector:
-    app: pihole
+    app: *name

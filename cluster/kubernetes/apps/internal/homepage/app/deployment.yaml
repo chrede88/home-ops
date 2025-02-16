@@ -2,22 +2,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: homepage
+  name: &name homepage
   namespace: internal
   labels:
-    app: homepage
+    app: *name
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: homepage
+      app: *name
   template:
     metadata:
       labels:
-        app: homepage
+        app: *name
     spec:
       containers:
-        - name: homepage
+        - name: *name
           image: ghcr.io/gethomepage/homepage:v0.10.9
           resources:
             requests:

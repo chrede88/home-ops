@@ -2,52 +2,52 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: orbital-sync
+  name: &name orbital-sync
   namespace: network
 spec:
   selector:
     matchLabels:
-      app: orbital-sync
+      app: *name
   template:
     metadata:
       labels:
-        app: orbital-sync
+        app: *name
     spec:
       containers:
-      - name: orbital-sync
-        image: mattwebbio/orbital-sync:1.8.4-distroless
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop: ["ALL"]
-          seccompProfile:
-            type: RuntimeDefault
-          runAsNonRoot: true
-          runAsUser: 314
-          runAsGroup: 314
-        envFrom:
-          - configMapRef:
-              name: orbital-sync-config
-        env:
-          - name: TZ
-            value: Europe/Zurich
-          - name: "PRIMARY_HOST_PASSWORD"
-            valueFrom:
-              secretKeyRef:
-                name: pihole-password
-                key: WEBPASSWORD
-          - name: "SECONDARY_HOST_1_PASSWORD"
-            valueFrom:
-              secretKeyRef:
-                name: pihole-password
-                key: WEBPASSWORD
-          - name: "SECONDARY_HOST_2_PASSWORD"
-            valueFrom:
-              secretKeyRef:
-                name: pihole-password
-                key: WEBPASSWORD
-          - name: "SECONDARY_HOST_3_PASSWORD"
-            valueFrom:
-              secretKeyRef:
-                name: pihole-password
-                key: WEBPASSWORD
+        - name: *name
+          image: mattwebbio/orbital-sync:1.8.4-distroless
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ['ALL']
+            seccompProfile:
+              type: RuntimeDefault
+            runAsNonRoot: true
+            runAsUser: 314
+            runAsGroup: 314
+          envFrom:
+            - configMapRef:
+                name: orbital-sync-config
+          env:
+            - name: TZ
+              value: Europe/Zurich
+            - name: 'PRIMARY_HOST_PASSWORD'
+              valueFrom:
+                secretKeyRef:
+                  name: pihole-password
+                  key: WEBPASSWORD
+            - name: 'SECONDARY_HOST_1_PASSWORD'
+              valueFrom:
+                secretKeyRef:
+                  name: pihole-password
+                  key: WEBPASSWORD
+            - name: 'SECONDARY_HOST_2_PASSWORD'
+              valueFrom:
+                secretKeyRef:
+                  name: pihole-password
+                  key: WEBPASSWORD
+            - name: 'SECONDARY_HOST_3_PASSWORD'
+              valueFrom:
+                secretKeyRef:
+                  name: pihole-password
+                  key: WEBPASSWORD

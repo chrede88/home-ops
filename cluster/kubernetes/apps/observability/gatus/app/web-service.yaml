@@ -5,7 +5,7 @@ metadata:
   name: gatus-web-svc
   namespace: observability
   labels:
-    app: gatus
+    app: &name gatus
 spec:
   ports:
     - name: http
@@ -13,4 +13,4 @@ spec:
       protocol: TCP
       targetPort: 8080
   selector:
-    app: gatus
+    app: *name

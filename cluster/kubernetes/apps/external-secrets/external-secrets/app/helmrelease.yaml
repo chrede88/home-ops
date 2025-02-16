@@ -27,16 +27,16 @@ spec:
     replicaCount: 1
     leaderElect: true
     image:
-      repository: ghcr.io/external-secrets/external-secrets
+      repository: &repo ghcr.io/external-secrets/external-secrets
     webhook:
       image:
-        repository: ghcr.io/external-secrets/external-secrets
+        repository: *repo
       serviceMonitor:
         enabled: true
         interval: 1m
     certController:
       image:
-        repository: ghcr.io/external-secrets/external-secrets
+        repository: *repo
       serviceMonitor:
         enabled: true
         interval: 1m

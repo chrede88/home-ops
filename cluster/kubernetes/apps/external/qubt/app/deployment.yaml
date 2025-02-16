@@ -2,23 +2,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qubt
+  name: &name qubt
   namespace: external
   labels:
-    app: qubt
+    app: *name
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: qubt
+      app: *name
   template:
     metadata:
       labels:
-        app: qubt
+        app: *name
     spec:
       containers:
         - image: ghcr.io/chrede88/qubtdocker:v2.2.0
-          name: qubt
+          name: *name
           ports:
             - name: web
               containerPort: 8080

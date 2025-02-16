@@ -3,12 +3,12 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
-  name: qubt
+  name: &name qubt
   namespace: external
 spec:
   selector:
     matchLabels:
-      app: qubt
+      app: *name
   podMetricsEndpoints:
     - port: metrics
       path: /metrics

@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: pihole
+  name: &name pihole
   namespace: network
 spec:
   selector:
     matchLabels:
-      app: pihole
-  serviceName: pihole
+      app: *name
+  serviceName: *name
   replicas: 3
   template:
     metadata:
       labels:
-        app: pihole
+        app: *name
     spec:
       containers:
-        - name: pihole
+        - name: *name
           image: pihole/pihole:2024.07.0
           envFrom:
             - configMapRef:
@@ -51,7 +51,7 @@ spec:
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
-              app: pihole
+              app: *name
   volumeClaimTemplates:
     - metadata:
         name: pihole-etc-pihole
