@@ -5,5 +5,5 @@ metadata:
   name: pihole-configmap
   namespace: network
 data:
-  TZ: "Europe/Zurich"
-  PIHOLE_DNS_: "1.1.1.1;1.0.0.1" # cloudflare and cloudflare backup
+  TZ: 'Europe/Zurich'
+  FTLCONF_dns_upstreams: '1.1.1.1;1.0.0.1' # cloudflare and cloudflare backup
