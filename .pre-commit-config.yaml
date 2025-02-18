@@ -14,7 +14,7 @@ repos:
       - id: forbid-tabs
       - id: remove-tabs
         args: [--whitespaces-count, '2']
-  # - repo: https://github.com/red-lichtie/sops-pre-commit-hook
-  #   rev: v1.1.1
-  #   hooks:
-  #     - id: sops-pre-commit-hook
+  - repo: https://github.com/red-lichtie/sops-pre-commit-hook
+    rev: v1.1.1
+    hooks:
+      - id: sops-pre-commit-hook
