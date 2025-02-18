@@ -7,6 +7,7 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./cloudnative-pg/ks.yaml
+  - ./dragonfly/ks.yaml
 components:
   - ../../flux/components/alerts
 transformers:
