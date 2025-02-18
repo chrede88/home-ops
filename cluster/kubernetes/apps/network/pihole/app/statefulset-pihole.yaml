@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: *name
-          image: pihole/pihole:2024.07.0
+          image: pihole/pihole:2025.02.0
           envFrom:
             - configMapRef:
                 name: pihole-configmap
