@@ -18,24 +18,20 @@ data:
     useEqualHeights: true
 
     layout:
-      Network:
-        header: true
-        style: row
-        columns: 2
-      Observability:
-        header: true
-        style: row
-        columns: 3
-      Storage:
-        header: true
-        style: row
-        columns: 2
       Other:
-        header: true
+        header: false
+        style: row
+        columns: 4
+      Observability:
+        header: false
         style: row
         columns: 3
+      Misc:
+        header: false
+        style: row
+        columns: 2
   services.yaml: |
-    - Network:
+    - Misc:
         - Unifi:
             icon: unifi.svg
             href: https://10.10.0.252/
@@ -45,6 +41,10 @@ data:
               url: https://10.10.0.252
               username: "{{HOMEPAGE_VAR_UNIFI_NETWORK_USERNAME}}"
               password: "{{HOMEPAGE_VAR_UNIFI_NETWORK_PASSWORD}}"
+        - Ceph:
+            icon: ceph.svg
+            href: https://ceph.local.cjsolsen.com
+            description: Ceph Dashboard
     - Observability:
         - Grafana:
             icon: grafana.svg
@@ -69,29 +69,39 @@ data:
             widget:
               type: prometheus
               url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
-    - Storage:
-        - Ceph:
-            icon: ceph.svg
-            href: https://ceph.local.cjsolsen.com
-            description: Ceph Dashboard
     - Other:
         - GitHub:
             icon: github.svg
             href: https://github.com/chrede88
             description: My Github Repo
         - Website:
-            icon: https://raw.githubusercontent.com/chrede88/k3s-cluster/main/cluster/home/homepage/icons/cjso.svg
+            icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/resources/cjso.svg
             href: https://cjsolsen.com
             description: Main Website
         - LinkTree:
-            icon: https://raw.githubusercontent.com/chrede88/k3s-cluster/main/cluster/home/homepage/icons/cjso.svg
+            icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/resources/cjso.svg
             href: https://l1nkr.cjsolsen.com
             description: Linktree Website
+        - Searxng:
+            icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/resources/searxng.png
+            href: https://search.local.cjsolsen.com
+            description: Searxng
   widgets.yaml: |
-    - resources:
-         cpu: true
-         memory: true
-         disk: /
+    - logo:
+        icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/resources/cjso.svg
+
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+          label: "Talos"
+        nodes:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
 
     - search:
         provider: duckduckgo
