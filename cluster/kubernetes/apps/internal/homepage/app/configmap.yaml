@@ -41,7 +41,7 @@ data:
           description: Prometheus
           widget:
             type: prometheusmetric
-            url: https://prometheus.host.or.ip
+            url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
             refreshInterval: 10000 # in milliseconds
             metrics:
               - label: Cluster Age
