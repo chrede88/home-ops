@@ -75,20 +75,20 @@ data:
             href: https://github.com/chrede88
             description: My Github Repo
         - Website:
-            icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/resources/cjso.svg
+            icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/app/resources/cjso.svg
             href: https://cjsolsen.com
             description: Main Website
         - LinkTree:
-            icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/resources/cjso.svg
+            icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/app/resources/cjso.svg
             href: https://l1nkr.cjsolsen.com
             description: Linktree Website
         - Searxng:
-            icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/resources/searxng.png
+            icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/app/resources/searxng.png
             href: https://search.local.cjsolsen.com
             description: Searxng
   widgets.yaml: |
     - logo:
-        icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/resources/cjso.svg
+        icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/app/resources/cjso.svg
 
     - kubernetes:
         cluster:
