@@ -18,8 +18,12 @@ data:
     useEqualHeights: true
 
     layout:
-      Other:
-        header: false
+      Cluster:
+        header: true
+        style: row
+        columns: 1
+      Services:
+        header: true
         style: row
         columns: 4
       Observability:
@@ -31,6 +35,38 @@ data:
         style: row
         columns: 2
   services.yaml: |
+    - Cluster:
+        - Cluster State:
+          icon: talos.svg
+          description: Prometheus
+          widget:
+            type: prometheusmetric
+            url: https://prometheus.host.or.ip
+            refreshInterval: 10000 # in milliseconds
+            metrics:
+              - label: Cluster Age
+                query: round((time() - min(kube_node_created) ) / 86400)
+                format:
+                  type: number
+                  suffix: d
+              - label: Available Nodes
+                query: count(count by (node) (kube_node_status_condition{condition="Ready"}))
+                format:
+                  type: number
+              - label: Running Pods
+                query: sum(kube_pod_status_phase{phase="Running"})
+                format:
+                  type: number
+              - label:Cluster CPU Uages
+                query: round(avg(instance:node_cpu_utilisation:rate5m) * 100, 0.1)
+                format:
+                  type: number
+                  suffix: %
+              - label: Cluster Memory Usage
+                query: round(sum(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / sum(node_memory_MemTotal_bytes) * 100, 0.1)
+                format:
+                  type: number
+                  suffix: %
     - Misc:
         - Unifi:
             icon: unifi.svg
@@ -69,7 +105,7 @@ data:
             widget:
               type: prometheus
               url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
-    - Other:
+    - Services:
         - GitHub:
             icon: github.svg
             href: https://github.com/chrede88
