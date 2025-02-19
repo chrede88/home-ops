@@ -8,6 +8,7 @@ resources:
   # Flux-Kustomizations
   - ./homepage/ks.yaml
   - ./archiveteam/ks.yaml
+  - ./searxng/ks.yaml
   - ./test-secret.yaml
 components:
   - ../../flux/components/alerts

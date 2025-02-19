@@ -16,3 +16,4 @@ resources:
   - ./kubernetes-sigs-descheduler.yaml
   - ./external-secrets.yaml
   - ./onepassword-connect.yaml
+  - ./dragonfly.yaml
