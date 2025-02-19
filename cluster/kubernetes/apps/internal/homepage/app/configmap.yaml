@@ -61,12 +61,12 @@ data:
                 query: round(avg(instance:node_cpu_utilisation:rate5m) * 100, 0.1)
                 format:
                   type: number
-                  suffix: %
+                  suffix: '%'
               - label: Cluster Memory Usage
                 query: round(sum(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / sum(node_memory_MemTotal_bytes) * 100, 0.1)
                 format:
                   type: number
-                  suffix: %
+                  suffix: '%'
     - Misc:
         - Unifi:
             icon: unifi.svg
