@@ -90,18 +90,15 @@ data:
     - logo:
         icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/app/resources/cjso.svg
 
-    - kubernetes:
-        cluster:
-          show: true
-          cpu: true
-          memory: true
-          showLabel: true
-          label: "Talos"
-        nodes:
-          show: true
-          cpu: true
-          memory: true
-          showLabel: true
+    - openmeteo:
+        label: Basel # optional
+        latitude: 47.567869
+        longitude: 7.595036
+        timezone: Europe/Zurich
+        units: metric
+        cache: 5
+        format:
+          maximumFractionDigits: 1
 
     - search:
         provider: duckduckgo
@@ -110,7 +107,9 @@ data:
     - datetime:
         text_size: xl
         format:
+          dateStyle: short
           timeStyle: short
+          hour12: true
   bookmarks.yaml: ''
   docker.yaml: ''
   custom.css: ''
