@@ -22,17 +22,17 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-values:
-  crds:
-    install: true
-    keep: false
-  manager:
-    resources:
-      limits:
-        cpu: 500m
-        memory: 128Mi
-      requests:
-        cpu: 10m
-        memory: 64Mi
-  serviceMonitor:
-    enabled: true
+  values:
+    crds:
+      install: true
+      keep: false
+    manager:
+      resources:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 10m
+          memory: 64Mi
+    serviceMonitor:
+      enabled: true
