@@ -22,10 +22,6 @@ data:
         header: true
         style: row
         columns: 2
-      DNS:
-        header: true
-        style: row
-        columns: 4
       Observability:
         header: true
         style: row
@@ -49,39 +45,6 @@ data:
               url: https://10.10.0.252
               username: "{{HOMEPAGE_VAR_UNIFI_NETWORK_USERNAME}}"
               password: "{{HOMEPAGE_VAR_UNIFI_NETWORK_PASSWORD}}"
-    - DNS:
-        - Pihole0:
-            icon: pi-hole.svg
-            href: https://pihole.local.cjsolsen.com/admin
-            description: pihole-0
-            widget:
-              type: pihole
-              url: http://pihole-0.pihole.network.svc.cluster.local
-              key: "{{HOMEPAGE_VAR_PIHOLE0_API_KEY}}"
-        - Pihole1:
-            icon: pi-hole.svg
-            href: https://pihole1.local.cjsolsen.com/admin
-            description: pihole-1
-            widget:
-              type: pihole
-              url: http://pihole-1.pihole.network.svc.cluster.local
-              key: "{{HOMEPAGE_VAR_PIHOLE1_API_KEY}}"
-        - Pihole2:
-            icon: pi-hole.svg
-            href: https://pihole2.local.cjsolsen.com/admin
-            description: pihole-2
-            widget:
-              type: pihole
-              url: http://pihole-2.pihole.network.svc.cluster.local
-              key: "{{HOMEPAGE_VAR_PIHOLE2_API_KEY}}"
-        - PiholeBackup:
-            icon: pi-hole.svg
-            href: http://10.10.30.60/admin
-            description: backup pihole
-            widget:
-              type: pihole
-              url: http://10.10.30.60
-              key: "{{HOMEPAGE_VAR_PIHOLE3_API_KEY}}"
     - Observability:
         - Grafana:
             icon: grafana.svg
@@ -138,7 +101,7 @@ data:
         text_size: xl
         format:
           timeStyle: short
-  bookmarks.yaml: ""
-  docker.yaml: ""
-  custom.css: ""
-  custom.js: ""
+  bookmarks.yaml: ''
+  docker.yaml: ''
+  custom.css: ''
+  custom.js: ''

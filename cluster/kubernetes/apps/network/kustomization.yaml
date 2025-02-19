@@ -6,8 +6,6 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  - ./pihole/ks.yaml
-  - ./orbitalsync/ks.yaml
   - ./gateways/ks.yaml
   - ./cloudflare-ddns/ks.yaml
   - ./external-dns/ks.yaml
