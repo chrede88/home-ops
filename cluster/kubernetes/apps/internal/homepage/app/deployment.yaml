@@ -37,7 +37,8 @@ spec:
             capabilities:
               drop: ['ALL']
             runAsNonRoot: true
-            seccompProfile: RuntimeDefault
+            seccompProfile:
+              type: RuntimeDefault
           readinessProbe:
             httpGet:
               path: /
