@@ -74,7 +74,7 @@ I keep running [docs](./docs/README.md) where I try to document my journey. Hope
 | Device                | Num | OS Disk Size   | Data Disk Size | Ram  | OS                  | Function       |
 | --------------------- | --- | -------------- | -------------- | ---- | ------------------- | -------------- |
 | Intel NUC 12th i5     | 3   | 500GB SATA SSD | 2TB NVMe SSD   | 64GB | Talos               | Kubernetes     |
-| Rasberry Pi 4         | 1   | 64GB SD card   | -              | 4GB  | Debian GNU/Linux 12 | PiHole backup  |
+| Rasberry Pi 4         | 1   | 64GB SD card   | -              | 4GB  | Debian GNU/Linux 12 |  |
 | Unifi Gateway Max     | 1   | -              | -              | -    | -                   | Router         |
 | Unifi Cloudkey Gen 2+ | 1   | -              | -              | -    | -                   | Unifi OS       |
 | Unifi Switch Ultra    | 1   | -              | -              | -    | -                   | PoE 1Gb Switch |

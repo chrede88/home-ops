@@ -38,12 +38,16 @@ This is a list of the documentation I've put together so far (in order):
 3. Reconfiguring Cilium: [cilium.md](./cilium.md)
 4. Installing Cert-manager: [cert-manager.md](./cert-manager.md)
 5. Installing Rook & Ceph: [rook-ceph.md](./rook-ceph.md)
-6. Installing Pi-hole: [pihole.md](./pihole.md)
-7. Ingress: [ingress.md](./ingress.md)
-8. Renovate: [renovate.md](./renovate.md)
-9. Cloudnative PostgreSQL: [cloudnative-pg.md](./cloudnative-pg.md)
-10. Prometheus and Grafana: [prometheus.md](./prometheus.md)
-11. External-dns: [external-dns.md](./external-dns.md)
+6. Ingress: [ingress.md](./ingress.md)
+7. Renovate: [renovate.md](./renovate.md)
+8. Cloudnative PostgreSQL: [cloudnative-pg.md](./cloudnative-pg.md)
+9. Prometheus and Grafana: [prometheus.md](./prometheus.md)
+10. External-dns: [external-dns.md](./external-dns.md)
+
+### Old config
+I'm conteniusly changing my cluster. Some docs are therefore not relevant anymore, but I keep them around in case they can help others. You can find these in the `old` folder. So far it contains the following:
+1. Installing Pi-hole: [pihole.md](./old/pihole.md)
+2. External-dns for Pihole: [external-dns-pihole.md](./old/external-dns-pihole.md)
 
 ### Interacting with a Ceph cluster
 I'm keeping a short list of general commands that are good to know when interacting with a Ceph cluster. See more in [ceph-cluster.md](./ceph-cluster.md).

@@ -1,4 +1,8 @@
 # Pihole
+
+***Deprecated***
+I've removed pihole from my cluster and moved my internal dns records to my unifi controller. See [external-dns.md](../external-dns.md) for setup.
+
 I'll be using Pihole for my network DNS. In order to not loose DNS if the cluster goes down, I plan to run a backup pihole server on a seperate RPi. To keep all the pihole servers in sync, I'll deploy OrbitalSync to sync all to the master configuration.
 
 For now, I'll focus on getting it up and runnig in the cluster first.

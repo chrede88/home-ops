@@ -1,9 +1,6 @@
 # External DNS
 
-***Cluster Changes***
-I've moved my local dns to my Unifi controller. If you're looking for how external-dns works with pihole, go [here](./old/external-dns-pihoe.md).
-
-External DNS is great little service that automates the creation of dns records. I'll point External DNS to my unifi controller and from there extenal-dns will do the rest.
+External DNS is great little service that automates the creation of dns records. For now, I'll just deployed it for my local dns which I use pihole for. I'll point External DNS to my main pihole instance and from there orbital sync will sync the rest.
 
 ## Flux resources
 Let's first define the Flux resources I need. The first thing is a helm repository:
@@ -59,16 +56,16 @@ Depending on what service you use for Ingress, you'll have to set different envi
 ```yaml
 # ./cluster/kubernetes/apps/network/external-dns/internal/helmrelease.yaml
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &name external-dns-internal
+  name: &app external-dns-internal
 spec:
   interval: 30m
   chart:
     spec:
       chart: external-dns
-      version: 1.15.2
+      version: 1.14.4
       sourceRef:
         kind: HelmRepository
         name: external-dns
@@ -82,63 +79,41 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    fullnameOverride: *name
-    logLevel: &logLevel debug
+    fullnameOverride: *app
     serviceMonitor:
       enabled: true
     rbac:
       create: true
       additionalPermissions:
-        - apiGroups: ['']
-          resources: ['namespaces']
-          verbs: ['get', 'watch', 'list']
-        - apiGroups: ['gateway.networking.k8s.io']
-          resources: ['gateways', 'httproutes']
-          verbs: ['get', 'watch', 'list']
+        - apiGroups: [""]
+          resources: ["namespaces"]
+          verbs: ["get","watch","list"]
+        - apiGroups: ["gateway.networking.k8s.io"]
+          resources: ["gateways","httproutes","grpcroutes","tlsroutes"]
+          verbs: ["get","watch","list"]
     sources:
       - gateway-httproute
-    policy: sync
-    provider:
-      name: webhook
-      webhook:
-        image:
-          repository: ghcr.io/kashalls/external-dns-unifi-webhook
-          tag: v0.4.1
-        env:
-          - name: UNIFI_HOST
-            value: https://10.10.0.252
-          - name: UNIFI_EXTERNAL_CONTROLLER
-            value: 'false'
-          - name: UNIFI_API_KEY
-            valueFrom:
-              secretKeyRef:
-                name: external-dns-unifi-secret
-                key: api-key
-          - name: LOG_LEVEL
-            value: *logLevel
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: http-webhook
-          initialDelaySeconds: 10
-          timeoutSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /readyz
-            port: http-webhook
-          initialDelaySeconds: 10
-          timeoutSeconds: 5
+      - gateway-grpcroute
+      - gateway-tlsroute
+    policy: upsert-only
+    registry: noop
+    provider: pihole
     env:
+      - name: EXTERNAL_DNS_PIHOLE_SERVER
+        value: http://pihole-0.pihole.network.svc.cluster.local
       - name: EXTERNAL_DNS_GATEWAY_LABEL_FILTER
         value: gateway-label==internal-gateway
       - name: EXTERNAL_DNS_LABEL_FILTER
         value: route-label==external-dns-internal
+      - name: EXTERNAL_DNS_PIHOLE_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: pihole-secret
+            key: EXTERNAL_DNS_PIHOLE_PASSWORD
 ```
 
-If you already have some dns records defined, start by setting `policy: upsert-only`, this ensures that any records already defined won't be removed. Then change this to `sync` later when everything it works correctly.
+I'll start by setting `policy: upsert-only`, this ensures that any records already defined won't be removed. I'll change this later when I know it works correctly.
 
-The Unifi provider uses an externally defined wenhook, which will run as an additional container. The important thing here is the `UNIFI_API_KEY`, that has to be added to a secret. See the [Github repo](https://github.com/kashalls/external-dns-unifi-webhook) for more info on the webhook container.
-
-External-DNS picks up resources based on annotations. I'll add this annotation to my internal gateway: `external-dns.alpha.kubernetes.io/target: <IPtoGatwway>`. With this annotation defined External-DNS will create an A record pointing at my internal gateway for each of the http-routes attached to the gateway.
+External-DNS picks up resources based on annotations. I'll add this annotation to my internal gateway: `external-dns.alpha.kubernetes.io/target: internal.local.cjsolsen.com`. With this annotation defined External-DNS will create an A record pointing at my internal gateway.
 
 I've defined some filter labels in the `env` values in order to limit the scope of this instance of external-dns. I've set a gateway filter label that has to be set for a gateway to be picked up. Similar for routes, they'll need a label to be picked up. This way I know that only internal resources are picked up by this instance. I'll have to deploy another instance for my external services and point that to my cloudflare account. I'll likely set this up in the future.
