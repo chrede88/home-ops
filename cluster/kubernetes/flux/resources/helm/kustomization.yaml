@@ -17,3 +17,4 @@ resources:
   - ./external-secrets.yaml
   - ./onepassword-connect.yaml
   - ./dragonfly.yaml
+  - ./action-runner-controller.yaml
