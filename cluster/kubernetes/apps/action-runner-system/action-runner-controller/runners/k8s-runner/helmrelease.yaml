@@ -40,7 +40,7 @@ spec:
       valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_PRIVATE_KEY
   values:
     githubConfigUrl: https://github.com/chrede88/home-ops
-    minRunners: 0
+    minRunners: 1
     maxRunners: 3
     containerMode:
       type: kubernetes
