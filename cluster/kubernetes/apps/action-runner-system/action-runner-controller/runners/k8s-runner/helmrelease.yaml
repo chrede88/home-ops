@@ -28,15 +28,15 @@ spec:
   valuesFrom:
     - targetPath: githubConfigSecret.github_app_id
       kind: Secret
-      name: actions-runner-controller-secret
+      name: action-runner-controller-secret
       valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_APP_ID
     - targetPath: githubConfigSecret.github_app_installation_id
       kind: Secret
-      name: actions-runner-controller-secret
+      name: action-runner-controller-secret
       valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_INSTALLATION_ID
     - targetPath: githubConfigSecret.github_app_private_key
       kind: Secret
-      name: actions-runner-controller-secret
+      name: action-runner-controller-secret
       valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_PRIVATE_KEY
   values:
     githubConfigUrl: https://github.com/chrede88/home-ops
@@ -51,8 +51,8 @@ spec:
           requests:
             storage: 1Gi
     controllerServiceAccount:
-      name: actions-runner-controller
-      namespace: actions-runner-system
+      name: action-runner-controller
+      namespace: action-runner-system
     template:
       spec:
         containers:
