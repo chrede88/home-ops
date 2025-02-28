@@ -32,7 +32,7 @@ metrics:
       - { color: f38ba8, min: 76, max: 9999 }
 
   - name: cluster_memory_usage
-    query: round(sum(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / sum(node_memory_MemTotal_bytes) * 100, 0.1)
+    query: round(avg(instance:node_memory_utilisation:ratio) * 100, 0.1)
     suffix: '%'
     colors:
       - { color: a6e3a1, min: 0, max: 20 }

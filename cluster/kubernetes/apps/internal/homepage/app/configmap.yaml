@@ -63,7 +63,7 @@ data:
                     type: number
                     suffix: '%'
                 - label: Cluster Memory Usage
-                  query: round(sum(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / sum(node_memory_MemTotal_bytes) * 100, 0.1)
+                  query: round(avg(instance:node_memory_utilisation:ratio) * 100, 0.1)
                   format:
                     type: number
                     suffix: '%'
