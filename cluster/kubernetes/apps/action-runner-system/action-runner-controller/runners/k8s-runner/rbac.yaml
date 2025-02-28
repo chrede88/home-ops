@@ -24,4 +24,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: k8s-runner
-    namespace: actions-runner-system
+    namespace: action-runner-system
