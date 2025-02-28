@@ -1,0 +1,54 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: 'Schemas'
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches: ["main"]
+  #   paths: [".github/workflows/schemas.yaml"]
+
+env:
+  HOMEBREW_NO_ANALYTICS: '1'
+  UV_SYSTEM_PYTHON: '1'
+
+jobs:
+  publish:
+    name: Schemas
+    runs-on: k8s-runner
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Setup Workflow Tools
+        run: brew install kubectl uv
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.13.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 23.9.0
+
+      - name: Install Python Dependencies
+        run: uv pip install pyyaml
+
+      - name: Run crd-extractor
+        run: curl -fsSL https://raw.githubusercontent.com/datreeio/CRDs-catalog/43e4407642d4c37683c88711f37caa6c9c20ca40/Utilities/crd-extractor.sh | bash
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: '${{ secrets.CLOUDFLARE_API_TOKEN }}'
+          accountId: '${{ secrets.CLOUDFLARE_ACCOUNT_ID }}'
+          workingDirectory: /home/runner/.datree/crdSchemas
+          command: pages deploy --project-name=k8s-schemas-cjso --branch main .
