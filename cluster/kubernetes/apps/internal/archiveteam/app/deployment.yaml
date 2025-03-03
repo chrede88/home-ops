@@ -40,4 +40,4 @@ spec:
       volumes:
         - name: cache-volume
           emptyDir:
-            sizeLimit: 4096Mi
+            sizeLimit: 10Gi
