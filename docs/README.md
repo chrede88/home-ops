@@ -20,11 +20,13 @@ Each server is identical so I'll only list the specs once.
 ### Network
 I updated my network equipment in the begining of April 2024. All I had before was a Unifi Dream Router from Ubiquiti. The UDR has a 1Gb/s 4-port switch, which was just enough for my three kubernetes nodes and my backup pihole running on a RPi 4. I've been planing on upgrading to 2.5Gb/s for a while now, and when I saw that Ubiquiti released the Unifi Gateway Max I picked one up. It has a single 2.5Gb/s WAN port plus a 4-port 2.5Gb/s switch.
 
+As of March 2025 I've picked up a Unifi Gateway Fiber, which in addition two a 10Gb/s SPF+ downlink port, also have an increased 5Gb/s throughput with IDS/IPS, on par with the Dream Machine Pro Max. I've also upgraded my main (and only) switch to a Unifi Switch Flex 2.5G 8 PoE.
+
 Here follows a list of network equipment that I currently have deployed:
 
-1) Unifi Gateway Max (UXG)
+1) Unifi Gateway Fiber
 2) Unifi Cloudkey Gen 2+
-3) Unifi Switch Ultra
+3) Unifi Switch Flex 2.5G 8 PoE
 4) Unifi U6+ Access Point
 
 

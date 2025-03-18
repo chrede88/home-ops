@@ -75,9 +75,9 @@ I keep running [docs](./docs/README.md) where I try to document my journey. Hope
 | --------------------- | --- | -------------- | -------------- | ---- | ------------------- | -------------- |
 | Intel NUC 12th i5     | 3   | 500GB SATA SSD | 2TB NVMe SSD   | 64GB | Talos               | Kubernetes     |
 | Rasberry Pi 4         | 1   | 64GB SD card   | -              | 4GB  | Debian GNU/Linux 12 |  |
-| Unifi Gateway Max     | 1   | -              | -              | -    | -                   | Router         |
+| Unifi Gateway Fiber     | 1   | -              | -              | -    | -                   | Router         |
 | Unifi Cloudkey Gen 2+ | 1   | -              | -              | -    | -                   | Unifi OS       |
-| Unifi Switch Ultra    | 1   | -              | -              | -    | -                   | PoE 1Gb Switch |
+| Unifi Switch Flex 2.5G 8 PoE    | 1   | -              | -              | -    | -                   | PoE 2.5Gb Switch |
 | Unifi U6+ AP          | 1   | -              | -              | -    | -                   | Wifi           |
 
 ---
