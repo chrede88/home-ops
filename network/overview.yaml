@@ -53,10 +53,6 @@ thunderbolt-ring-network:
       bus-path: 1-1
       connected-to: thrash
 exposed-ips:
-  - name: DNS (cluster)
-    ip: 10.10.30.70
-  - name: DNS (rpi)
-    ip: 10.10.30.60
   - name: ingress-internal
     ip: 10.10.30.71
   - name: ingress-external
