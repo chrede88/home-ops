@@ -52,7 +52,7 @@ metadata:
   name: &app cilium-crd
   namespace: flux-system
 spec:
-  targetNamespace: kube-system
+  targetNamespace: flux-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
