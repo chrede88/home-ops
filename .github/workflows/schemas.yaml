@@ -23,11 +23,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Homebrew
-        uses: Homebrew/actions/setup-homebrew@master
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v4
 
-      - name: Setup Workflow Tools
-        run: brew install kubectl uv
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
 
       - name: Setup Python
         uses: actions/setup-python@v5
