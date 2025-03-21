@@ -9,15 +9,17 @@ spec:
   chart:
     spec:
       chart: external-dns
-      version: 1.15.2
+      version: 1.16.0
       sourceRef:
         kind: HelmRepository
         name: external-dns
         namespace: flux-system
   install:
+    disableSchemaValidation: true # Ref: https://github.com/kubernetes-sigs/external-dns/issues/5206
     remediation:
       retries: 3
   upgrade:
+    disableSchemaValidation: true # Ref: https://github.com/kubernetes-sigs/external-dns/issues/5206
     cleanupOnFail: true
     remediation:
       strategy: rollback
