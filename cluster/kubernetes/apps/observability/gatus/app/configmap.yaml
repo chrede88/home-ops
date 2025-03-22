@@ -16,6 +16,7 @@ data:
     ui:
       title: Status | Gatus
       header: Status
+      dark-mode: true
     alerting:
       pushover:
         application-token: ${PUSHOVER_TOKEN}
