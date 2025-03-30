@@ -5,3 +5,5 @@ kind: Kustomization
 resources:
   - ./gha-runner-scale-set-controller.yaml
   - ./gha-runner-scale-set.yaml
+  - ./flux-operator.yaml
+  - ./external-secrets.yaml

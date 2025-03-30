@@ -12,8 +12,6 @@ resources:
   - ./bjw-s.yaml
   - ./external-dns.yaml
   - ./metrics-server.yaml
-  - ./flux-operator.yaml
   - ./kubernetes-sigs-descheduler.yaml
-  - ./external-secrets.yaml
   - ./onepassword-connect.yaml
   - ./dragonfly.yaml
