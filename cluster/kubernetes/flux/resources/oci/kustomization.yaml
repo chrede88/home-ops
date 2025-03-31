@@ -13,7 +13,7 @@ resources:
   - ./external-dns.yaml
   - ./grafana.yaml
   - ./kube-prometheus-stack.yaml
-  - ./smartctl-exporter
+  - ./smartctl-exporter.yaml
   - ./bjw-s.yaml
   - ./cilium.yaml
   - ./descheduler.yaml
