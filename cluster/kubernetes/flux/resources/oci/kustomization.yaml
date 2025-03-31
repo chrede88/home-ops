@@ -20,3 +20,4 @@ resources:
   - ./metrics-server.yaml
   - ./cloudnative-pg.yaml
   - ./dragonfly.yaml
+  - ./onepassword-connect.yaml
