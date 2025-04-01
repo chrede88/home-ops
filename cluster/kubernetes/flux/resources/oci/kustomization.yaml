@@ -7,3 +7,17 @@ resources:
   - ./gha-runner-scale-set.yaml
   - ./flux-operator.yaml
   - ./external-secrets.yaml
+  - ./cert-manager.yaml
+  - ./rook-ceph.yaml
+  - ./rook-ceph-cluster.yaml
+  - ./external-dns.yaml
+  - ./grafana.yaml
+  - ./kube-prometheus-stack.yaml
+  - ./smartctl-exporter.yaml
+  - ./bjw-s.yaml
+  - ./cilium.yaml
+  - ./descheduler.yaml
+  - ./metrics-server.yaml
+  - ./cloudnative-pg.yaml
+  - ./dragonfly.yaml
+  - ./onepassword-connect.yaml
