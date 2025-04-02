@@ -68,5 +68,3 @@ spec:
           qubt-web-svc:
             primary: true
             port: *serverPort
-          health:
-            port: *serverPort
