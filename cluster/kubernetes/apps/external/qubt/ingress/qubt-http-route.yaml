@@ -16,5 +16,5 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: qubt-web-svc
+        - name: qubt
           port: 8080

@@ -60,5 +60,5 @@ spec:
       app:
         controller: app
         ports:
-          qubt-web-svc:
+          http:
             port: *port
