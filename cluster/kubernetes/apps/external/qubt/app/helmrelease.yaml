@@ -36,15 +36,15 @@ spec:
                 containerPort: &serverPort 8080
               - name: metrics
                 containerPort: 2019
-            probes:
-              liveness: &probes
-                enabled: true
-                spec:
-                  initialDelaySeconds: 5
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+            # probes:
+            #   liveness: &probes
+            #     enabled: true
+            #     spec:
+            #       initialDelaySeconds: 5
+            #       periodSeconds: 10
+            #       timeoutSeconds: 1
+            #       failureThreshold: 3
+            #   readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
