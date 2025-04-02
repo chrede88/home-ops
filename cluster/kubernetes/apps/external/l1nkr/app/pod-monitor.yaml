@@ -3,12 +3,14 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
-  name: &name l1nkr
+  name: l1nkr
   namespace: external
 spec:
   selector:
     matchLabels:
-      app: *name
+      app.kubernetes.io/component: app
+      app.kubernetes.io/instance: l1nkr
+      app.kubernetes.io/name: l1nkr
   podMetricsEndpoints:
     - port: metrics
       path: /metrics
