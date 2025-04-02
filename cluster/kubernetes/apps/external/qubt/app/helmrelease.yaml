@@ -39,11 +39,7 @@ spec:
             probes:
               liveness: &probes
                 enabled: true
-                custom: true
                 spec:
-                  httpGet:
-                    path: /readyz
-                    port: *serverPort
                   initialDelaySeconds: 5
                   periodSeconds: 10
                   timeoutSeconds: 1
