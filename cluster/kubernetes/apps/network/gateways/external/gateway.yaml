@@ -52,7 +52,7 @@ spec:
         certificateRefs:
           - name: qubt-cjsolsen-com
     # catch traffic for l1nkr website
-    - name: l1nkr
+    - name: l1nkr-ingress
       hostname: l1nkr.cjsolsen.com
       protocol: HTTPS
       port: 443
