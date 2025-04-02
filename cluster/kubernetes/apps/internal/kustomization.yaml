@@ -9,8 +9,6 @@ resources:
   - ./homepage/ks.yaml
   - ./archiveteam/ks.yaml
   - ./searxng/ks.yaml
-  - ./qubt-test/ks.yaml
-  - ./test-secret.yaml
 components:
   - ../../flux/components/alerts
 transformers:
