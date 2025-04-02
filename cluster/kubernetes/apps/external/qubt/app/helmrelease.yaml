@@ -69,7 +69,7 @@ spec:
       app:
         controller: qubt
         ports:
-          http:
+          qubt-web-svc:
             primary: true
             port: *serverPort
           health:
