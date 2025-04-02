@@ -37,20 +37,20 @@ spec:
         certificateRefs:
           - name: kromgo-cjsolsen-com
     # catch traffic for qubt website
-    - name: qubt-ingress
-      hostname: cjsolsen.com
-      protocol: HTTPS
-      port: 443
-      allowedRoutes:
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              external-gateway-access: 'true'
-      tls:
-        mode: Terminate
-        certificateRefs:
-          - name: qubt-cjsolsen-com
+    # - name: qubt-ingress
+    #   hostname: cjsolsen.com
+    #   protocol: HTTPS
+    #   port: 443
+    #   allowedRoutes:
+    #     namespaces:
+    #       from: Selector
+    #       selector:
+    #         matchLabels:
+    #           external-gateway-access: 'true'
+    #   tls:
+    #     mode: Terminate
+    #     certificateRefs:
+    #       - name: qubt-cjsolsen-com
     # catch traffic for l1nkr website
     - name: l1nkr
       hostname: l1nkr.cjsolsen.com
