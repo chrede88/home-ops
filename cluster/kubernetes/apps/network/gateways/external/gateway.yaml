@@ -37,7 +37,7 @@ spec:
         certificateRefs:
           - name: kromgo-cjsolsen-com
     # catch traffic for qubt website
-    - name: qubt
+    - name: qubt-ingress
       hostname: cjsolsen.com
       protocol: HTTPS
       port: 443
