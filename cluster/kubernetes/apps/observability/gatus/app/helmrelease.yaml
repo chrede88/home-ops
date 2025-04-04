@@ -42,9 +42,13 @@ spec:
                   failureThreshold: 5
               readiness: *probes
             securityContext:
-              allowPrivilegeEscalation: false
+              allowPrivilegeEscalation: true
               readOnlyRootFilesystem: true
-              capabilities: { drop: ['ALL'] }
+              capabilities:
+                drop:
+                  - 'ALL'
+                add:
+                  - 'NET_RAW'
             resources:
               limits:
                 cpu: 250m
