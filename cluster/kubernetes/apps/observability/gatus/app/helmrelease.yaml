@@ -44,11 +44,11 @@ spec:
             securityContext:
               allowPrivilegeEscalation: true
               readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - 'ALL'
-                add:
-                  - 'NET_RAW'
+              # capabilities:
+              #   drop:
+              #     - 'ALL'
+              #   add:
+              #     - 'NET_RAW'
             resources:
               limits:
                 cpu: 250m
