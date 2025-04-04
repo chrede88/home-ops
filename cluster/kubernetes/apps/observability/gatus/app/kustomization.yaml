@@ -5,7 +5,4 @@ kind: Kustomization
 resources:
   - ./gatus-secret.yaml
   - ./configmap.yaml
-  - ./serviceaccount.yaml
-  - ./web-service.yaml
-  - ./deployment.yaml
-  - ./service-monitor.yaml
+  - ./helmrelease.yaml

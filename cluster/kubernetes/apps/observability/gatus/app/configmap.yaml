@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: gatus
+  name: gatus-configmap
   namespace: observability
 data:
   config.yaml: |
