@@ -18,5 +18,5 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: gatus-web-svc
+        - name: gatus
           port: 8080
