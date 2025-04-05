@@ -18,5 +18,5 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: homepage-web-svc
-          port: 80
+        - name: homepage
+          port: 8080

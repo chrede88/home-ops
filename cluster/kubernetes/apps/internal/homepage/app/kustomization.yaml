@@ -5,5 +5,4 @@ kind: Kustomization
 resources:
   - ./configmap.yaml
   - ./homepage-secret.yaml
-  - ./service.yaml
-  - ./deployment.yaml
+  - ./helmrelease.yaml
