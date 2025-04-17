@@ -6,9 +6,15 @@ metadata:
   name: &app external-secrets
   namespace: flux-system
 spec:
+  targetNamespace: &namespace external-secrets
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: *namespace
   interval: 30m
   path: ./cluster/kubernetes/apps/external-secrets/external-secrets/app
   prune: true
@@ -16,6 +22,5 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: external-secrets
   timeout: 5m
   wait: false

@@ -6,10 +6,15 @@ metadata:
   name: &app action-runner-controller
   namespace: flux-system
 spec:
-  targetNamespace: action-runner-system
+  targetNamespace: &namespace action-runner-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: *namespace
   dependsOn:
     - name: rook-ceph-cluster
   path: ./cluster/kubernetes/apps/action-runner-system/action-runner-controller/app
@@ -29,10 +34,15 @@ metadata:
   name: &app action-runner-controller-runners
   namespace: flux-system
 spec:
-  targetNamespace: action-runner-system
+  targetNamespace: &namespace action-runner-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: k8s-runner
+      namespace: *namespace
   dependsOn:
     - name: action-runner-controller
   path: ./cluster/kubernetes/apps/action-runner-system/action-runner-controller/runners

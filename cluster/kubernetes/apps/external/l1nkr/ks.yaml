@@ -6,10 +6,15 @@ metadata:
   name: &app l1nkr
   namespace: flux-system
 spec:
-  targetNamespace: external
+  targetNamespace: &namespace external
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: *namespace
   path: ./cluster/kubernetes/apps/external/l1nkr/app
   prune: true
   sourceRef:
@@ -35,6 +40,16 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  healthChecks:
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      name: *app
+      namespace: *namespace
+  healthCheckExprs:
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      failed: status.parents.conditions.filter(e, e.type == 'Accepted').all(e, e.status == 'False')
+      current: status.parents.conditions.filter(e, e.type == 'Accepted').all(e, e.status == 'True')
   path: ./cluster/kubernetes/apps/external/l1nkr/ingress
   prune: true
   sourceRef:
