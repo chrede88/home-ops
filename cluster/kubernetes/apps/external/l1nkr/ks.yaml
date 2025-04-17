@@ -36,7 +36,7 @@ metadata:
   name: &app l1nkr-ingress
   namespace: flux-system
 spec:
-  targetNamespace: external
+  targetNamespace: &namespace external
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
