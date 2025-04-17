@@ -34,7 +34,7 @@ metadata:
   name: &app kromgo-ingress
   namespace: flux-system
 spec:
-  targetNamespace: external
+  targetNamespace: &namespace external
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
