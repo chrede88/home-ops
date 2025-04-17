@@ -34,7 +34,7 @@ metadata:
   name: &app searxng-ingress
   namespace: flux-system
 spec:
-  targetNamespace: internal
+  targetNamespace: &namespace internal
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app

@@ -6,10 +6,15 @@ metadata:
   name: &app kube-prometheus-stack
   namespace: flux-system
 spec:
-  targetNamespace: observability
+  targetNamespace: &namespace observability
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: *namespace
   dependsOn:
     - name: rook-ceph-cluster
   path: ./cluster/kubernetes/apps/observability/kube-prometheus-stack/app
@@ -33,12 +38,22 @@ metadata:
   name: &app prometheus-ingress
   namespace: flux-system
 spec:
-  targetNamespace: observability
+  targetNamespace: &namespace observability
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: kube-prometheus-stack
+  healthChecks:
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      name: prometheus
+      namespace: *namespace
+  healthCheckExprs:
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      failed: status.parents.conditions.filter(e, e.type == 'Accepted').all(e, e.status == 'False')
+      current: status.parents.conditions.filter(e, e.type == 'Accepted').all(e, e.status == 'True')
   path: ./cluster/kubernetes/apps/observability/kube-prometheus-stack/ingress
   prune: true
   sourceRef:
