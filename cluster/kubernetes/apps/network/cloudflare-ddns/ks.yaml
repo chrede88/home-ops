@@ -6,10 +6,15 @@ metadata:
   name: &app cloudflare-ddns
   namespace: flux-system
 spec:
-  targetNamespace: network
+  targetNamespace: &namespace network
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: *namespace
   path: ./cluster/kubernetes/apps/network/cloudflare-ddns/app
   prune: true
   sourceRef:

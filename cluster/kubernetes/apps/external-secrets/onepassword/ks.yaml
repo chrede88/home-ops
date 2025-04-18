@@ -6,9 +6,15 @@ metadata:
   name: &app onepassword
   namespace: flux-system
 spec:
+  targetNamespace: &namespace external-secrets
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: *namespace
   interval: 30m
   path: ./cluster/kubernetes/apps/external-secrets/onepassword/app
   prune: true
@@ -16,9 +22,8 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: external-secrets
   timeout: 5m
-  wait: true
+  wait: false
   decryption:
     provider: sops
     secretRef:
@@ -29,7 +34,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app onepassword-store
-  namespace: flux-system
+  namespace: &namespace flux-system
 spec:
   commonMetadata:
     labels:
@@ -37,6 +42,11 @@ spec:
   dependsOn:
     - name: onepassword
       namespace: flux-system
+  healthChecks:
+    - apiVersion: external-secrets.io/v1
+      kind: ClusterSecretStore
+      name: onepassword
+      namespace: *namespace
   healthCheckExprs:
     - apiVersion: external-secrets.io/v1
       kind: ClusterSecretStore
@@ -51,6 +61,7 @@ spec:
     namespace: flux-system
   targetNamespace: external-secrets
   timeout: 5m
+  wait: false
   decryption:
     provider: sops
     secretRef:

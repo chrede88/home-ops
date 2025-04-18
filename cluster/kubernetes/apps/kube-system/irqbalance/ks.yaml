@@ -6,10 +6,15 @@ metadata:
   name: &app irqbalance
   namespace: flux-system
 spec:
-  targetNamespace: kube-system
+  targetNamespace: &namespace kube-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: *namespace
   path: ./cluster/kubernetes/apps/kube-system/irqbalance/app
   prune: false
   sourceRef:

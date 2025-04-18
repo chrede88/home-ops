@@ -6,10 +6,15 @@ metadata:
   name: &app rook-ceph
   namespace: flux-system
 spec:
-  targetNamespace: rook-ceph
+  targetNamespace: &namespace rook-ceph
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: rook-ceph-operator
+      namespace: *namespace
   path: ./cluster/kubernetes/apps/rook-ceph/rook-ceph/app
   prune: false # never deleted
   sourceRef:
@@ -27,10 +32,24 @@ metadata:
   name: &app rook-ceph-cluster
   namespace: flux-system
 spec:
-  targetNamespace: rook-ceph
+  targetNamespace: &namespace rook-ceph
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: rook-ceph-cluster
+      namespace: *namespace
+    - apiVersion: ceph.rook.io/v1
+      kind: CephCluster
+      name: rook-ceph
+      namespace: *namespace
+  healthCheckExprs:
+    - apiVersion: ceph.rook.io/v1
+      kind: CephCluster
+      failed: status.ceph.health == 'HEALTH_ERR'
+      current: status.ceph.health in ['HEALTH_OK', 'HEALTH_WARN']
   dependsOn:
     - name: rook-ceph
   path: ./cluster/kubernetes/apps/rook-ceph/rook-ceph/cluster
@@ -38,7 +57,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
+  wait: false
   interval: 30m
   retryInterval: 1m
   timeout: 5m
@@ -50,10 +69,20 @@ metadata:
   name: internal-rook-ceph-ingress
   namespace: flux-system
 spec:
-  targetNamespace: rook-ceph
+  targetNamespace: &namespace rook-ceph
   commonMetadata:
     labels:
       app.kubernetes.io/name: internal-ingress
+  healthChecks:
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      name: ceph-dashboard
+      namespace: *namespace
+  healthCheckExprs:
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      failed: status.parents.conditions.filter(e, e.type == 'Accepted').all(e, e.status == 'False')
+      current: status.parents.conditions.filter(e, e.type == 'Accepted').all(e, e.status == 'True')
   dependsOn:
     - name: cilium-crd
   path: ./cluster/kubernetes/apps/rook-ceph/rook-ceph/ingress

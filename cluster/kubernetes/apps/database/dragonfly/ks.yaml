@@ -6,10 +6,15 @@ metadata:
   name: &app dragonfly
   namespace: flux-system
 spec:
-  targetNamespace: database
+  targetNamespace: &namespace database
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: dragonfly-operator
+      namespace: *namespace
   dependsOn:
     - name: rook-ceph-cluster
   path: ./cluster/kubernetes/apps/database/dragonfly/app

@@ -6,10 +6,15 @@ metadata:
   name: &app gatus
   namespace: flux-system
 spec:
-  targetNamespace: observability
+  targetNamespace: &namespace observability
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: *namespace
   dependsOn:
     - name: cloudnative-pg-clusters
   path: ./cluster/kubernetes/apps/observability/gatus/app
@@ -33,10 +38,20 @@ metadata:
   name: &app gatus-ingress
   namespace: flux-system
 spec:
-  targetNamespace: observability
+  targetNamespace: &namespace observability
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  healthChecks:
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      name: *app
+      namespace: *namespace
+  healthCheckExprs:
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      failed: status.parents.conditions.filter(e, e.type == 'Accepted').all(e, e.status == 'False')
+      current: status.parents.conditions.filter(e, e.type == 'Accepted').all(e, e.status == 'True')
   dependsOn:
     - name: gatus
   path: ./cluster/kubernetes/apps/observability/gatus/ingress
