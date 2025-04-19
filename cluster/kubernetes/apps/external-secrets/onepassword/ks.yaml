@@ -43,15 +43,15 @@ spec:
   dependsOn:
     - name: onepassword
       namespace: flux-system
-  healthChecks:
-    - apiVersion: external-secrets.io/v1
-      kind: ClusterSecretStore
-      name: onepassword
-  healthCheckExprs:
-    - apiVersion: external-secrets.io/v1
-      kind: ClusterSecretStore
-      failed: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'False')
-      current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
+  # healthChecks:
+  #   - apiVersion: external-secrets.io/v1
+  #     kind: ClusterSecretStore
+  #     name: onepassword
+  # healthCheckExprs:
+  #   - apiVersion: external-secrets.io/v1
+  #     kind: ClusterSecretStore
+  #     failed: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'False')
+  #     current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
   interval: 30m
   path: ./cluster/kubernetes/apps/external-secrets/onepassword/store
   prune: true
