@@ -1,9 +1,0 @@
-name: Action Runner Controller Test
-on:
-  workflow_dispatch:
-
-jobs:
-  Test-local-runner:
-    runs-on: k8s-runner
-    steps:
-      - run: echo "🎉 This job uses runner scale set runners!"
