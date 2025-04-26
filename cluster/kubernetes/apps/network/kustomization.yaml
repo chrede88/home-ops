@@ -8,7 +8,6 @@ resources:
   # Flux-Kustomizations
   - ./gateways/ks.yaml
   - ./cloudflare-ddns/ks.yaml
-  - ./external-dns/ks.yaml
 components:
   - ../../flux/components/alerts
 transformers:
