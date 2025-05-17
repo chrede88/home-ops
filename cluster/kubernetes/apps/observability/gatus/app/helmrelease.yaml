@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -63,6 +63,8 @@ spec:
             envFrom:
               - secretRef:
                   name: gatus-secret
+        serviceAccount:
+          identifier: gatus
     # defaultPodOptions:
     #   securityContext:
     #     runAsNonRoot: true
@@ -82,8 +84,7 @@ spec:
         endpoints:
           - port: http
     serviceAccount:
-      create: true
-      name: *name
+      gatus: {}
     persistence:
       config:
         type: emptyDir
