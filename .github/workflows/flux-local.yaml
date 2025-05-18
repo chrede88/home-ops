@@ -1,0 +1,91 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Flux Local
+
+on:
+  pull_request:
+    branches: ['main']
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  filter:
+    name: Flux Local - Filter
+    runs-on: ubuntu-24.04
+    outputs:
+      changed-files: ${{ steps.changed-files.outputs.changed_files }}
+    steps:
+      - name: Get Changed Files
+        id: changed-files
+        uses: bjw-s-labs/action-changed-files@v0.3.3
+        with:
+          patterns: cluster/kubernetes/**/*
+
+  test:
+    if: ${{ needs.filter.outputs.changed-files != '[]' }}
+    name: Flux Local - Test
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Setup Flux CLI
+        uses: fluxcd/flux2/action@v2.5.1
+
+      - uses: allenporter/flux-local/action/test@7.5.0
+        with:
+          path: cluster/kubernetes/flux/main
+          enable-helm: true
+
+  diff:
+    if: ${{ needs.filter.outputs.changed-files != '[]' }}
+    name: Flux Local - Diff
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      pull-requests: write
+    strategy:
+      matrix:
+        resource:
+          - helmrelease
+          - kustomization
+    steps:
+      - name: Setup Flux CLI
+        uses: fluxcd/flux2/action@v2.5.1
+
+      - name: Run diff
+        uses: allenporter/flux-local/action/diff@7.5.0
+        id: diff
+        with:
+          live-branch: main
+          path: cluster/kubernetes/flux/main
+          resource: ${{ matrix.resource }}
+          debug: false
+
+      - name: PR Comments
+        uses: mshick/add-pr-comment@v2
+        if: ${{ steps.diff.outputs.diff != '' }}
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          message-id: ${{ github.event.pull_request.number }}/${{ matrix.resource }}
+          message-failure: Unable to post kustomization diff
+          message: |
+            ```diff
+            ${{ steps.diff.outputs.diff }}
+            ```
+
+  success:
+    if: ${{ !cancelled() }}
+    name: Flux Local - Success
+    needs: ['test', 'diff']
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Any jobs failed?
+        if: ${{ contains(needs.*.result, 'failure') }}
+        run: exit 1
+
+      - name: All jobs passed or skipped?
+        if: ${{ !(contains(needs.*.result, 'failure')) }}
+        run: echo "All jobs passed or skipped" && echo "${{ toJSON(needs.*.result) }}"
