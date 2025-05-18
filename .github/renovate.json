@@ -2,32 +2,29 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
+    ":semanticCommits",
+    ":disableRateLimiting",
     "github>chrede88/home-ops//.github/renovate/grafanadashboards.json",
     "github>chrede88/home-ops//.github/renovate/groups.json",
     "github>chrede88/home-ops//.github/renovate/flux.json",
     "github>chrede88/home-ops//.github/renovate/labels.json",
     "github>chrede88/home-ops//.github/renovate/postgresql.json",
     "github>chrede88/home-ops//.github/renovate/talos.json",
-    "github>chrede88/home-ops//.github/renovate/allowedVersions.json"
+    "github>chrede88/home-ops//.github/renovate/allowedVersions.json",
+    "github>chrede88/home-ops//.github/renovate/semanticCommits.json"
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
-  "commitMessagePrefix": "🤖",
-  "commitMessageTopic": "{{depName}}",
-  "commitMessageExtra": "to {{newVersion}}",
-  "commitMessageSuffix": "",
-  "prConcurrentLimit": 0,
-  "prHourlyLimit": 0,
   "reviewers": ["chrede88"],
   "timezone": "Europe/Zurich",
   "ignorePaths": ["/docs/*", "/network/*"],
   "flux": {
-    "fileMatch": ["(^|/)cluster/kubernetes/.+\\.ya?ml"]
+    "managerFilePatterns": ["(^|/)cluster/kubernetes/.+\\.ya?ml"]
   },
   "helm-values": {
-    "fileMatch": ["(^|/)cluster/kubernetes/.+\\.ya?ml$"]
+    "managerFilePatterns": ["(^|/)cluster/kubernetes/.+\\.ya?ml$"]
   },
   "kubernetes": {
-    "fileMatch": [
+    "managerFilePatterns": [
       "(^|/)cluster/kubernetes/.+\\.ya?ml$",
       "(^|/)cluster/talos/.+\\.ya?ml$"
     ]
