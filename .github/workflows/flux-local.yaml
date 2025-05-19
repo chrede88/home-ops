@@ -28,6 +28,7 @@ jobs:
 
   test:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
+    needs: filter
     name: Flux Local - Test
     runs-on: ubuntu-24.04
     steps:
@@ -41,6 +42,7 @@ jobs:
 
   diff:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
+    needs: filter
     name: Flux Local - Diff
     runs-on: ubuntu-24.04
     permissions:
