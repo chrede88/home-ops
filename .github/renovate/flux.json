@@ -4,7 +4,9 @@
     {
       "customType": "regex",
       "description": ["Process Flux"],
-      "fileMatch": ["(^|/)cluster/kubernetes/apps/flux-system/.+\\.ya?ml$"],
+      "managerFilePatterns": [
+        "/(^|/)cluster/kubernetes/apps/flux-system/.+\\.ya?ml$/"
+      ],
       "matchStrings": [
         "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\\n.*?: (?<currentValue>.*)"
       ],

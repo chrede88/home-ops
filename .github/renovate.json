@@ -18,15 +18,15 @@
   "timezone": "Europe/Zurich",
   "ignorePaths": ["/docs/*", "/network/*"],
   "flux": {
-    "managerFilePatterns": ["(^|/)cluster/kubernetes/.+\\.ya?ml"]
+    "managerFilePatterns": ["/(^|/)cluster/kubernetes/.+\\.ya?ml$/"]
   },
   "helm-values": {
-    "managerFilePatterns": ["(^|/)cluster/kubernetes/.+\\.ya?ml$"]
+    "managerFilePatterns": ["/(^|/)cluster/kubernetes/.+\\.ya?ml$/"]
   },
   "kubernetes": {
     "managerFilePatterns": [
-      "(^|/)cluster/kubernetes/.+\\.ya?ml$",
-      "(^|/)cluster/talos/.+\\.ya?ml$"
+      "/(^|/)cluster/kubernetes/.+\\.ya?ml$/",
+      "/(^|/)cluster/talos/.+\\.ya?ml$/"
     ]
   },
   "pre-commit": {

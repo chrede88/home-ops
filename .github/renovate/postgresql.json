@@ -4,7 +4,7 @@
     {
       "customType": "regex",
       "description": ["Process cloudnative-pg cluster versions"],
-      "fileMatch": ["(^|/)cluster/kubernetes/.+\\.ya?ml"],
+      "managerFilePatterns": ["/(^|/)cluster/kubernetes/.+\\.ya?ml$/"],
       "matchStrings": ["imageName: (?<depName>\\S+):(?<currentValue>\\S+)"],
       "datasourceTemplate": "docker"
     }

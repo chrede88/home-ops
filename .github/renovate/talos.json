@@ -4,7 +4,7 @@
     {
       "customType": "regex",
       "description": ["Process Talos"],
-      "fileMatch": ["(^|/)cluster/talos/.+\\.ya?ml"],
+      "managerFilePatterns": ["/(^|/)cluster/talos/.+\\.ya?ml$/"],
       "matchStrings": [
         "depName=(?<depName>.*?) datasource=(?<datasource>.*?)\\n.*?: (?<currentValue>.*)"
       ]
