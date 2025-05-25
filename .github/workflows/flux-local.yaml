@@ -26,19 +26,23 @@ jobs:
         with:
           patterns: cluster/kubernetes/**/*
 
-  # test:
-  #   if: ${{ needs.filter.outputs.changed-files != '[]' }}
-  #   needs: filter
-  #   name: Flux Local - Test
-  #   runs-on: ubuntu-24.04
-  #   steps:
-  #     - name: Setup Flux CLI
-  #       uses: fluxcd/flux2/action@v2.5.1
+  test:
+    if: ${{ needs.filter.outputs.changed-files != '[]' }}
+    needs: filter
+    name: Flux Local - Test
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v4
 
-  #     - uses: allenporter/flux-local/action/test@7.5.0
-  #       with:
-  #         path: cluster/kubernetes/flux/main
-  #         enable-helm: true
+      - name: Setup Flux CLI
+        uses: fluxcd/flux2/action@v2.5.1
+
+      - uses: allenporter/flux-local/action/test@7.5.0
+        with:
+          path: cluster/kubernetes/flux/main
+          enable-helm: true
+          debug: true
 
   diff:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
@@ -81,7 +85,7 @@ jobs:
   success:
     if: ${{ !cancelled() }}
     name: Flux Local - Success
-    needs: diff #['test', 'diff']
+    needs: ['test', 'diff']
     runs-on: ubuntu-24.04
     steps:
       - name: Any jobs failed?
