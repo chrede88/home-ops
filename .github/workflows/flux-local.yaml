@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout files
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
 
       - name: Setup Flux CLI
         uses: fluxcd/flux2/action@v2.5.1
@@ -71,7 +71,7 @@ jobs:
           debug: false
 
       - name: PR Comments
-        uses: mshick/add-pr-comment@v2
+        uses: mshick/add-pr-comment@v2.8.2
         if: ${{ steps.diff.outputs.diff != '' }}
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
