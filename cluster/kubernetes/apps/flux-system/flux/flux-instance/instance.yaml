@@ -43,10 +43,3 @@ spec:
             value: github
         target:
           kind: GitRepository
-      - patch: |
-          - op: replace
-            path: /spec/template/spec/containers/0/image
-            value: ghcr.io/fluxcd/kustomize-controller:rc-d1570458
-        target:
-          kind: Deployment
-          name: kustomize-controller
