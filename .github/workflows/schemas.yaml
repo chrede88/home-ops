@@ -30,7 +30,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5.6.0
         with:
-          python-version: 3.13.3
+          python-version: 3.13.4
 
       - name: Setup Node
         uses: actions/setup-node@v4.4.0
