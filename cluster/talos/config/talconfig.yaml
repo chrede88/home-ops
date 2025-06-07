@@ -192,3 +192,13 @@ controlPlane:
         etcd:
           extraArgs:
             listen-metrics-urls: http://0.0.0.0:2381
+
+    # configure containerd for spegel
+    - |-
+      machine:
+        files:
+          - op: create
+            path: /etc/cri/conf.d/20-customization.part
+            content: |-
+              [plugins.'io.containerd.cri.v1.images']
+                discard_unpacked_layers = false
