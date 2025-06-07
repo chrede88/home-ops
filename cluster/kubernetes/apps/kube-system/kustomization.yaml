@@ -10,6 +10,7 @@ resources:
   - ./metrics-server/ks.yaml
   - ./descheduler/ks.yaml
   - ./irqbalance/ks.yaml
+  - ./spegel/ks.yaml
 components:
   - ../../flux/components/alerts
 transformers:
