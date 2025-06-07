@@ -26,4 +26,4 @@ spec:
       containerdRegistryConfigPath: /etc/cri/conf.d/hosts
     service:
       registry:
-        hostPort: 29999
+        hostPort: 29999 # can't be in default cilium nodeport range 30000-32767
