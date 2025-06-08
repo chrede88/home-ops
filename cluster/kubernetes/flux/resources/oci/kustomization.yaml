@@ -21,3 +21,4 @@ resources:
   - ./cloudnative-pg.yaml
   - ./dragonfly.yaml
   - ./onepassword-connect.yaml
+  - ./spegel.yaml
