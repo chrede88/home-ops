@@ -36,6 +36,8 @@ spec:
       mgr:
         count: 2
         allowMultiplePerNode: false
+      cleanupPolicy:
+        wipeDevicesFromOtherClusters: true
       dashboard:
         enabled: true
         urlPrefix: /
