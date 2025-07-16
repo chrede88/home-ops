@@ -8,7 +8,7 @@ metadata:
 spec:
   distribution:
     # renovate: datasource=github-releases depName=controlplaneio-fluxcd/distribution
-    version: 2.6.2
+    version: 2.6.4
     registry: ghcr.io/fluxcd
   components:
     - source-controller
