@@ -149,5 +149,6 @@ data:
           hour12: true
   bookmarks.yaml: ''
   docker.yaml: ''
+  proxmox.yaml: ''
   custom.css: ''
   custom.js: ''

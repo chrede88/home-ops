@@ -115,3 +115,6 @@ spec:
           - path: /app/config/widgets.yaml
             subPath: widgets.yaml
             readOnly: true
+          - path: /app/config/proxmox.yaml
+            subPath: proxmox.yaml
+            readOnly: true
