@@ -46,7 +46,7 @@ spec:
                 spec:
                   httpGet:
                     path: /
-                    port: &port 3000
+                    port: *port
                   initialDelaySeconds: 60
                   periodSeconds: 10
                   successThreshold: 1
