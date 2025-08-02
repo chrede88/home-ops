@@ -75,6 +75,8 @@ spec:
             envFrom:
               - secretRef:
                   name: homepage-secret
+            env:
+              LOG_LEVEL: debug
     service:
       app:
         controller: *name
