@@ -4,23 +4,25 @@
     {
       "description": ["Rook-Ceph Group"],
       "groupName": "Rook-Ceph",
-      "matchPackagePatterns": ["rook-ceph"],
+      "matchPackageNames": ["/rook-ceph/", "/rook-ceph-cluster/"],
       "matchDatasources": ["docker"],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
-      "separateMinorPatch": true
+      "separateMinorPatch": true,
+      "minimumGroupSize": 2
     },
     {
       "description": ["Flux Group"],
       "groupName": "Flux",
-      "matchPackagePatterns": ["fluxcd"],
+      "matchPackageNames": ["/flux-operator/", "/flux-instance/"],
       "matchDatasources": ["docker", "github-tags"],
       "versioning": "semver",
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
-      "separateMinorPatch": true
+      "separateMinorPatch": true,
+      "minimumGroupSize": 2
     }
   ]
 }
