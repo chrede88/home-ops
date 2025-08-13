@@ -15,7 +15,7 @@
     {
       "description": ["Flux Group"],
       "groupName": "Flux",
-      "matchPackageNames": ["/flux-operator/", "/flux-instance/"],
+      "matchPackageNames": ["/?controlplaneio-fluxcd/"],
       "matchDatasources": ["docker", "github-tags"],
       "versioning": "semver",
       "group": {
