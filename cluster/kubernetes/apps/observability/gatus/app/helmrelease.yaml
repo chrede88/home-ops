@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: twinproduction/gatus
-              tag: v5.23.0
+              tag: v5.23.1
             probes:
               liveness: &probes
                 enabled: true
