@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app usgovernment-grab
+  name: &app archiveteam
   namespace: flux-system
 spec:
   targetNamespace: internal
