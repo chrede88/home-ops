@@ -43,6 +43,8 @@ spec:
               runAsNonRoot: true
               runAsUser: 314
               runAsGroup: 314
+              fsGroup: 314
+              fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
         enabled: true
