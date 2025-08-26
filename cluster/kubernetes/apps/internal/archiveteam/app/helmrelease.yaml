@@ -40,11 +40,6 @@ spec:
               CONCURRENT_ITEMS: 6
               SHARED_RSYNC_THREADS: 2
             securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - 'ALL'
               runAsNonRoot: true
               runAsUser: 314
               runAsGroup: 314
