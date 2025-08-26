@@ -39,12 +39,13 @@ spec:
               SELECTED_PROJECT: auto
               CONCURRENT_ITEMS: 6
               SHARED_RSYNC_THREADS: 2
-            securityContext:
-              runAsNonRoot: true
-              runAsUser: 314
-              runAsGroup: 314
-              fsGroup: 314
-              fsGroupChangePolicy: OnRootMismatch
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 100
+        fsGroup: 100
+        fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
         enabled: true
