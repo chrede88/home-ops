@@ -42,6 +42,7 @@ spec:
     - apiVersion: cert-manager.io/v1
       kind: Issuer
       name: k8tz-webhook-issuer
+      namespace: *namespace
   healthCheckExprs:
     - apiVersion: cert-manager.io/v1
       kind: Issuer
