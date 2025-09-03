@@ -11,6 +11,7 @@ resources:
   - ./descheduler/ks.yaml
   - ./irqbalance/ks.yaml
   - ./spegel/ks.yaml
+  - ./k8tz/ks.yaml
 components:
   - ../../flux/components/alerts
 transformers:
