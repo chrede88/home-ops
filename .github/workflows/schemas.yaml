@@ -28,12 +28,12 @@ jobs:
         uses: astral-sh/setup-uv@v6.6.1
 
       - name: Setup Python
-        uses: actions/setup-python@v5.6.0
+        uses: actions/setup-python@v6.0.0
         with:
           python-version: 3.13.7
 
       - name: Setup Node
-        uses: actions/setup-node@v4.4.0
+        uses: actions/setup-node@v5.0.0
         with:
           node-version: 23.9.0
 
