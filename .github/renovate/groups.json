@@ -11,18 +11,6 @@
       },
       "separateMinorPatch": true,
       "minimumGroupSize": 2
-    },
-    {
-      "description": ["Flux Group"],
-      "groupName": "Flux",
-      "matchPackageNames": ["/controlplaneio-fluxcd/"],
-      "matchDatasources": ["docker", "github-tags"],
-      "versioning": "semver",
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group"
-      },
-      "separateMinorPatch": true,
-      "minimumGroupSize": 2
     }
   ]
 }
