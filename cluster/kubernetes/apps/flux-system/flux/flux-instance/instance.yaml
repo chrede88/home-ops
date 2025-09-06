@@ -29,12 +29,11 @@ spec:
     pullSecret: github-auth
   kustomize:
     patches:
+      # Controller level SOPS/age decryption
       - patch: |
           - op: add
-            path: /spec/decryption
-            value:
-              provider: sops
-              secretRef:
-                name: sops-age
+            path: /spec/template/spec/containers/0/args/-
+            value: --sops-age-secret=sops-age
         target:
-          kind: Kustomization
+          kind: Deployment
+          name: kustomize-controller
