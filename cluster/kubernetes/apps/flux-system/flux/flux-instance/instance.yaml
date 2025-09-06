@@ -22,6 +22,7 @@ spec:
     domain: cluster.local
   sync:
     kind: GitRepository
+    provider: github
     url: https://github.com/chrede88/home-ops.git
     ref: refs/heads/main
     path: cluster/kubernetes/flux/main
@@ -37,9 +38,3 @@ spec:
                 name: sops-age
         target:
           kind: Kustomization
-      - patch: |
-          - op: add
-            path: /spec/provider
-            value: github
-        target:
-          kind: GitRepository
