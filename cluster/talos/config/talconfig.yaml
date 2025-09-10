@@ -4,9 +4,9 @@ clusterName: metal
 endpoint: https://10.10.30.30:6443
 
 # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
-talosVersion: v1.11.0
+talosVersion: v1.11.1
 # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
-kubernetesVersion: v1.34.0
+kubernetesVersion: v1.34.1
 
 domain: cluster.local
 allowSchedulingOnControlPlanes: true
