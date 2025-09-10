@@ -24,10 +24,6 @@ spec:
     namespace: flux-system
   timeout: 5m
   wait: false
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
 ---
 # yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -61,7 +57,3 @@ spec:
     namespace: flux-system
   timeout: 5m
   wait: false
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
