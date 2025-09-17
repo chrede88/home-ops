@@ -11,6 +11,17 @@
       },
       "separateMinorPatch": true,
       "minimumGroupSize": 2
+    },
+    {
+      "description": ["Cilium Group"],
+      "groupName": "Cilium",
+      "matchPackageNames": ["/cilium/"],
+      "matchDatasources": ["docker"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true,
+      "minimumGroupSize": 2
     }
   ]
 }
