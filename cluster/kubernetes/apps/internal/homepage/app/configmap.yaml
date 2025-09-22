@@ -64,7 +64,7 @@ data:
                     type: number
                     suffix: '%'
                 - label: Cluster Memory Usage
-                  query: round(avg(instance:node_memory_utilisation:ratio) * 100, 0.1)
+                  query: avg(instance:node_num_cpu:sum)
                   format:
                     type: number
                     suffix: '%'
