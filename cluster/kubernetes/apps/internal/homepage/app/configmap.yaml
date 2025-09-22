@@ -50,14 +50,6 @@ data:
                   format:
                     type: number
                     suffix: d
-                - label: Available Nodes
-                  query: count(count by (node) (kube_node_status_condition{condition="Ready"}))
-                  format:
-                    type: number
-                - label: Running Pods
-                  query: sum(kube_pod_status_phase{phase="Running"})
-                  format:
-                    type: number
                 - label: Cluster Memory Usage
                   query: round(avg(instance:node_memory_utilisation:ratio) * 100, 0.1)
                   format:
@@ -68,6 +60,14 @@ data:
                   format:
                     type: number
                     suffix: '%'
+                - label: Running Pods
+                  query: sum(kube_pod_status_phase{phase="Running"})
+                  format:
+                    type: number
+                - label: Available Nodes
+                  query: count(count by (node) (kube_node_status_condition{condition="Ready"}))
+                  format:
+                    type: number
     - Misc:
         - Unifi:
             icon: unifi.svg
