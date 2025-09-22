@@ -59,7 +59,7 @@ data:
                   format:
                     type: number
                 - label: Cluster Memory Usage
-                  query: avg(instance:node_num_cpu:sum)
+                  query: round(avg(instance:node_memory_utilisation:ratio) * 100, 0.1)
                   format:
                     type: number
                     suffix: '%'
@@ -68,6 +68,10 @@ data:
                   format:
                     type: number
                     suffix: '%'
+                - label: Cluster Memory Usage
+                  query: avg(instance:node_num_cpu:sum)
+                  format:
+                    type: number
     - Misc:
         - Unifi:
             icon: unifi.svg
