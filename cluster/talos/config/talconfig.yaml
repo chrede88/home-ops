@@ -202,3 +202,14 @@ controlPlane:
             content: |-
               [plugins.'io.containerd.cri.v1.images']
                 discard_unpacked_layers = false
+
+    # give kubernetes access to Talos (tuppr)
+    - |-
+      machine:
+        features:
+          kubernetesTalosAPIAccess:
+            allowedKubernetesNamespaces:
+              - system-upgrade
+            allowedRoles:
+              - os:admin
+            enabled: true
