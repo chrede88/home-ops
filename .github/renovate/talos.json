@@ -4,7 +4,10 @@
     {
       "customType": "regex",
       "description": ["Process Talos"],
-      "managerFilePatterns": ["/(^|/)cluster/talos/.+\\.ya?ml$/"],
+      "managerFilePatterns": [
+        "/(^|/)cluster/talos/.+\\.ya?ml$/",
+        "/(^|/)cluster/kubernetes/app/system-upgrade/.+\\.ya?ml$/"
+      ],
       "matchStrings": [
         "depName=(?<depName>.*?) datasource=(?<datasource>.*?)\\n.*?: (?<currentValue>.*)"
       ]
