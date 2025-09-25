@@ -6,7 +6,7 @@
       "description": ["Process Talos"],
       "managerFilePatterns": [
         "/(^|/)cluster/talos/.+\\.ya?ml$/",
-        "/(^|/)cluster/kubernetes/app/system-upgrade/.+\\.ya?ml$/"
+        "/(^|/)cluster/kubernetes/apps/system-upgrade/.+\\.ya?ml$/"
       ],
       "matchStrings": [
         "depName=(?<depName>.*?) datasource=(?<datasource>.*?)\\n.*?: (?<currentValue>.*)"
