@@ -16,10 +16,6 @@ spec:
   targetNamespace: flux-system
   timeout: 5m
   wait: true
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
 ---
 # yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -40,7 +36,14 @@ spec:
   dependsOn:
     - name: cluster-resources
       namespace: flux-system
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
+  patches:
+    - # Enable Sops decryption on all child Kustomizations
+      target:
+        kind: Kustomization
+        version: v1
+        group: kustomize.toolkit.fluxcd.io
+      patch: |-
+        - op: add
+          path: /spec/decryption
+          value:
+            provider: sops
