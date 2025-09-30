@@ -58,6 +58,18 @@ spec:
             env:
               - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
                 value: 'false'
+              - name: NODE
+                valueFrom:
+                  fieldRef:
+                    fieldPath: status.hostIP
+            volumeMounts:
+              - mountPath: /var/run/secrets/talos.dev
+                name: talos
+                readOnly: true
         securityContext:
           fsGroup: 123
         serviceAccountName: *name
+        volumes:
+          - name: talos
+            secret:
+              secretName: *name

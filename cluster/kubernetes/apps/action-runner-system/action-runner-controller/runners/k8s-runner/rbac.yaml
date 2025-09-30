@@ -4,6 +4,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: k8s-runner
+  namespace: action-runner-system
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/refs/heads/master/v1.32.2/clusterrole-rbac-v1.json
 apiVersion: rbac.authorization.k8s.io/v1
@@ -28,3 +29,13 @@ subjects:
   - kind: ServiceAccount
     name: k8s-runner
     namespace: action-runner-system
+---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/talos.dev/serviceaccount_v1alpha1.json
+apiVersion: talos.dev/v1alpha1
+kind: ServiceAccount
+metadata:
+  name: k8s-runner
+  namespace: action-runner-system
+spec:
+  roles:
+    - os:admin
