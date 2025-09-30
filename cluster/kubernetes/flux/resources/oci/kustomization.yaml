@@ -23,3 +23,4 @@ resources:
   - ./onepassword-connect.yaml
   - ./spegel.yaml
   - ./k8tz.yaml
+  - ./tuppr.yaml

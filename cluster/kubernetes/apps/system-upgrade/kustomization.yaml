@@ -6,10 +6,7 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  - ./homepage/ks.yaml
-  - ./archiveteam/ks.yaml
-  - ./searxng/ks.yaml
-  - ./it-tools/ks.yaml
+  - ./system-upgrade/ks.yaml
 components:
   - ../../flux/components/alerts
 transformers:
@@ -18,5 +15,5 @@ transformers:
     kind: NamespaceTransformer
     metadata:
       name: not-used
-      namespace: internal
+      namespace: system-upgrade
     unsetOnly: true

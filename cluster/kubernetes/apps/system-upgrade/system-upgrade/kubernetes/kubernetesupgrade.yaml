@@ -1,0 +1,24 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/tuppr.home-operations.com/kubernetesupgrade_v1alpha1.json
+apiVersion: tuppr.home-operations.com/v1alpha1
+kind: KubernetesUpgrade
+metadata:
+  name: kubernetes
+spec:
+  kubernetes:
+    # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
+    version: v1.34.1
+  healthChecks:
+    # Check all nodes are ready
+    - apiVersion: v1
+      kind: Node
+      expr: |
+        status.conditions.filter(c, c.type == "Ready").all(c, c.status == "True")
+    # Check if ceph cluster is healthy
+    - apiVersion: ceph.rook.io/v1
+      kind: CephCluster
+      name: rook-ceph
+      namespace: rook-ceph
+      expr: |-
+        status.ceph.health == 'HEALTH_OK'
+      timeout: 10m

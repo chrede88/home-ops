@@ -1,0 +1,28 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/tuppr.home-operations.com/talosupgrade_v1alpha1.json
+apiVersion: tuppr.home-operations.com/v1alpha1
+kind: TalosUpgrade
+metadata:
+  name: talos
+spec:
+  talos:
+    # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
+    version: v1.11.2
+  policy:
+    debug: true
+    force: false
+    rebootMode: default
+  healthChecks:
+    # Check all nodes are ready
+    - apiVersion: v1
+      kind: Node
+      expr: |
+        status.conditions.filter(c, c.type == "Ready").all(c, c.status == "True")
+    # Check if ceph cluster is healthy
+    - apiVersion: ceph.rook.io/v1
+      kind: CephCluster
+      name: rook-ceph
+      namespace: rook-ceph
+      expr: |-
+        status.ceph.health == 'HEALTH_OK'
+      timeout: 10m
