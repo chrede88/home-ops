@@ -35,7 +35,6 @@ apiVersion: talos.dev/v1alpha1
 kind: ServiceAccount
 metadata:
   name: k8s-runner
-  namespace: action-runner-system
 spec:
   roles:
     - os:admin
