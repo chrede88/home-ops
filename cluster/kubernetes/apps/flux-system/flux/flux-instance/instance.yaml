@@ -8,7 +8,7 @@ metadata:
 spec:
   distribution:
     # renovate: datasource=github-releases depName=controlplaneio-fluxcd/distribution
-    version: 2.6.4
+    version: 2.7.0
     registry: ghcr.io/fluxcd
   components:
     - source-controller
@@ -29,12 +29,19 @@ spec:
     pullSecret: github-auth
   kustomize:
     patches:
+      # Controller level SOPS/age decryption
       - patch: |
           - op: add
-            path: /spec/decryption
-            value:
-              provider: sops
-              secretRef:
-                name: sops-age
+            path: /spec/template/spec/containers/0/args/-
+            value: --sops-age-secret=sops-age
         target:
-          kind: Kustomization
+          kind: Deployment
+          name: kustomize-controller
+      # Cancel health checks on new Kustomizations revisions
+      - patch: |
+          - op: add
+            path: /spec/template/spec/containers/0/args/-
+            value: --feature-gates=CancelHealthCheckOnNewRevision=true
+        target:
+          kind: Deployment
+          name: kustomize-controller
