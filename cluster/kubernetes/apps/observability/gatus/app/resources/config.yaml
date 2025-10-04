@@ -1,0 +1,78 @@
+storage:
+  type: postgres
+  path: postgres://${GATUS_USER}:${GATUS_PASSWD}@gatus-cluster-rw.database.svc.cluster.local:5432/gatus?sslmode=disable
+  caching: true
+metrics: true
+debug: false
+connectivity:
+  checker:
+    target: 1.1.1.1:53
+    interval: 1m
+ui:
+  title: Status | Gatus
+  header: Status
+  dark-mode: true
+  logo: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/app/resources/cjso.svg
+  link: https://github.com/chrede88
+  buttons:
+    - name: Github
+      link: https://github.com/chrede88
+    - name: Homelab
+      link: https://github.com/chrede88/home-ops
+alerting:
+  pushover:
+    application-token: ${PUSHOVER_TOKEN}
+    user-key: ${PUSHOVER_USER_KEY}
+    default-alert:
+      description: 'Health Check Failed!'
+      send-on-resolved: true
+      failure-threshold: 2
+      success-threshold: 2
+endpoints:
+  - name: Death - Ping
+    group: Nodes
+    url: 'icmp://10.10.30.2'
+    interval: 1m
+    conditions:
+      - '[CONNECTED] == true'
+    alerts:
+      - type: pushover
+  - name: Black - Ping
+    group: Nodes
+    url: 'icmp://10.10.30.3'
+    interval: 1m
+    conditions:
+      - '[CONNECTED] == true'
+    alerts:
+      - type: pushover
+  - name: Thrash - Ping
+    group: Nodes
+    url: 'icmp://10.10.30.4'
+    interval: 1m
+    conditions:
+      - '[CONNECTED] == true'
+    alerts:
+      - type: pushover
+  - name: External DNS
+    group: DNS
+    url: '1.1.1.1' # Address of the DNS server to use
+    interval: 5m
+    dns:
+      query-name: 'cjsolsen.com'
+      query-type: 'A'
+    conditions:
+      - '[DNS_RCODE] == NOERROR'
+    alerts:
+      - type: pushover
+  - name: Internal DNS
+    group: DNS
+    url: '10.10.30.1' # Address of the DNS server to use
+    interval: 5m
+    dns:
+      query-name: 'grafana.local.cjsolsen.com'
+      query-type: 'A'
+    conditions:
+      - '[BODY] == 10.10.30.71'
+      - '[DNS_RCODE] == NOERROR'
+    alerts:
+      - type: pushover
