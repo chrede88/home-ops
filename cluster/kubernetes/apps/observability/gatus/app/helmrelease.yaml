@@ -27,9 +27,12 @@ spec:
           gatus-sidecar:
             image:
               repository: ghcr.io/home-operations/gatus-sidecar
-              tag: 0.0.3
+              tag: 0.0.5
             args:
               - --gateway=external-gateway
+              - --auto-httproute=false
+              - --auto-ingress=false
+              - --auto-service=false
             resources:
               requests:
                 cpu: 10m
@@ -101,6 +104,7 @@ spec:
                 - gateway.networking.k8s.io
               resources:
                 - httproutes
+                - gateways
               verbs:
                 - get
                 - watch

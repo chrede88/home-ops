@@ -6,3 +6,9 @@ resources:
   - ./gatus-secret.yaml
   - ./configmap.yaml
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: gatus-configmap
+    files:
+      - config.yaml=./resources/config.yaml
+generatorOptions:
+  disableNameSuffixHash: true
