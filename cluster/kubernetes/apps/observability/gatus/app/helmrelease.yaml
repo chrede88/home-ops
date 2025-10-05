@@ -23,22 +23,6 @@ spec:
       gatus:
         replicas: 1
         strategy: RollingUpdate
-        initContainers:
-          gatus-sidecar:
-            image:
-              repository: ghcr.io/home-operations/gatus-sidecar
-              tag: 0.0.6
-            args:
-              - --gateway=external-gateway
-              - --auto-httproute=false
-              - --auto-ingress=false
-              - --auto-service=false
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 64Mi
-            restartPolicy: Always
         containers:
           app:
             image:
@@ -52,36 +36,42 @@ spec:
                   httpGet:
                     path: /health
                     port: &port 8080
-                  initialDelaySeconds: 5
+                  initialDelaySeconds: 10
                   periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
+                  successThreshold: 1
+                  failureThreshold: 5
               readiness: *probes
             securityContext:
               allowPrivilegeEscalation: true
               readOnlyRootFilesystem: true
-              capabilities: { drop: ['ALL'] }
+              # capabilities:
+              #   drop:
+              #     - 'ALL'
+              #   add:
+              #     - 'NET_RAW'
             resources:
               limits:
                 cpu: 250m
-                memory: 256Mi
+                memory: 100Mi
               requests:
                 cpu: 50m
                 memory: 50Mi
-            env:
-              GATUS_CONFIG_PATH: /config
-              GATUS_DELAY_START_SECONDS: 5
-              GATUS_WEB_PORT: *port
+            ports:
+              - containerPort: *port
+                name: http
+                protocol: TCP
             envFrom:
               - secretRef:
                   name: gatus-secret
         serviceAccount:
-          identifier: *name
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
+          identifier: gatus
+    # defaultPodOptions:
+    #   securityContext:
+    #     runAsNonRoot: true
+    #     runAsUser: 1000
+    #     runAsGroup: 1000
+    #     fsGroup: 1000
+    #     fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         controller: *name
@@ -95,27 +85,6 @@ spec:
           - port: http
     serviceAccount:
       gatus: {}
-    rbac:
-      roles:
-        gatus:
-          type: ClusterRole
-          rules:
-            - apiGroups:
-                - gateway.networking.k8s.io
-              resources:
-                - httproutes
-                - gateways
-              verbs:
-                - get
-                - watch
-                - list
-      bindings:
-        gatus:
-          type: ClusterRoleBinding
-          roleRef:
-            identifier: *name
-          subjects:
-            - identifier: *name
     persistence:
       config:
         type: emptyDir
@@ -125,3 +94,4 @@ spec:
         globalMounts:
           - path: /config/config.yaml
             subPath: config.yaml
+            readOnly: true
