@@ -5,6 +5,8 @@ kind: HTTPRoute
 metadata:
   name: l1nkr-ingress
   namespace: external
+  annotations:
+    gatus.home-operations.com/enabled: 'true'
 spec:
   parentRefs:
     - name: external-gateway
