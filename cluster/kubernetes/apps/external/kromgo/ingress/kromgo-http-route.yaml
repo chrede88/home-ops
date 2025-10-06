@@ -8,7 +8,7 @@ metadata:
   annotations:
     gatus.home-operations.com/enabled: 'true'
     gatus.home-operations.com/endpoint: |
-      url: 'kromgo.cjsolsen.com/talos_version'
+      url: 'https://kromgo.cjsolsen.com/talos_version'
 spec:
   hostnames:
     - kromgo.cjsolsen.com
