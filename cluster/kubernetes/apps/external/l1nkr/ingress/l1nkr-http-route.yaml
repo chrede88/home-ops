@@ -5,7 +5,11 @@ kind: HTTPRoute
 metadata:
   name: l1nkr-ingress
   namespace: external
+  annotations:
+    gatus.home-operations.com/enabled: 'true'
 spec:
+  hostnames:
+    - l1nkr.cjsolsen.com
   parentRefs:
     - name: external-gateway
       namespace: network

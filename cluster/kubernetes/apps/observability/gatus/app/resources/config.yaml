@@ -1,0 +1,30 @@
+storage:
+  type: postgres
+  path: postgres://${GATUS_USER}:${GATUS_PASSWD}@gatus-cluster-rw.database.svc.cluster.local:5432/gatus?sslmode=disable
+  caching: true
+metrics: true
+debug: false
+connectivity:
+  checker:
+    target: 1.1.1.1:53
+    interval: 1m
+ui:
+  title: Status | Gatus
+  header: Status
+  dark-mode: true
+  logo: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/app/resources/cjso.svg
+  link: https://github.com/chrede88
+  buttons:
+    - name: Github
+      link: https://github.com/chrede88
+    - name: Homelab
+      link: https://github.com/chrede88/home-ops
+alerting:
+  pushover:
+    application-token: ${PUSHOVER_TOKEN}
+    user-key: ${PUSHOVER_USER_KEY}
+    default-alert:
+      description: 'Health Check Failed!'
+      send-on-resolved: true
+      failure-threshold: 2
+      success-threshold: 2

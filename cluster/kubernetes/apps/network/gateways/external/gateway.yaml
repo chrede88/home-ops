@@ -7,6 +7,13 @@ metadata:
   namespace: network
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    gatus.home-operations.com/endpoint: |
+      interval: 1m
+      alerts:
+        - type: pushover
+      group: External
+      client:
+        dns-resolver: tcp://1.1.1.1:53
 spec:
   gatewayClassName: cilium
   addresses:

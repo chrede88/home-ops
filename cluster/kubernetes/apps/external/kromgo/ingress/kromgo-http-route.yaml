@@ -5,7 +5,11 @@ kind: HTTPRoute
 metadata:
   name: kromgo
   namespace: external
+  annotations:
+    gatus.home-operations.com/enabled: 'true'
 spec:
+  hostnames:
+    - kromgo.cjsolsen.com
   parentRefs:
     - name: external-gateway
       namespace: network
