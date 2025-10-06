@@ -41,3 +41,14 @@ endpoints:
       - '[DNS_RCODE] == NOERROR'
     alerts:
       - type: pushover
+  - name: External DNS
+    group: DNS
+    url: '1.1.1.1' # Address of the DNS server to use
+    interval: 5m
+    dns:
+      query-name: 'cjsolsen.com'
+      query-type: 'A'
+    conditions:
+      - '[DNS_RCODE] == NOERROR'
+    alerts:
+      - type: pushover
