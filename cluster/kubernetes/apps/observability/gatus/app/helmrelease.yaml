@@ -27,12 +27,10 @@ spec:
           gatus-sidecar:
             image:
               repository: ghcr.io/home-operations/gatus-sidecar
-              tag: 0.0.6
+              tag: 0.0.7
             args:
               - --gateway=external-gateway
-              - --auto-httproute=false
-              - --auto-ingress=false
-              - --auto-service=false
+              - --enable-httproute
             resources:
               requests:
                 cpu: 10m

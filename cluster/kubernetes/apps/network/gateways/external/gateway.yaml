@@ -12,6 +12,8 @@ metadata:
       alerts:
         - type: pushover
       group: External
+      client:
+        dns-resolver: tcp://1.1.1.1:53
 spec:
   gatewayClassName: cilium
   addresses:
