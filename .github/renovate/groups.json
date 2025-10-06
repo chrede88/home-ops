@@ -22,6 +22,16 @@
       },
       "separateMinorPatch": true,
       "minimumGroupSize": 2
+    },
+    {
+      "description": ["Flux-Local Group"],
+      "groupName": "Flux-Local",
+      "matchPackageNames": ["/flux-local/"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true,
+      "minimumGroupSize": 2
     }
   ]
 }
