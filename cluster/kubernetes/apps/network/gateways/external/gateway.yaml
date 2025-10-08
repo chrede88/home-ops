@@ -7,6 +7,7 @@ metadata:
   namespace: network
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    lbipam.cilium.io/ips: 10.10.30.72
     gatus.home-operations.com/endpoint: |
       interval: 1m
       alerts:
@@ -15,10 +16,7 @@ metadata:
       client:
         dns-resolver: tcp://1.1.1.1:53
 spec:
-  gatewayClassName: cilium
-  addresses:
-    - type: IPAddress
-      value: 10.10.30.72
+  gatewayClassName: envoy
   listeners:
     # catch all external http -> https
     - name: http-redirect-external

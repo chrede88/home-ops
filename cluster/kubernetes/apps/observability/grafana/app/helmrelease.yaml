@@ -94,6 +94,14 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/unifi
+          - name: envoy
+            orgId: 1
+            folder: Envoy
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/envoy
     dashboards:
       default:
         node-exporter-full:
@@ -220,4 +228,11 @@ spec:
         unifi-client:
           gnetId: 11315
           revision: 9
+          datasource: Prometheus
+      envoy:
+        envoy-gateway:
+          url: https://raw.githubusercontent.com/envoyproxy/gateway/refs/heads/main/charts/gateway-addons-helm/dashboards/envoy-gateway-global.json
+          datasource: Prometheus
+        envoy-proxy:
+          url: https://raw.githubusercontent.com/envoyproxy/gateway/refs/heads/main/charts/gateway-addons-helm/dashboards/envoy-proxy-global.json
           datasource: Prometheus
