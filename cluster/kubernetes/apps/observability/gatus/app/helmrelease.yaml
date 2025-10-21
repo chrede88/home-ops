@@ -41,7 +41,7 @@ spec:
           app:
             image:
               repository: twinproduction/gatus
-              tag: v5.27.1
+              tag: v5.27.2
             env:
               GATUS_CONFIG_PATH: /config
               GATUS_DELAY_START_SECONDS: 5
