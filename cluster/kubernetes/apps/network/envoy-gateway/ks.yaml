@@ -38,11 +38,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *app
-      namespace: *namespace
   dependsOn:
     - name: envoy-gateway
   path: ./cluster/kubernetes/apps/network/envoy-gateway/resources
