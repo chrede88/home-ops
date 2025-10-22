@@ -15,8 +15,6 @@ spec:
       kind: HelmRelease
       name: *app
       namespace: *namespace
-  dependsOn:
-    - name: cilium-crd
   path: ./cluster/kubernetes/apps/kube-system/cilium/app
   prune: false # never should be deleted
   sourceRef:

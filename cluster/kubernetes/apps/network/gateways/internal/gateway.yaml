@@ -6,13 +6,15 @@ metadata:
   name: internal-gateway
   namespace: network
   annotations:
-    lbipam.cilium.io/ips: &addr 10.10.30.71
     cert-manager.io/cluster-issuer: letsencrypt-production
-    external-dns.alpha.kubernetes.io/target: *addr
+    external-dns.alpha.kubernetes.io/target: &addr 10.10.30.71
   labels:
     gateway-label: internal-gateway
 spec:
   gatewayClassName: envoy
+  infrastructure:
+    annotations:
+      lbipam.cilium.io/ips: *addr
   listeners:
     # catch all local http -> https
     - name: http-redirect
