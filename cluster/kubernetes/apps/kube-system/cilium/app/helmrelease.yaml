@@ -60,7 +60,9 @@ spec:
     l2announcements:
       enabled: true
     gatewayAPI:
-      enabled: true
+      enabled: false
+    envoy:
+      enabled: false
     securityContext:
       capabilities:
         ciliumAgent:

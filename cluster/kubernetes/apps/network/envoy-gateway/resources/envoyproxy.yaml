@@ -1,0 +1,22 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: envoy-proxy
+  namespace: network
+spec:
+  logging:
+    level:
+      default: info
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyDeployment:
+        replicas: 2
+        container:
+          image: mirror.gcr.io/envoyproxy/envoy:v1.35.3
+          resources:
+            requests:
+              cpu: 100m
+            limits:
+              memory: 1Gi
