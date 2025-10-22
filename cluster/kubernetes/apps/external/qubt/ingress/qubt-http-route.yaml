@@ -7,6 +7,8 @@ metadata:
   namespace: external
   annotations:
     gatus.home-operations.com/enabled: 'true'
+    gatus.home-operations.com/endpoint: |
+      name: qubt
 spec:
   hostnames:
     - cjsolsen.com

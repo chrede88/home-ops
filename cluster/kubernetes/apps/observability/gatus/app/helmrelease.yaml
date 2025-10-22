@@ -27,7 +27,7 @@ spec:
           gatus-sidecar:
             image:
               repository: ghcr.io/home-operations/gatus-sidecar
-              tag: 0.0.8
+              tag: 0.0.9
             args:
               - --gateway-name=external-gateway
               - --enable-httproute
@@ -41,7 +41,7 @@ spec:
           app:
             image:
               repository: twinproduction/gatus
-              tag: v5.26.0
+              tag: v5.27.2
             env:
               GATUS_CONFIG_PATH: /config
               GATUS_DELAY_START_SECONDS: 5
