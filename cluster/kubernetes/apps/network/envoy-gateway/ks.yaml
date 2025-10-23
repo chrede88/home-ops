@@ -18,7 +18,7 @@ spec:
   dependsOn:
     - name: cilium-config
   path: ./cluster/kubernetes/apps/network/envoy-gateway/app
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -41,7 +41,7 @@ spec:
   dependsOn:
     - name: envoy-gateway
   path: ./cluster/kubernetes/apps/network/envoy-gateway/resources
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
