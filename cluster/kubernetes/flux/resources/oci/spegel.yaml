@@ -13,5 +13,5 @@ spec:
   ref:
     tag: 0.4.0
   url: oci://ghcr.io/spegel-org/helm-charts/spegel
-  # verify:
-  #   provider: cosign
+  verify:
+    provider: cosign
