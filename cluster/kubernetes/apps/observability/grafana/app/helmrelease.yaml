@@ -201,7 +201,7 @@ spec:
         kubernetes-pods:
           # renovate: depName="Kubernetes / Views / Pods"
           gnetId: 15760
-          revision: 36
+          revision: 37
           datasource: Prometheus
       unifi:
         # renovate: depName="UniFi-Poller: Network Sites - Prometheus"
