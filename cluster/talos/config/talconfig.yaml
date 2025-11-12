@@ -6,7 +6,7 @@ endpoint: https://10.10.30.30:6443
 # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
 talosVersion: v1.11.5
 # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
-kubernetesVersion: v1.34.1
+kubernetesVersion: v1.34.2
 
 domain: cluster.local
 allowSchedulingOnControlPlanes: true
