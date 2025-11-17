@@ -38,7 +38,7 @@ jobs:
       - name: Setup Flux CLI
         uses: fluxcd/flux2/action@v2.7.3
 
-      - uses: allenporter/flux-local/action/test@8.0.0
+      - uses: allenporter/flux-local/action/test@8.0.1
         with:
           path: cluster/kubernetes/flux/main
           enable-helm: true
@@ -62,7 +62,7 @@ jobs:
         uses: fluxcd/flux2/action@v2.7.3
 
       - name: Run diff
-        uses: allenporter/flux-local/action/diff@8.0.0
+        uses: allenporter/flux-local/action/diff@8.0.1
         id: diff
         with:
           live-branch: main
