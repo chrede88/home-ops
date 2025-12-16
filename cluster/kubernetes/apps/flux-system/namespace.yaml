@@ -7,4 +7,4 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
   labels:
-    internal-gateway-access: 'true'
+    internal-gateway-access: "true"
