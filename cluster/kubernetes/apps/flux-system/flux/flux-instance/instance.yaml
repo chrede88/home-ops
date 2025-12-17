@@ -45,3 +45,11 @@ spec:
         target:
           kind: Deployment
           name: kustomize-controller
+      # Add label to namespace
+      - patch: |
+          - op: add
+            path: /metadata/labels/-
+            value: internal-gateway-access: "true"
+        target:
+          kind: Namespace
+          name: flux-system
