@@ -48,8 +48,8 @@ spec:
       # Add label to namespace
       - patch: |
           - op: add
-            path: /metadata/labels/-
-            value: internal-gateway-access: "true"
+            path: /metadata/labels/internal-gateway-access
+            value: "true"
         target:
           kind: Namespace
           name: flux-system
