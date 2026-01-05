@@ -3,6 +3,7 @@
 
 # Talos
 cluster/talos/config/oldConfig/
+cluster/talos/config/clusterconfig_v11.backup/
 cluster/talos/cleanup/
 
 # etcd snapshots
