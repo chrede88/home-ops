@@ -1,0 +1,5 @@
+---
+apiVersion: v1alpha1
+kind: Layer2VIPConfig
+name: 10.10.30.30
+link: eth0
