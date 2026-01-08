@@ -1,0 +1,34 @@
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: thrash-to-death
+selector:
+  match: link.driver == "thunderbolt-net" && link.bus_path == "1-1.0"
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: thrash-to-black
+selector:
+  match: link.driver == "thunderbolt-net" && link.bus_path == "0-1.0"
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: thrash-to-death
+addresses:
+  - address: 169.254.255.4/32 # thrash
+mtu: 65520
+routes:
+  - destination: 169.254.255.2/32 # death
+    metric: 2048
+up: true
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: thrash-to-black
+addresses:
+  - address: 169.254.255.4/32 # thrash
+mtu: 65520
+routes:
+  - destination: 169.254.255.3/32 # black
+    metric: 2048
+up: true
