@@ -68,6 +68,10 @@ data:
                   query: count(count by (node) (kube_node_status_condition{condition="Ready"}))
                   format:
                     type: number
+                - label: Available Nodes
+                  query: count(count by (node) (kube_node_status_condition{condition="Ready"}))
+                  format:
+                    type: number
     - Misc:
         - Unifi:
             icon: unifi.svg
@@ -82,6 +86,10 @@ data:
             icon: ceph.svg
             href: https://ceph.local.cjsolsen.com
             description: Ceph Dashboard
+        - Fluxcd:
+            icon: flux-cd.svg
+            href: https://flux.local.cjsolsen.com
+            description: Fluxcd
     - Observability:
         - Grafana:
             icon: grafana.svg
@@ -106,6 +114,10 @@ data:
             widget:
               type: prometheus
               url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
+        - Alertmanager:
+            icon: alertmanager.svg
+            href: https://alertmanager.local.cjsolsen.com
+            description: Alertmanager
     - Services:
         - GitHub:
             icon: github.svg
