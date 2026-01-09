@@ -30,11 +30,11 @@ data:
       Observability:
         header: false
         style: row
-        columns: 3
+        columns: 4
       Misc:
         header: false
         style: row
-        columns: 2
+        columns: 3
   services.yaml: |
     - Cluster:
         - Cluster:
@@ -62,14 +62,6 @@ data:
                     suffix: '%'
                 - label: Running Pods
                   query: sum(kube_pod_status_phase{phase="Running"})
-                  format:
-                    type: number
-                - label: Available Nodes
-                  query: count(count by (node) (kube_node_status_condition{condition="Ready"}))
-                  format:
-                    type: number
-                - label: Available Nodes
-                  query: count(count by (node) (kube_node_status_condition{condition="Ready"}))
                   format:
                     type: number
     - Misc:
