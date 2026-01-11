@@ -26,7 +26,7 @@ data:
       Services:
         header: true
         style: row
-        columns: 4
+        columns: 5
       Observability:
         header: false
         style: row
@@ -127,6 +127,10 @@ data:
             icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/app/resources/searxng.png
             href: https://search.local.cjsolsen.com
             description: Searxng
+        - It-tools:
+            icon: it-tools.svg
+            href: https://it-tools.local.cjsolsen.com
+            description: It Tools
   widgets.yaml: |
     - logo:
         icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/app/resources/cjso.svg
