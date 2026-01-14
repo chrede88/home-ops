@@ -29,7 +29,6 @@ spec:
               repository: ghcr.io/home-operations/gatus-sidecar
               tag: 0.0.12
             args:
-              - --gateway-name=external-gateway
               - --enable-httproute
             resources:
               requests:
