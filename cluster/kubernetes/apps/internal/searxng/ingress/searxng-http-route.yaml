@@ -10,6 +10,8 @@ metadata:
   annotations:
     gatus.home-operations.com/enabled: 'true'
 spec:
+  hostnames:
+    - search.local.cjsolsen.com
   parentRefs:
     - name: internal-gateway
       namespace: network
