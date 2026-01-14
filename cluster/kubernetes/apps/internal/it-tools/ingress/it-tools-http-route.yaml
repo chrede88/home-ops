@@ -7,6 +7,8 @@ metadata:
   namespace: internal
   labels:
     route-label: external-dns-internal
+  annotations:
+    gatus.home-operations.com/enabled: 'true'
 spec:
   parentRefs:
     - name: internal-gateway
