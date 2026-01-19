@@ -8,6 +8,7 @@ spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
     email: christian@cjsolsen.com
+    profile: shortlived
     privateKeySecretRef:
       name: letsencrypt-production
     solvers:
