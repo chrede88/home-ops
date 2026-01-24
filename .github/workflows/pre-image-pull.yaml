@@ -18,6 +18,7 @@ jobs:
   filter:
     name: Pre Image Pull - Filter
     runs-on: ubuntu-24.04
+    timeout-minutes: 5
     outputs:
       changed-files: ${{ steps.changed-files.outputs.changed_files }}
     steps:
@@ -32,6 +33,7 @@ jobs:
     needs: filter
     name: Pre Image Pull - Extract Images
     runs-on: ubuntu-24.04
+    timeout-minutes: 5
     strategy:
       matrix:
         branch:
@@ -85,6 +87,7 @@ jobs:
     needs: extract
     name: Pre Image Pull - Diff Images
     runs-on: ubuntu-24.04
+    timeout-minutes: 5
     outputs:
       images: ${{ steps.diff.outputs.images }}
     steps:
@@ -108,6 +111,7 @@ jobs:
     needs: diff
     name: Pre Image Pull - Pull Images
     runs-on: k8s-runner
+    timeout-minutes: 10
     strategy:
       matrix:
         image: ${{ fromJSON(needs.diff.outputs.images) }}
@@ -127,6 +131,7 @@ jobs:
     needs: pull
     name: Pre Image Pull - Success
     runs-on: ubuntu-24.04
+    timeout-minutes: 5
     steps:
       - name: Any jobs failed?
         if: ${{ contains(needs.*.result, 'failure') }}

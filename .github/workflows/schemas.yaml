@@ -14,6 +14,7 @@ jobs:
   publish:
     name: Schemas
     runs-on: k8s-runner
+    timeout-minutes: 10
     permissions:
       contents: read
       packages: write

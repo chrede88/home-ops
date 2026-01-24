@@ -17,6 +17,7 @@ jobs:
   filter:
     name: Flux Local - Filter
     runs-on: ubuntu-24.04
+    timeout-minutes: 5
     outputs:
       changed-files: ${{ steps.changed-files.outputs.changed_files }}
     steps:
@@ -31,6 +32,7 @@ jobs:
     needs: filter
     name: Flux Local - Test
     runs-on: ubuntu-24.04
+    timeout-minutes: 5
     steps:
       - name: Checkout files
         uses: actions/checkout@v6.0.2
@@ -49,6 +51,7 @@ jobs:
     needs: filter
     name: Flux Local - Diff
     runs-on: ubuntu-24.04
+    timeout-minutes: 5
     permissions:
       contents: read
       pull-requests: write
@@ -87,6 +90,7 @@ jobs:
     name: Flux Local - Success
     needs: ['test', 'diff']
     runs-on: ubuntu-24.04
+    timeout-minutes: 5
     steps:
       - name: Any jobs failed?
         if: ${{ contains(needs.*.result, 'failure') }}
