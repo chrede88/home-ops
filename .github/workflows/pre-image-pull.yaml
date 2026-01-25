@@ -17,7 +17,8 @@ permissions:
 jobs:
   filter:
     name: Pre Image Pull - Filter
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-slim
+    timeout-minutes: 5
     outputs:
       changed-files: ${{ steps.changed-files.outputs.changed_files }}
     steps:
@@ -32,6 +33,7 @@ jobs:
     needs: filter
     name: Pre Image Pull - Extract Images
     runs-on: ubuntu-24.04
+    timeout-minutes: 5
     strategy:
       matrix:
         branch:
@@ -43,21 +45,21 @@ jobs:
       pull: ${{ steps.extract.outputs.pull }}
     steps:
       - name: Generate Token
-        uses: actions/create-github-app-token@v2.1.4
+        uses: actions/create-github-app-token@v2.2.1
         id: app-token
         with:
           app-id: ${{ secrets.BOT_APP_ID }}
           private-key: ${{ secrets.BOT_PRIVATE_KEY }}
 
       - name: Checkout
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.2
         with:
           persist-credentials: false
           ref: ${{ matrix.branch == 'default' && github.event.repository.default_branch || '' }}
           token: ${{ steps.app-token.outputs.token }}
 
       - name: Gather Images
-        uses: docker://ghcr.io/allenporter/flux-local:v7.11.0
+        uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         with:
@@ -84,7 +86,8 @@ jobs:
     if: ${{ needs.extract.outputs.default != needs.extract.outputs.pull }}
     needs: extract
     name: Pre Image Pull - Diff Images
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-slim
+    timeout-minutes: 5
     outputs:
       images: ${{ steps.diff.outputs.images }}
     steps:
@@ -108,6 +111,7 @@ jobs:
     needs: diff
     name: Pre Image Pull - Pull Images
     runs-on: k8s-runner
+    timeout-minutes: 10
     strategy:
       matrix:
         image: ${{ fromJSON(needs.diff.outputs.images) }}
@@ -126,7 +130,8 @@ jobs:
     if: ${{ !cancelled() }}
     needs: pull
     name: Pre Image Pull - Success
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-slim
+    timeout-minutes: 5
     steps:
       - name: Any jobs failed?
         if: ${{ contains(needs.*.result, 'failure') }}

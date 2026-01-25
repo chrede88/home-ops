@@ -8,6 +8,11 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
     external-dns.alpha.kubernetes.io/target: &addr 10.10.30.71
+    gatus.home-operations.com/endpoint: |
+      interval: 1m
+      alerts:
+        - type: pushover
+      group: Internal
   labels:
     gateway-label: internal-gateway
 spec:
@@ -159,3 +164,18 @@ spec:
         mode: Terminate
         certificateRefs:
           - name: it-tools-cjsolsen-com
+    # catch traffic for the flux web UI
+    - name: flux-web
+      hostname: flux.local.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              internal-gateway-access: 'true'
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: flux-cjsolsen-com

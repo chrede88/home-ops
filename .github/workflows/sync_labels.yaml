@@ -12,11 +12,12 @@ permissions:
 
 jobs:
   labels:
-    runs-on: ubuntu-24.04
-
+    name: Label Sync
+    runs-on: ubuntu-slim
+    timeout-minutes: 10
     steps:
       - name: checkout
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.2
 
       - name: sync-labels
         uses: EndBug/label-sync@v2.3.3

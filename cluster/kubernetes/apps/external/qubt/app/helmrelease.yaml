@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/chrede88/qubtdocker
-              tag: v2.2.1
+              tag: v2.2.2
             probes:
               liveness: &probes
                 enabled: true

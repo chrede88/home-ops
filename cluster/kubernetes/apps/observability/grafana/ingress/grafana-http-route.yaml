@@ -7,7 +7,11 @@ metadata:
   namespace: observability
   labels:
     route-label: external-dns-internal
+  annotations:
+    gatus.home-operations.com/enabled: 'true'
 spec:
+  hostnames:
+    - grafana.local.cjsolsen.com
   parentRefs:
     - name: internal-gateway
       namespace: network

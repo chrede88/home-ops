@@ -3,24 +3,25 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: ceph-dashboard
-  namespace: rook-ceph
+  name: flux-web
+  namespace: flux-system
   labels:
     route-label: external-dns-internal
   annotations:
     gatus.home-operations.com/enabled: 'true'
 spec:
   hostnames:
-    - ceph.local.cjsolsen.com
+    - flux.local.cjsolsen.com
   parentRefs:
     - name: internal-gateway
       namespace: network
-      sectionName: ceph-dashboard
+      sectionName: flux-web
   rules:
     - matches:
         - path:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: rook-ceph-mgr-dashboard
-          port: 8080
+        - name: flux-operator
+          namespace: flux-system
+          port: 9080

@@ -16,7 +16,8 @@ on:
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-slim
+    timeout-minutes: 10
     permissions:
       security-events: write
       packages: read
@@ -28,15 +29,15 @@ jobs:
             build-mode: none
     steps:
       - name: Checkout
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.2
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v4.31.0
+        uses: github/codeql-action/init@v4.31.11
         with:
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v4.31.0
+        uses: github/codeql-action/analyze@v4.31.11
         with:
           category: '/language:${{matrix.language}}'

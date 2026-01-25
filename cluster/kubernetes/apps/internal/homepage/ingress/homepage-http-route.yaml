@@ -7,7 +7,11 @@ metadata:
   namespace: internal
   labels:
     route-label: external-dns-internal
+  annotations:
+    gatus.home-operations.com/enabled: 'true'
 spec:
+  hostnames:
+    - homepage.local.cjsolsen.com
   parentRefs:
     - name: internal-gateway
       namespace: network

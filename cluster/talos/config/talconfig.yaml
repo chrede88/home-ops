@@ -4,9 +4,9 @@ clusterName: metal
 endpoint: https://10.10.30.30:6443
 
 # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
-talosVersion: v1.11.3
+talosVersion: v1.12.2
 # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
-kubernetesVersion: v1.34.1
+kubernetesVersion: v1.35.0
 
 domain: cluster.local
 allowSchedulingOnControlPlanes: true
@@ -25,91 +25,28 @@ nodes:
     ipAddress: 10.10.30.2
     controlPlane: true
     installDisk: /dev/sda
-    networkInterfaces:
-      - interface: eth0
-        dhcp: true
-        vip:
-          ip: 10.10.30.30
-      - deviceSelector:
-          busPath: 0-1.0 # to thrash
-        addresses:
-          - 169.254.255.2/32
-        routes:
-          - network: 169.254.255.4/32
-            gateway: ''
-            metric: 2048
-        mtu: 65520
-        dhcp: false
-      - deviceSelector:
-          busPath: 1-1.0 # to black
-        addresses:
-          - 169.254.255.2/32
-        routes:
-          - network: 169.254.255.3/32
-            gateway: ''
-            metric: 2048
-        mtu: 65520
-        dhcp: false
+    patches:
+      - "@./patches/dhcp.yaml"
+      - "@./patches/l2vip.yaml"
+      - "@./patches/thunderbolt-death.yaml"
 
   - hostname: black
     ipAddress: 10.10.30.3
     controlPlane: true
     installDisk: /dev/sda
-    networkInterfaces:
-      - interface: eth0
-        dhcp: true
-        vip:
-          ip: 10.10.30.30
-      - deviceSelector:
-          busPath: 0-1.0 # to death
-        addresses:
-          - 169.254.255.3/32
-        routes:
-          - network: 169.254.255.2/32
-            gateway: ''
-            metric: 2048
-        mtu: 65520
-        dhcp: false
-      - deviceSelector:
-          busPath: 1-1.0 # to thrash
-        addresses:
-          - 169.254.255.3/32
-        routes:
-          - network: 169.254.255.4/32
-            gateway: ''
-            metric: 2048
-        mtu: 65520
-        dhcp: false
+    patches:
+      - "@./patches/dhcp.yaml"
+      - "@./patches/l2vip.yaml"
+      - "@./patches/thunderbolt-black.yaml"
 
   - hostname: thrash
     ipAddress: 10.10.30.4
     controlPlane: true
     installDisk: /dev/sda
-    networkInterfaces:
-      - interface: eth0
-        dhcp: true
-        vip:
-          ip: 10.10.30.30
-      - deviceSelector:
-          busPath: 0-1.0 # to black
-        addresses:
-          - 169.254.255.4/32
-        routes:
-          - network: 169.254.255.3/32
-            gateway: ''
-            metric: 2048
-        mtu: 65520
-        dhcp: false
-      - deviceSelector:
-          busPath: 1-1.0 # to death
-        addresses:
-          - 169.254.255.4/32
-        routes:
-          - network: 169.254.255.2/32
-            gateway: ''
-            metric: 2048
-        mtu: 65520
-        dhcp: false
+    patches:
+      - "@./patches/dhcp.yaml"
+      - "@./patches/l2vip.yaml"
+      - "@./patches/thunderbolt-thrash.yaml"
 
 controlPlane:
   schematic:
@@ -166,7 +103,7 @@ controlPlane:
       machine:
         features:
           rbac: true
-          stableHostname: true
+          stableHostname: false
           apidCheckExtKeyUsage: true
           diskQuotaSupport: true
           kubePrism:

@@ -16,7 +16,8 @@ permissions:
 jobs:
   filter:
     name: Flux Local - Filter
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-slim
+    timeout-minutes: 5
     outputs:
       changed-files: ${{ steps.changed-files.outputs.changed_files }}
     steps:
@@ -31,14 +32,15 @@ jobs:
     needs: filter
     name: Flux Local - Test
     runs-on: ubuntu-24.04
+    timeout-minutes: 5
     steps:
       - name: Checkout files
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.2
 
       - name: Setup Flux CLI
-        uses: fluxcd/flux2/action@v2.7.3
+        uses: fluxcd/flux2/action@v2.7.5
 
-      - uses: allenporter/flux-local/action/test@7.11.0
+      - uses: allenporter/flux-local/action/test@8.1.0
         with:
           path: cluster/kubernetes/flux/main
           enable-helm: true
@@ -49,6 +51,7 @@ jobs:
     needs: filter
     name: Flux Local - Diff
     runs-on: ubuntu-24.04
+    timeout-minutes: 5
     permissions:
       contents: read
       pull-requests: write
@@ -59,10 +62,10 @@ jobs:
           - kustomization
     steps:
       - name: Setup Flux CLI
-        uses: fluxcd/flux2/action@v2.7.3
+        uses: fluxcd/flux2/action@v2.7.5
 
       - name: Run diff
-        uses: allenporter/flux-local/action/diff@7.11.0
+        uses: allenporter/flux-local/action/diff@8.1.0
         id: diff
         with:
           live-branch: main
@@ -86,7 +89,8 @@ jobs:
     if: ${{ !cancelled() }}
     name: Flux Local - Success
     needs: ['test', 'diff']
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-slim
+    timeout-minutes: 5
     steps:
       - name: Any jobs failed?
         if: ${{ contains(needs.*.result, 'failure') }}

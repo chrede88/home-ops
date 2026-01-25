@@ -6,3 +6,5 @@ metadata:
   name: flux-system
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
+  labels:
+    internal-gateway-access: "true"

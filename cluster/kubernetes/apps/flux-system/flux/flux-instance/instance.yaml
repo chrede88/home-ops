@@ -8,7 +8,7 @@ metadata:
 spec:
   distribution:
     # renovate: datasource=github-releases depName=controlplaneio-fluxcd/distribution
-    version: 2.7.3
+    version: 2.7.5
     registry: ghcr.io/fluxcd
   components:
     - source-controller
@@ -45,3 +45,11 @@ spec:
         target:
           kind: Deployment
           name: kustomize-controller
+      # Add label to namespace
+      - patch: |
+          - op: add
+            path: /metadata/labels/internal-gateway-access
+            value: "true"
+        target:
+          kind: Namespace
+          name: flux-system

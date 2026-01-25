@@ -26,15 +26,15 @@ data:
       Services:
         header: true
         style: row
-        columns: 4
+        columns: 5
       Observability:
         header: false
         style: row
-        columns: 3
+        columns: 4
       Misc:
         header: false
         style: row
-        columns: 2
+        columns: 3
   services.yaml: |
     - Cluster:
         - Cluster:
@@ -64,10 +64,6 @@ data:
                   query: sum(kube_pod_status_phase{phase="Running"})
                   format:
                     type: number
-                - label: Available Nodes
-                  query: count(count by (node) (kube_node_status_condition{condition="Ready"}))
-                  format:
-                    type: number
     - Misc:
         - Unifi:
             icon: unifi.svg
@@ -82,6 +78,10 @@ data:
             icon: ceph.svg
             href: https://ceph.local.cjsolsen.com
             description: Ceph Dashboard
+        - Fluxcd:
+            icon: flux-cd.svg
+            href: https://flux.local.cjsolsen.com
+            description: Fluxcd
     - Observability:
         - Grafana:
             icon: grafana.svg
@@ -106,6 +106,10 @@ data:
             widget:
               type: prometheus
               url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
+        - Alertmanager:
+            icon: alertmanager.svg
+            href: https://alertmanager.local.cjsolsen.com
+            description: Alertmanager
     - Services:
         - GitHub:
             icon: github.svg
@@ -123,6 +127,10 @@ data:
             icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/app/resources/searxng.png
             href: https://search.local.cjsolsen.com
             description: Searxng
+        - It-tools:
+            icon: it-tools.svg
+            href: https://it-tools.local.cjsolsen.com
+            description: It Tools
   widgets.yaml: |
     - logo:
         icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/app/resources/cjso.svg
