@@ -53,3 +53,19 @@ spec:
         target:
           kind: Namespace
           name: flux-system
+      - patch: |
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: all
+          spec:
+            template:
+              spec:
+                containers:
+                  - name: manager
+                    resources:
+                      limits:
+                        memory: 384Mi
+        target:
+          kind: Deployment
+          name: (kustomize-controller|helm-controller|source-controller|notification-controller)
