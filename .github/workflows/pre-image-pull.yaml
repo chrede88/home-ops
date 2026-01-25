@@ -17,7 +17,7 @@ permissions:
 jobs:
   filter:
     name: Pre Image Pull - Filter
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-slim
     timeout-minutes: 5
     outputs:
       changed-files: ${{ steps.changed-files.outputs.changed_files }}
@@ -86,7 +86,7 @@ jobs:
     if: ${{ needs.extract.outputs.default != needs.extract.outputs.pull }}
     needs: extract
     name: Pre Image Pull - Diff Images
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-slim
     timeout-minutes: 5
     outputs:
       images: ${{ steps.diff.outputs.images }}
@@ -130,7 +130,7 @@ jobs:
     if: ${{ !cancelled() }}
     needs: pull
     name: Pre Image Pull - Success
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-slim
     timeout-minutes: 5
     steps:
       - name: Any jobs failed?
