@@ -43,9 +43,15 @@ spec:
         urlPrefix: /
         port: 8080
         ssl: false
-      # network:
-      #   connections:
-      #     requireMsgr2: true
+      network:
+        provider: host
+        addressRanges:
+          public:
+            - 169.254.255.0/24
+          cluster:
+            - 169.254.255.0/24
+        connections:
+          requireMsgr2: true
       resources:
         mgr:
           requests:
