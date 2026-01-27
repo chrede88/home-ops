@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Get Changed Files
         id: changed-files
-        uses: bjw-s-labs/action-changed-files@v0.4.1
+        uses: bjw-s-labs/action-changed-files@v0.5.0
         with:
           patterns: cluster/kubernetes/**/*
 
