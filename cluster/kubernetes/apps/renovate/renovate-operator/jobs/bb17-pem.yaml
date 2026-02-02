@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: &name bb17-pem
+  namespace: renovate
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword
+  target:
+    name: *name
+  dataFrom:
+    - extract:
+        key: *name # 1p item name

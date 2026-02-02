@@ -6,4 +6,5 @@ resources:
   - ./bb17-pem.yaml
   - ./github-access-token.yaml
   - ./github-auth.yaml
+  - ./github-private-pull.yaml
   - ./chrede88.yaml
