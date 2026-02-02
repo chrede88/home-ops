@@ -3,16 +3,17 @@
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
-  name: &name bb17-pem
+  name: &name github-pull-token
   namespace: renovate
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword
   target:
-    name: *name
-  data:
-    - secretKey: *name
-      remoteRef:
-        key: *name # 1p item
-        property: bb17.pem
+    name: *name # name of created secret
+    template:
+      data:
+        GITHUB_PAT: '{{ .password }}'
+  dataFrom:
+    - extract:
+        key: ghcr-pull-secret

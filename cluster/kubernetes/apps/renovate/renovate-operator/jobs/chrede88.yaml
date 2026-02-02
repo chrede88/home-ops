@@ -17,8 +17,15 @@ spec:
       value: 'true'
     - name: RENOVATE_BOT_NAME
       value: 'bb-17'
+    - name: GITHUB_PAT
+      valueFrom:
+        secretKeyRef:
+          name: github-pull-token
+          key: GITHUB_PAT
+    - name: RENOVATE_HOST_RULE
+      value: '[{"hostType": "docker", "matchHost": "ghcr.io", "username": "chrede88", "password": "$(GITHUB_PAT)"}]'
   image: ghcr.io/renovatebot/renovate:43.0.2
-  parallelism: 5
+  parallelism: 3
   resources:
     requests:
       cpu: 100m
