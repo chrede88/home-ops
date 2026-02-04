@@ -33,6 +33,4 @@ spec:
   schedule: 0 * * * *
   secretRef: renovate-secret
   webhook:
-    enabled: true
-    authentication:
-      enabled: false
+    enabled: false
