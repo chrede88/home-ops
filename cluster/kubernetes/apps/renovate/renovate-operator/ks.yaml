@@ -15,7 +15,7 @@ spec:
       kind: HelmRelease
       name: renovate-operator
       namespace: *namespace
-  path: ./cluster/kubernetes/apps/renovate-operator/renovate-operator/app
+  path: ./cluster/kubernetes/apps/renovate/renovate-operator/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -38,7 +38,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: renovate-operator
-  path: ./cluster/kubernetes/apps/renovate-operator/renovate-operator/jobs
+  path: ./cluster/kubernetes/apps/renovate/renovate-operator/jobs
   prune: true
   sourceRef:
     kind: GitRepository
@@ -66,7 +66,7 @@ spec:
       current: status.parents[0].conditions.filter(e, e.type == 'Accepted').all(e, e.status == 'True')
   dependsOn:
     - name: envoy-gateway-resources
-  path: ./cluster/kubernetes/apps/renovate-operator/renovate-operator/ingress
+  path: ./cluster/kubernetes/apps/renovate/renovate-operator/ingress
   prune: true
   sourceRef:
     kind: GitRepository
