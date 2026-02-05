@@ -22,7 +22,7 @@ spec:
         secretKeyRef:
           name: github-pull-token
           key: GITHUB_PAT
-    - name: RENOVATE_HOST_RULE
+    - name: RENOVATE_HOST_RULES
       value: >-
           [{"hostType": "docker", "matchHost": "ghcr.io", "username": "chrede88", "password": "$(GITHUB_PAT)"}]
   image: ghcr.io/renovatebot/renovate:43.2.0
