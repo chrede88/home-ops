@@ -25,3 +25,4 @@ resources:
   - ./k8tz.yaml
   - ./tuppr.yaml
   - ./envoy-gateway.yaml
+  - ./renovate-operator.yaml

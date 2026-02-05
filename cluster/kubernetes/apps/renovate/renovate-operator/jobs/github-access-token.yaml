@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/generators.external-secrets.io/githubaccesstoken_v1alpha1.json
+apiVersion: generators.external-secrets.io/v1alpha1
+kind: GithubAccessToken
+metadata:
+  name: github-auth-token
+  namespace: renovate
+spec:
+  appID: "1021022"
+  installID: "55829102"
+  auth:
+    privateKey:
+      secretRef:
+        name: &name bb17-pem # reference secret from step 1.
+        key: *name

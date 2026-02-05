@@ -1,0 +1,10 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./bb17-pem.yaml
+  - ./github-access-token.yaml
+  - ./github-auth.yaml
+  - ./github-pull-token.yaml
+  - ./chrede88.yaml
