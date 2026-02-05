@@ -5,7 +5,7 @@ metadata:
   name: chrede88
   namespace: renovate
 spec:
-  discoveryFilter: chrede88/*
+  discoveryTopic: renovate
   extraEnv:
     - name: LOG_LEVEL
       value: debug
@@ -23,7 +23,8 @@ spec:
           name: github-pull-token
           key: GITHUB_PAT
     - name: RENOVATE_HOST_RULE
-      value: '[{"hostType": "docker", "matchHost": "ghcr.io", "username": "chrede88", "password": "$(GITHUB_PAT)"}]'
+      value: |
+          [{"hostType": "docker", "matchHost": "ghcr.io", "username": "chrede88", "password": "$(GITHUB_PAT)"}]
   image: ghcr.io/renovatebot/renovate:43.2.0
   parallelism: 3
   resources:
