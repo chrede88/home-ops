@@ -13,7 +13,7 @@ spec:
     name: *name
     template:
       data:
-        bb17-pem: '{{ .password }}'
+        bb17-pem: '{{ .key }}'
   dataFrom:
     - extract:
         key: bb17-pem-key # 1p item
