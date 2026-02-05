@@ -11,8 +11,9 @@ spec:
     name: onepassword
   target:
     name: *name
-  data:
-    - secretKey: *name
-      remoteRef:
-        key: *name # 1p item
-        property: bb17.pem
+    template:
+      data:
+        bb17-pem: '{{ .password }}'
+  dataFrom:
+    - extract:
+        key: bb17-pem-key # 1p item
