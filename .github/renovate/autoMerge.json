@@ -7,11 +7,8 @@
       "automerge": true,
       "automergeType": "pr",
       "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": [
-        "/kube-prometheus-stack/",
-        "ghcr.io/renovatebot/renovate"
-      ],
-      "ignoreTests": false
+      "matchPackageNames": ["ghcr.io/renovatebot/renovate"],
+      "ignoreTests": true
     }
   ]
 }
