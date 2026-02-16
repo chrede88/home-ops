@@ -11,15 +11,6 @@ spec:
     kind: OCIRepository
     name: renovate-operator
     namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
     fullnameOverride: renovate-operator
     webhook:
