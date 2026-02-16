@@ -12,6 +12,10 @@ spec:
     debug: true
     force: false
     rebootMode: default
+  drain:
+    deleteLocalData: true
+    ignoreDaemonSets: true
+    force: true
   healthChecks:
     # Check all nodes are ready
     - apiVersion: v1
