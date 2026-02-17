@@ -6,23 +6,14 @@ metadata:
   name: cert-manager
 spec:
   interval: 30m
+  timeout: 15m
   chartRef:
     kind: OCIRepository
     name: cert-manager
     namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
     crds:
       enabled: true
-      keep: true
     replicaCount: 1
     dns01RecursiveNameservers: 1.1.1.1:53,1.0.0.1:53
     dns01RecursiveNameserversOnly: true
