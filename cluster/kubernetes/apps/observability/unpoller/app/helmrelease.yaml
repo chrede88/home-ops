@@ -21,7 +21,7 @@ spec:
           app:
             image:
               repository: ghcr.io/unpoller/unpoller
-              tag: v2.33.0
+              tag: v2.34.0
             env:
               - name: TZ
                 value: Europe/Zurich
