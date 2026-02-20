@@ -25,7 +25,7 @@ spec:
     - name: RENOVATE_HOST_RULES
       value: >-
           [{"hostType": "docker", "matchHost": "ghcr.io", "username": "chrede88", "password": "$(GITHUB_PAT)"}]
-  image: ghcr.io/renovatebot/renovate:43.26.5
+  image: ghcr.io/renovatebot/renovate:43.29.0
   parallelism: 3
   resources:
     requests:
