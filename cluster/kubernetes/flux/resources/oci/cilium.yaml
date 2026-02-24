@@ -13,8 +13,8 @@ spec:
   ref:
     tag: 1.19.1
   url: oci://quay.io/cilium/charts/cilium
-  # verify:
-  #   provider: cosign
-  #   matchOIDCIdentity:
-  #     - issuer: '^https://token.actions.githubusercontent.com$'
-  #       subject: '^https://github.com/home-operations/charts-mirror.*$'
+  verify:
+    provider: cosign
+    matchOIDCIdentity:
+      - issuer: '^https://token.actions.githubusercontent.com$'
+        subject: '^https://github.com/home-operations/charts-mirror.*$'
