@@ -11,7 +11,7 @@ Before I get to the namespace specific resources, I first have to add the two ne
 ```yaml
 # ./cluster/kuberntes/flux/resources/helm/prometheus-community.yaml
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: prometheus-community
@@ -24,7 +24,7 @@ spec:
 ```yaml
 # ./cluster/kuberntes/flux/resources/helm/grafana.yaml
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: grafana
@@ -150,7 +150,7 @@ Next up are the helm charts. They're both quite long!
 ```yaml
 # ./cluster/kuberntes/apps/observability/kube-prometheus-stack/app/helmrelease.yaml
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: kube-prometheus-stack
@@ -271,7 +271,7 @@ I'm using some dashboards that aren't published on the grafana website. These ca
 ```yaml
 # ./cluster/kuberntes/apps/observability/grafana/app/helmrelease.yaml
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: grafana

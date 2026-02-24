@@ -15,7 +15,7 @@ First I'll create the Flux resources needed for the install.
 ```yaml
 # ./cluster/kubernetes/flux/resources/helm/rook-ceph.yaml
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: rook-ceph
@@ -80,7 +80,7 @@ First the Rook operator chart:
 ```yaml
 # /cluster/kubernetes/apps/rook-ceph/rook-ceph/app/helmrelease.yaml
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: rook-ceph-operator
@@ -126,7 +126,7 @@ And the Ceph cluster chart:
 ```yaml
 # /cluster/kubernetes/apps/rook-ceph/rook-ceph/cluster/helmrelease.yaml
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: rook-ceph-cluster
