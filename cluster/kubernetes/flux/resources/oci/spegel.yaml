@@ -15,3 +15,6 @@ spec:
   url: oci://ghcr.io/spegel-org/helm-charts/spegel
   verify:
     provider: cosign
+    matchOIDCIdentity:
+      - issuer: "^https://token.actions.githubusercontent.com$"
+        subject: "^https://github.com/spegel-org/spegel.*$"
