@@ -38,7 +38,7 @@ jobs:
         uses: actions/checkout@v6.0.2
 
       - name: Setup Flux CLI
-        uses: fluxcd/flux2/action@v2.7.5
+        uses: fluxcd/flux2/action@v2.8.0
 
       - uses: allenporter/flux-local/action/test@8.1.0
         with:
@@ -62,7 +62,7 @@ jobs:
           - kustomization
     steps:
       - name: Setup Flux CLI
-        uses: fluxcd/flux2/action@v2.7.5
+        uses: fluxcd/flux2/action@v2.8.0
 
       - name: Run diff
         uses: allenporter/flux-local/action/diff@8.1.0
