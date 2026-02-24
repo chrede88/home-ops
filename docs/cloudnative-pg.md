@@ -8,7 +8,7 @@ Let's first define the Flux resources I need. The first thing is a helm reposito
 ```yaml
 # ./cluster/kubernets/flux/resources/helm/cloudnative-pg.yaml
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: cloudnative-pg
@@ -79,7 +79,7 @@ The operator is defined using a Helm release.
 ```yaml
 # ./cluster/kubernetes/apps/database/cloudnative-pg/app/helmrelease.yaml
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: cloudnative-pg

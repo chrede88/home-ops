@@ -111,7 +111,7 @@ jobs:
     needs: diff
     name: Pre Image Pull - Pull Images
     runs-on: k8s-runner
-    timeout-minutes: 10
+    timeout-minutes: 15
     strategy:
       matrix:
         image: ${{ fromJSON(needs.diff.outputs.images) }}
