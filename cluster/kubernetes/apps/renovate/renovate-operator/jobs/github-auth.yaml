@@ -1,0 +1,24 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: github-auth-token
+  namespace: renovate
+spec:
+  refreshInterval: "30m0s"
+  target:
+    name: renovate-secret
+    template:
+      type: Opaque
+      engineVersion: v2
+      data:
+        GITHUB_COM_TOKEN:  "{{ .token }}"
+        GITHUB_COM_USER: Y2hyZWRlODg=
+        RENOVATE_TOKEN: "{{ .token }}"
+  dataFrom:
+    - sourceRef:
+        generatorRef:
+          apiVersion: generators.external-secrets.io/v1alpha1
+          kind: GithubAccessToken
+          name: github-auth-token # reference from step 2.

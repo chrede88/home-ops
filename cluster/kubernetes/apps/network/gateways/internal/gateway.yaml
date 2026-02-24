@@ -179,3 +179,18 @@ spec:
         mode: Terminate
         certificateRefs:
           - name: flux-cjsolsen-com
+    # catch traffic for the renovate dashboard
+    - name: renovate-dashboard
+      hostname: renovate.local.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              internal-gateway-access: 'true'
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: renovate-cjsolsen-com

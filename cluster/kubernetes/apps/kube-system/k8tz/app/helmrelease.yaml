@@ -6,18 +6,11 @@ metadata:
   name: k8tz
 spec:
   interval: 30m
+  timeout: 15m
   chartRef:
     kind: OCIRepository
     name: k8tz
     namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      strategy: rollback
-      retries: 3
   values:
     namespace: null
     createNamespace: false

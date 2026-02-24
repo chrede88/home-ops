@@ -11,15 +11,6 @@ spec:
     kind: OCIRepository
     name: rook-ceph-cluster
     namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: rook-ceph-operator
       namespace: rook-ceph
@@ -43,9 +34,15 @@ spec:
         urlPrefix: /
         port: 8080
         ssl: false
-      # network:
-      #   connections:
-      #     requireMsgr2: true
+      network:
+        provider: host
+        addressRanges:
+          public:
+            - 169.254.255.0/24
+          cluster:
+            - 169.254.255.0/24
+        # connections:
+        #   requireMsgr2: true
       resources:
         mgr:
           requests:

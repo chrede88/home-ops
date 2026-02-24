@@ -1,0 +1,37 @@
+---
+apiVersion: renovate-operator.mogenius.com/v1alpha1
+kind: RenovateJob
+metadata:
+  name: chrede88
+  namespace: renovate
+spec:
+  discoverTopics: renovate
+  extraEnv:
+    - name: LOG_LEVEL
+      value: debug
+    - name: RENOVATE_ENDPOINT
+      value: https://api.github.com/
+    - name: RENOVATE_PLATFORM
+      value: github
+    - name: RENOVATE_PLATFORM_COMMIT
+      value: 'true'
+    - name: RENOVATE_BOT_NAME
+      value: 'bb-17'
+    - name: GITHUB_PAT
+      valueFrom:
+        secretKeyRef:
+          name: github-pull-token
+          key: GITHUB_PAT
+    - name: RENOVATE_HOST_RULES
+      value: >-
+          [{"hostType": "docker", "matchHost": "ghcr.io", "username": "chrede88", "password": "$(GITHUB_PAT)"}]
+  image: ghcr.io/renovatebot/renovate:43.33.1
+  parallelism: 3
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  schedule: 0 * * * *
+  secretRef: renovate-secret
+  webhook:
+    enabled: false

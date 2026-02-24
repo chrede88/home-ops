@@ -7,18 +7,11 @@ metadata:
   namespace: network
 spec:
   interval: 30m
+  timeout: 15m
   chartRef:
     kind: OCIRepository
     name: envoy-gateway
     namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      strategy: rollback
-      retries: 3
   values:
     global:
       imageRegistry: mirror.gcr.io

@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: renovate-operator
+spec:
+  interval: 30m
+  timeout: 15m
+  chartRef:
+    kind: OCIRepository
+    name: renovate-operator
+    namespace: flux-system
+  values:
+    fullnameOverride: renovate-operator
+    webhook:
+      enabled: false

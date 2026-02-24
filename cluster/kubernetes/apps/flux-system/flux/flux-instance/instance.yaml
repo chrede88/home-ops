@@ -8,7 +8,7 @@ metadata:
 spec:
   distribution:
     # renovate: datasource=github-releases depName=controlplaneio-fluxcd/distribution
-    version: 2.7.5
+    version: 2.8.0
     registry: ghcr.io/fluxcd
   components:
     - source-controller
@@ -53,3 +53,19 @@ spec:
         target:
           kind: Namespace
           name: flux-system
+      - patch: |
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: all
+          spec:
+            template:
+              spec:
+                containers:
+                  - name: manager
+                    resources:
+                      limits:
+                        memory: 384Mi
+        target:
+          kind: Deployment
+          name: (kustomize-controller|helm-controller|source-controller|notification-controller)

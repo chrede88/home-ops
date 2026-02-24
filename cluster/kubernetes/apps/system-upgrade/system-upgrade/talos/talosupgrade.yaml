@@ -7,11 +7,15 @@ metadata:
 spec:
   talos:
     # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
-    version: v1.12.2
+    version: v1.12.4
   policy:
     debug: true
     force: false
     rebootMode: default
+  drain:
+    deleteLocalData: true
+    ignoreDaemonSets: true
+    force: true
   healthChecks:
     # Check all nodes are ready
     - apiVersion: v1

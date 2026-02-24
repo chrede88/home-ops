@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: &name github-pull-token
+  namespace: renovate
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword
+  target:
+    name: *name # name of created secret
+    template:
+      data:
+        GITHUB_PAT: '{{ .password }}'
+  dataFrom:
+    - extract:
+        key: ghcr-pull-secret

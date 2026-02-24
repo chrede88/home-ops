@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Get Changed Files
         id: changed-files
-        uses: bjw-s-labs/action-changed-files@v0.4.1
+        uses: bjw-s-labs/action-changed-files@v0.5.0
         with:
           patterns: cluster/kubernetes/**/*
 
@@ -111,7 +111,7 @@ jobs:
     needs: diff
     name: Pre Image Pull - Pull Images
     runs-on: k8s-runner
-    timeout-minutes: 10
+    timeout-minutes: 15
     strategy:
       matrix:
         image: ${{ fromJSON(needs.diff.outputs.images) }}

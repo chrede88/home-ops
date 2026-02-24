@@ -26,7 +26,7 @@ data:
       Services:
         header: true
         style: row
-        columns: 5
+        columns: 6
       Observability:
         header: false
         style: row
@@ -34,7 +34,7 @@ data:
       Misc:
         header: false
         style: row
-        columns: 3
+        columns: 4
   services.yaml: |
     - Cluster:
         - Cluster:
@@ -82,6 +82,10 @@ data:
             icon: flux-cd.svg
             href: https://flux.local.cjsolsen.com
             description: Fluxcd
+        - Renovate:
+            icon: renovate.svg
+            href: https://renovate.local.cjsolsen.com
+            description: Renovate Operator
     - Observability:
         - Grafana:
             icon: grafana.svg
@@ -131,6 +135,10 @@ data:
             icon: it-tools.svg
             href: https://it-tools.local.cjsolsen.com
             description: It Tools
+        - K8s-schemas:
+            icon: kubernetes.svg
+            href: https://k8s-schemas-cjso.pages.dev
+            description: K8s Schema Store
   widgets.yaml: |
     - logo:
         icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/app/resources/cjso.svg

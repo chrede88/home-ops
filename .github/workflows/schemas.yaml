@@ -5,10 +5,19 @@ name: 'Schemas'
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 3 * * 0'
+    - cron: '0 3 * * *'
+  push:
+      branches:
+        - main
+      paths:
+        - .github/workflows/schemas.yaml
+        - .github/schemas-index.html
 
 env:
   UV_SYSTEM_PYTHON: '1'
+
+permissions:
+  contents: read
 
 jobs:
   publish:
@@ -18,6 +27,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v6.0.2
@@ -26,23 +36,55 @@ jobs:
         uses: azure/setup-kubectl@v4.0.1
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v7.2.0
+        uses: astral-sh/setup-uv@v7.3.0
 
       - name: Setup Python
         uses: actions/setup-python@v6.2.0
         with:
-          python-version: 3.14.2
+          python-version: 3.14.3
 
       - name: Setup Node
         uses: actions/setup-node@v6.2.0
         with:
-          node-version: 24.13.0
+          node-version: 24.13.1
 
       - name: Install Python Dependencies
         run: uv pip install pyyaml
 
       - name: Run crd-extractor
         run: curl -fsSL https://raw.githubusercontent.com/datreeio/CRDs-catalog/43e4407642d4c37683c88711f37caa6c9c20ca40/Utilities/crd-extractor.sh | bash
+
+      - name: Generate index page
+        run: |
+          cd /home/runner/.datree/crdSchemas
+
+          # Count stats
+          group_count=$(find . -maxdepth 1 -type d | wc -l)
+          group_count=$((group_count - 1))
+          schema_count=$(find . -name "*.json" | wc -l)
+          updated=$(date -u +"%Y-%m-%d")
+
+          # Generate schema cards HTML
+          schemas_html=""
+          for dir in */; do
+            dir_name="${dir%/}"
+            file_count=$(find "$dir" -maxdepth 1 -name "*.json" | wc -l)
+            files_html=""
+            for file in "$dir"*.json; do
+              if [ -f "$file" ]; then
+                filename=$(basename "$file")
+                files_html="${files_html}<a href=\"${file}\" class=\"file-link\">${filename}</a>"
+              fi
+            done
+            schemas_html="${schemas_html}<div class=\"group-card\"><div class=\"group-header\"><span class=\"group-name\">${dir_name}</span><span class=\"group-count\">${file_count}</span><svg class=\"chevron\" width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"currentColor\"><path d=\"M4.427 5.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 5H4.604a.25.25 0 00-.177.427z\"/></svg></div><div class=\"group-files\">${files_html}</div></div>"
+          done
+
+          # Copy template and inject data
+          cp "$GITHUB_WORKSPACE/.github/schemas-index.html" index.html
+          sed -i "s|<!-- SCHEMAS_PLACEHOLDER -->|${schemas_html}|g" index.html
+          sed -i "s|<div class=\"stat-value\" id=\"group-count\">-</div>|<div class=\"stat-value\" id=\"group-count\">${group_count}</div>|g" index.html
+          sed -i "s|<div class=\"stat-value\" id=\"schema-count\">-</div>|<div class=\"stat-value\" id=\"schema-count\">${schema_count}</div>|g" index.html
+          sed -i "s|<div class=\"stat-value\" id=\"last-updated\">-</div>|<div class=\"stat-value\" id=\"last-updated\">${updated}</div>|g" index.html
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3.14.1

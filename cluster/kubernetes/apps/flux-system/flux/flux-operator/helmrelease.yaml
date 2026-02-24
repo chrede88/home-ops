@@ -6,19 +6,18 @@ metadata:
   name: flux-operator
 spec:
   interval: 30m
+  timeout: 15m
   chartRef:
     kind: OCIRepository
     name: flux-operator
     namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
+    resources:
+      limits:
+        cpu: 2000m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 64Mi
     serviceMonitor:
       create: true

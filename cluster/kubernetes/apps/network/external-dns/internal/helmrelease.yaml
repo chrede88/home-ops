@@ -6,20 +6,11 @@ metadata:
   name: &name external-dns-internal
 spec:
   interval: 30m
+  timeout: 15m
   chartRef:
     kind: OCIRepository
     name: external-dns
     namespace: flux-system
-  install:
-    disableSchemaValidation: true # Ref: https://github.com/kubernetes-sigs/external-dns/issues/5206
-    remediation:
-      retries: 3
-  upgrade:
-    disableSchemaValidation: true # Ref: https://github.com/kubernetes-sigs/external-dns/issues/5206
-    cleanupOnFail: true
-    remediation:
-      strategy: rollback
-      retries: 3
   values:
     fullnameOverride: *name
     logLevel: &logLevel debug
@@ -42,7 +33,7 @@ spec:
       webhook:
         image:
           repository: ghcr.io/kashalls/external-dns-unifi-webhook
-          tag: v0.8.1
+          tag: v0.8.2
         env:
           - name: UNIFI_HOST
             value: https://10.10.0.252
