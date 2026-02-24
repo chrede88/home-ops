@@ -11,7 +11,7 @@ Let's first define the Flux resources I need. The first thing is a helm reposito
 ```yaml
 # ./cluster/kubernets/flux/resources/helm/external-dns.yaml
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: external-dns

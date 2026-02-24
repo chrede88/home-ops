@@ -8,7 +8,7 @@ Let's first define the Flux resources I need. The first thing is a helm reposito
 ```yaml
 # ./cluster/kubernets/flux/resources/helm/external-dns.yaml
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: external-dns
@@ -56,7 +56,7 @@ Depending on what service you use for Ingress, you'll have to set different envi
 ```yaml
 # ./cluster/kubernetes/apps/network/external-dns/internal/helmrelease.yaml
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &app external-dns-internal
