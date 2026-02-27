@@ -87,5 +87,7 @@ I keep running [docs](./docs/README.md) where I try to document my journey. Hope
 Thanks to all the people who donate their time to the [Home Operations](https://discord.gg/home-operations) Discord community. Be sure to check out [kubesearch.dev](https://kubesearch.dev/) for ideas on how to deploy applications or get ideas on what you could deploy.
 
 <div align="center">
-[![DeepWiki](https://img.shields.io/badge/DeepWiki-purple?style=for-the-badge&logo=wikipedia&logoColor=fff&labelColor=302d41&color=cba6f7)](https://deepwiki.com/chrede88/home-ops)
+
+[![DeepWiki](https://img.shields.io/badge/DeepWiki-purple?style=for-the-badge&logo=deepl&logoColor=fff&labelColor=302d41&color=cba6f7)](https://deepwiki.com/chrede88/home-ops)
+
 </div>
