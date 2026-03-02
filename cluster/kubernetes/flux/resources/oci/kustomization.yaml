@@ -6,6 +6,7 @@ resources:
   - ./gha-runner-scale-set-controller.yaml
   - ./gha-runner-scale-set.yaml
   - ./flux-operator.yaml
+  - ./flux-instance.yaml
   - ./external-secrets.yaml
   - ./cert-manager.yaml
   - ./rook-ceph.yaml
