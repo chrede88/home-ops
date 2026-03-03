@@ -14,4 +14,4 @@ spec:
   values:
     fullnameOverride: renovate-operator
     webhook:
-      enabled: false
+      enabled: true

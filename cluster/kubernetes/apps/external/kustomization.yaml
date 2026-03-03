@@ -9,6 +9,7 @@ resources:
   - ./qubt/ks.yaml
   - ./l1nkr/ks.yaml
   - ./kromgo/ks.yaml
+  - ./webhook/ks.yaml
 components:
   - ../../flux/components/alerts
 transformers:
