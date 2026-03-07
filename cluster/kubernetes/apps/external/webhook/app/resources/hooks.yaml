@@ -16,14 +16,64 @@
       name: http://renovate-operator.renovate.svc.cluster.local:8082
   trigger-rule:
     and:
-      - # Validate the webhook secret
-        match:
-          type: payload-hmac-sha1
-          secret: >-
-            {{ getenv "GITHUB_HOMEOPS_WEBHOOK_SECRET" | js }}
-          parameter:
-            source: header
-            name: x-hub-signature
+      # validate webhook secrets
+      - or:
+        - # Home-ops webhook secret
+          match:
+            type: payload-hmac-sha1
+            secret: >-
+              {{ getenv "GITHUB_HOMEOPS_WEBHOOK_SECRET" | js }}
+            parameter:
+              source: header
+              name: x-hub-signature
+        - # Qubt webhook secret
+          match:
+            type: payload-hmac-sha1
+            secret: >-
+              {{ getenv "GITHUB_QUBT_WEBHOOK_SECRET" | js }}
+            parameter:
+              source: header
+              name: x-hub-signature
+        - # L1nkr webhook secret
+          match:
+            type: payload-hmac-sha1
+            secret: >-
+              {{ getenv "GITHUB_L1NKR_WEBHOOK_SECRET" | js }}
+            parameter:
+              source: header
+              name: x-hub-signature
+        - # Qubt Template webhook secret
+          match:
+            type: payload-hmac-sha1
+            secret: >-
+              {{ getenv "GITHUB_QUBTTEMPLATE_WEBHOOK_SECRET" | js }}
+            parameter:
+              source: header
+              name: x-hub-signature
+        - # L1nkr Template webhook secret
+          match:
+            type: payload-hmac-sha1
+            secret: >-
+              {{ getenv "GITHUB_L1NKRTEMPLATE_WEBHOOK_SECRET" | js }}
+            parameter:
+              source: header
+              name: x-hub-signature
+        - # Qubt Docker webhook secret
+          match:
+            type: payload-hmac-sha1
+            secret: >-
+              {{ getenv "GITHUB_QUBTDOCKER_WEBHOOK_SECRET" | js }}
+            parameter:
+              source: header
+              name: x-hub-signature
+        - # L1nkr Docker webhook secret
+          match:
+            type: payload-hmac-sha1
+            secret: >-
+              {{ getenv "GITHUB_L1NKRDOCKER_WEBHOOK_SECRET" | js }}
+            parameter:
+              source: header
+              name: x-hub-signature
       - # Trigger only for chrede88 user
         match:
           type: value
