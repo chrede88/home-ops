@@ -37,12 +37,16 @@
       "description": ["Flux Group"],
       "groupName": "Flux",
       "matchDatasources": ["docker"],
-      "matchPackageNames": ["/flux-operator/", "/flux-instance/"],
+      "matchPackageNames": [
+        "/flux-operator/",
+        "/flux-instance/",
+        "/flux-operator-manifests"
+      ],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
       "separateMinorPatch": true,
-      "minimumGroupSize": 2
+      "minimumGroupSize": 3
     },
     {
       "description": ["Actions Runner Controller Group"],
