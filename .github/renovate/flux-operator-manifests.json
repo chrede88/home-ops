@@ -1,0 +1,14 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Process flux operator OCI dependencies",
+      "managerFilePatterns": [
+        "/(^|/)cluster/kubernetes/apps/flux-system/.+\\.ya?ml$/"
+      ],
+      "matchStrings": ["oci://(?<depName>[^:]+):(?<currentValue>\\S+)"],
+      "datasourceTemplate": "docker"
+    }
+  ]
+}
