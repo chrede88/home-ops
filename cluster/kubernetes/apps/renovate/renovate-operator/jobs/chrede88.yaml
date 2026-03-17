@@ -32,6 +32,7 @@ spec:
       memory: 128Mi
   schedule: 0 * * * *
   secretRef: renovate-secret
+  skipForks: true
   webhook:
     enabled: true
     authentication:
