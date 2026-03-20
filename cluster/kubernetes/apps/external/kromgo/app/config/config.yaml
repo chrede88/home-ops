@@ -1,5 +1,10 @@
 ---
 debug: false
+
+templates:
+  clusterAge: "{{ . | simplifyDays }}"
+  uptime:     "{{ . | humanDuration }}"
+
 metrics:
   - name: talos_version
     query: node_os_info{name="Talos"}
@@ -40,14 +45,14 @@ metrics:
       - { color: f38ba8, min: 76, max: 9999 }
 
   - name: cluster_uptime_days
-    query: round(avg(node_time_seconds - node_boot_time_seconds) / 86400)
-    suffix: 'd'
+    query: node_time_seconds - node_boot_time_seconds
+    valueTemplate: uptime
     colors:
       - { color: cba6f7, min: 0, max: 9999 }
 
   - name: cluster_age_days
     query: round((time() - min(kube_node_created) ) / 86400)
-    suffix: 'd'
+    valueTemplate: clusterage
     colors:
       - { color: cba6f7, min: 0, max: 9999 }
 
