@@ -48,7 +48,7 @@ metrics:
     query: node_time_seconds - node_boot_time_seconds
     valueTemplate: uptime
     colors:
-      - { color: cba6f7, min: 0, max: 9999 }
+      - { color: cba6f7 }
 
   - name: cluster_age_days
     query: round((time() - min(kube_node_created) ) / 86400)
