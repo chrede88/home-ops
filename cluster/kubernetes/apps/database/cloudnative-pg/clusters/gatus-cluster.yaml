@@ -30,7 +30,7 @@ spec:
       shared_buffers: 128MB
       timezone: 'Europe/Zurich'
   storage:
-    size: 5Gi
+    size: 10Gi
     storageClass: ceph-block
   monitoring:
     enablePodMonitor: true
