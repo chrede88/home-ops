@@ -50,7 +50,7 @@ spec:
                 value: --feature-gates=CancelHealthCheckOnNewRevision=true
             target:
               kind: Deployment
-              name: kustomize-controller
+              name: (kustomize-controller|helm-controller)
           # Add label to namespace
           - patch: |
               - op: add
