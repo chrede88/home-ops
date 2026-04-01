@@ -23,7 +23,7 @@ jobs:
     steps:
       - name: Get Changed Files
         id: changed-files
-        uses: bjw-s-labs/action-changed-files@v0.5.0
+        uses: bjw-s-labs/action-changed-files@v0.6.0
         with:
           patterns: cluster/kubernetes/**/*
 
@@ -74,7 +74,7 @@ jobs:
           debug: false
 
       - name: PR Comments
-        uses: mshick/add-pr-comment@v3.9.0
+        uses: mshick/add-pr-comment@v3.9.1
         if: ${{ steps.diff.outputs.diff != '' }}
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
