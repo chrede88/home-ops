@@ -5,8 +5,8 @@ metadata:
   name: chrede88
   namespace: renovate
 spec:
-  discoverTopics:
-    - 'renovate'
+  # discoverTopics:
+  #   - 'renovate'
   discoveryFilters:
     - 'chrede88/*'
   extraEnv:
