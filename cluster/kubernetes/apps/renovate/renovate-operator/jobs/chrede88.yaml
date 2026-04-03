@@ -5,10 +5,8 @@ metadata:
   name: chrede88
   namespace: renovate
 spec:
-  # discoverTopics:
-  #   - 'renovate'
-  discoveryFilters:
-    - 'chrede88/*'
+  discoverTopics:
+    -renovate
   extraEnv:
     - name: LOG_LEVEL
       value: debug
