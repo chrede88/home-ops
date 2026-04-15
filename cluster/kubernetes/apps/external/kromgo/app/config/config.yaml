@@ -28,16 +28,16 @@ metrics:
     query: round(avg(instance:node_cpu_utilisation:rate5m) * 100, 0.1)
     suffix: '%'
     colors:
-      - { color: a6e3a1, min: 0, max: 20 }
-      - { color: fab387, min: 21, max: 75 }
+      - { color: a6e3a1, min: 0, max: 20.9 }
+      - { color: fab387, min: 21, max: 75.9 }
       - { color: f38ba8, min: 76, max: 9999 }
 
   - name: cluster_memory_usage
     query: round(avg(instance:node_memory_utilisation:ratio) * 100, 0.1)
     suffix: '%'
     colors:
-      - { color: a6e3a1, min: 0, max: 20 }
-      - { color: fab387, min: 21, max: 75 }
+      - { color: a6e3a1, min: 0, max: 20.9 }
+      - { color: fab387, min: 21, max: 75.9 }
       - { color: f38ba8, min: 76, max: 9999 }
 
   - name: cluster_uptime_days
