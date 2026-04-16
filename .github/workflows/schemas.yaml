@@ -87,7 +87,7 @@ jobs:
           sed -i "s|<div class=\"stat-value\" id=\"last-updated\">-</div>|<div class=\"stat-value\" id=\"last-updated\">${updated}</div>|g" index.html
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3.14.1
+        uses: cloudflare/wrangler-action@v3.15.0
         with:
           apiToken: '${{ secrets.CLOUDFLARE_API_TOKEN }}'
           accountId: '${{ secrets.CLOUDFLARE_ACCOUNT_ID }}'
