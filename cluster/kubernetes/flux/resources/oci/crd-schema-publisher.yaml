@@ -17,4 +17,4 @@ spec:
     provider: cosign
     matchOIDCIdentity:
       - issuer: '^https://token.actions.githubusercontent.com$'
-        subject: '^github.com/sholdee/crd-schema-publisher.*$'
+        subject: '^https://github.com/sholdee/crd-schema-publisher.*$'
