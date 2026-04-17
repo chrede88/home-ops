@@ -14,7 +14,7 @@ spec:
   values:
     mode: controller
     config:
-      cfPagesProject: k8s-cjso-schemas
+      cfPagesProject: k8s-schemas-cjso
     existingSecret:
       name: cloudflare-pages
     externalSecret:
