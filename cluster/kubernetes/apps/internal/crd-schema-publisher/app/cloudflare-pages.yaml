@@ -1,0 +1,20 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: &name cloudflare-pages
+  namespace: internal
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword
+  target:
+    name: *name # name of created secret
+    template:
+      data:
+        CLOUDFLARE_API_TOKEN: '{{ .CLOUDFLARE_API_TOKEN }}'
+        CLOUDFLARE_ACCOUNT_ID: '{{ .CLOUDFLARE_ACCOUNT_ID }}'
+  dataFrom:
+    - extract:
+        key: *name # 1p item name

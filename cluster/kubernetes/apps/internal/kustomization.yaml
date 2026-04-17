@@ -10,6 +10,7 @@ resources:
   - ./archiveteam/ks.yaml
   - ./searxng/ks.yaml
   - ./it-tools/ks.yaml
+  - ./crd-schema-publisher/ks.yaml
 components:
   - ../../flux/components/alerts
 transformers:
