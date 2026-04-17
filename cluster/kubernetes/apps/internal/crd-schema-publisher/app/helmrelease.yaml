@@ -15,12 +15,12 @@ spec:
     mode: controller
     config:
       cfPagesProject: k8s-schemas-cjso
-      existingSecret:
-        name: cloudflare-pages
-      externalSecret:
-        enabled: false
-      metrics:
-        podMonitor:
-          enabled: true
-        prometheusRule:
-          enabled: true
+    existingSecret:
+      name: cloudflare-pages
+    externalSecret:
+      enabled: false
+    metrics:
+      podMonitor:
+        enabled: true
+      prometheusRule:
+        enabled: true
