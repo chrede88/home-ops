@@ -29,7 +29,7 @@ spec:
                 memory: 1Gi
             env:
               DOWNLOADER: chrede88
-              SELECTED_PROJECT: auto
+              SELECTED_PROJECT: usgovernment
               CONCURRENT_ITEMS: 6
               SHARED_RSYNC_THREADS: 2
     defaultPodOptions:
