@@ -12,6 +12,14 @@ spec:
     name: flux-operator
     namespace: flux-system
   values:
+    web:
+      config:
+        authentication:
+          type: Anonymous
+          anonymous:
+            username: flux
+            groups:
+              - flux-admin
     resources:
       limits:
         cpu: 2000m
