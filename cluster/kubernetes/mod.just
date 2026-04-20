@@ -1,4 +1,4 @@
-set quiet := true
+set quiet
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
 _default:
@@ -16,6 +16,14 @@ prune-failed-pods:
 # list failed pods in all namespaces
 list-failed-pods:
     kubectl get pods -A --field-selector status.phase="Failed"
+
+# list completed pods in a namespace
+list-completed-pods ns:
+    kubectl get pods -n {{ ns }} --field-selector status.phase="Succeeded"
+
+# prune completed pods in a namespace
+prune-completed-pods ns:
+    kubectl delete pods -n {{ ns }} --field-selector status.phase="Succeeded"
 
 # browse a pvc in namespace [ns] [pvc]
 browse-pvc ns pvc:
