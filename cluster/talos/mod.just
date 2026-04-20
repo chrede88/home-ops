@@ -1,8 +1,8 @@
-set quiet := true
+set quiet
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
 all-nodes := `talosctl config info -o yaml | yq -e '.endpoints | join(",")'`
-talhelper_path := justfile_dir() + '/cluster/talos/config'
+talhelper_path := module_directory() + '/config'
 
 _default:
     just --list talos
