@@ -57,6 +57,7 @@ controlPlane:
         - mitigations=off
         - net.ifnames=0
         - talos.dashboard.disabled=1
+        - thunderbolt.host_reset=0
 
       systemExtensions:
         officialExtensions:
