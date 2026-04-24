@@ -39,8 +39,9 @@ And the following kernel args:
 - iommu=pt
 - mitigations=off
 - net.ifnames=0
+- talos.dashboard.disabled=1
 
-Current image schematic ID: factory.talos.dev/metal-installer/30cf8203c9e4a8011a752c34a3ffb1b183cf65510c8ff98cc0c08fd16380e4b3:v1.11.5
+Current image schematic ID: factory.talos.dev/metal-installer/5bf7ca4fa79bdecb9d89d233e383721e41a6751f5cee55f4d360f966cdc5a622:v1.12.6
 
 ## Kubernetes
 Upgrading Kubernetes is very easy with Talos Linux. The talosctl cli has an uatomated upgrade command build-in.
