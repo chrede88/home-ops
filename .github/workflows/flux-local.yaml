@@ -74,7 +74,7 @@ jobs:
           debug: false
 
       - name: PR Comments
-        uses: mshick/add-pr-comment@v3.10.0
+        uses: mshick/add-pr-comment@v3.11
         if: ${{ steps.diff.outputs.diff != '' }}
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
