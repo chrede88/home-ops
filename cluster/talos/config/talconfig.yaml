@@ -29,6 +29,7 @@ nodes:
       - "@./patches/dhcp.yaml"
       - "@./patches/l2vip.yaml"
       - "@./patches/thunderbolt-death.yaml"
+      - "@./patches/imageVerificationConfig.yaml"
 
   - hostname: black
     ipAddress: 10.10.30.3
@@ -38,6 +39,7 @@ nodes:
       - "@./patches/dhcp.yaml"
       - "@./patches/l2vip.yaml"
       - "@./patches/thunderbolt-black.yaml"
+      - "@./patches/imageVerificationConfig.yaml"
 
   - hostname: thrash
     ipAddress: 10.10.30.4
@@ -47,6 +49,7 @@ nodes:
       - "@./patches/dhcp.yaml"
       - "@./patches/l2vip.yaml"
       - "@./patches/thunderbolt-thrash.yaml"
+      - "@./patches/imageVerificationConfig.yaml"
 
 controlPlane:
   schematic:
