@@ -3,7 +3,7 @@
 apiVersion: dragonflydb.io/v1alpha1
 kind: Dragonfly
 metadata:
-  name: &name dragonfly
+  name: &name dragonfly-renovate
 spec:
   image: ghcr.io/dragonflydb/dragonfly:v1.38.1
   replicas: 3 # one per node

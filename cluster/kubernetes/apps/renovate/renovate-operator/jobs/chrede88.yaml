@@ -14,6 +14,8 @@ spec:
       value: 'enabled'
     - name: RENOVATE_BOT_NAME
       value: 'bb-17'
+    - name: RENOVATE_REDIS_URL
+      value: redis://dragonfly-renovate.database.svc.cluster.local:6379
     - name: GITHUB_PAT
       valueFrom:
         secretKeyRef:
