@@ -7,3 +7,5 @@ resources:
   - ./renovate-cluster.yaml
   - ./podmonitor.yaml
   - ./renovate-cluster-podmonitor.yaml
+  - ./networkpolicy-dragonfly.yaml
+  - ./networkpolicy-dragonfly-renovate.yaml
