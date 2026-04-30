@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/monitoring.coreos.com/podmonitor_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: dragonfly-renovate
+spec:
+  selector:
+    matchLabels:
+      app: dragonfly-renovate
+  podTargetLabels: ['app']
+  podMetricsEndpoints:
+    - port: admin
