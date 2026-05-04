@@ -146,7 +146,7 @@ spec:
           url: https://raw.githubusercontent.com/dragonflydb/dragonfly-operator/refs/heads/main/monitoring/grafana-dashboard.json
           datasource: Prometheus
         tuppr:
-          url: https://raw.githubusercontent.com/home-operations/tuppr/refs/heads/main/charts/tuppr/dasboard/tuppr.json
+          url: https://raw.githubusercontent.com/home-operations/tuppr/refs/heads/main/charts/tuppr/dashboards/tuppr.json
           datasource: Promethues
       flux:
         flux-operator:
