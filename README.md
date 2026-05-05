@@ -5,7 +5,11 @@
 
 <div align=center>
 
-### My Home-ops Repository <img src="./assets/gif/lightning.gif" alt="⚡" width="16" height="16">
+###
+<picture>
+  <source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/26a1/512.webp" type="image/webp">
+  <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/26a1/512.gif" alt="⚡" width="20" height="20">
+</picture> My Home-ops Repository
 
 _... powered by Talos Linux and Kubernetes_
 
@@ -30,13 +34,21 @@ _... powered by Talos Linux and Kubernetes_
 
 ---
 
-## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.gif" alt="🚀" width="20" height="20"> Introduction
+##
+<picture>
+  <source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.webp" type="image/webp">
+  <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.gif" alt="🚀" width="20" height="20">
+</picture> Introduction
 
 This repository holds all information about my homelab and kubernetes cluster. I'm doing my best to adhere to the principles of infrastructure as code (IaC) and GitOps.
 
 ---
 
-## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f340/512.gif" alt="🍀" width="20" height="20"> Kubernetes
+##
+<picture>
+  <source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1f340/512.webp" type="image/webp">
+  <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f340/512.gif" alt="🍀" width="20" height="20">
+</picture> Kubernetes
 
 My Kubernetes cluster is deployed with [Talos Linux](https://www.talos.dev), a Linux distribution build spefically for running Kubernetes. I run a three bare-metal node cluster on Intel 12th gen NUC's and using [Rook](https://github.com/rock/rock) for cluster persistence block, object, and file storage.
 
@@ -69,7 +81,11 @@ I keep running [docs](./docs/README.md) where I try to document my journey. Hope
 
 ---
 
-## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2699_fe0f/512.gif" alt="⚙" width="20" height="20"> Hardware
+##
+<picture>
+  <source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/2699_fe0f/512.webp" type="image/webp">
+  <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2699_fe0f/512.gif" alt="⚙" width="20" height="20">
+</picture> Hardware
 
 | Device                | Num | OS Disk Size   | Data Disk Size | Ram  | OS                  | Function       |
 | --------------------- | --- | -------------- | -------------- | ---- | ------------------- | -------------- |
@@ -82,7 +98,11 @@ I keep running [docs](./docs/README.md) where I try to document my journey. Hope
 
 ---
 
-## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f64f/512.gif" alt="🙏" width="20" height="20"> Thanks
+##
+<picture>
+  <source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1f64f/512.webp" type="image/webp">
+  <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f64f/512.gif" alt="🙏" width="20" height="20">
+</picture> Thanks
 
 Thanks to all the people who donate their time to the [Home Operations](https://discord.gg/home-operations) Discord community. Be sure to check out [kubesearch.dev](https://kubesearch.dev/) for ideas on how to deploy applications or get ideas on what you could deploy.
 
