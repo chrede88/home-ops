@@ -1,0 +1,16 @@
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: prometheus
+  namespace: observability
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  datasource:
+    type: prometheus
+    name: prometheus
+    access: proxy
+    isDefault: true
+    url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090

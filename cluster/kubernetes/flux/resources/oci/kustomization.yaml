@@ -12,7 +12,7 @@ resources:
   - ./rook-ceph.yaml
   - ./rook-ceph-cluster.yaml
   - ./external-dns.yaml
-  - ./grafana.yaml
+  - ./grafana-operator.yaml
   - ./kube-prometheus-stack.yaml
   - ./smartctl-exporter.yaml
   - ./bjw-s.yaml

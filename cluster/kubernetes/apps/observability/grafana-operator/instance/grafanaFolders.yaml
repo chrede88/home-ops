@@ -1,0 +1,50 @@
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaFolder
+metadata:
+  name: kubernetes-folder
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  title: "Kubernetes"
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaFolder
+metadata:
+  name: flux-folder
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  title: "Flux"
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaFolder
+metadata:
+  name: ceph-folder
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  title: "Rook-Ceph"
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaFolder
+metadata:
+  name: unifi-folder
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  title: "Unifi"
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaFolder
+metadata:
+  name: envoy-folder
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  title: "Envoy"
