@@ -5,7 +5,7 @@
 
 <div align=center>
 
-### My Home-ops Repository <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/26a1/512.gif" alt="⚡" width="16" height="16">
+### My Home-ops Repository <img src="./assets/gif/lightning.gif" alt="⚡" width="16" height="16">
 
 _... powered by Talos Linux and Kubernetes_
 
