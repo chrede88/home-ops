@@ -19,6 +19,8 @@ ui:
       link: https://github.com/chrede88
     - name: Homelab
       link: https://github.com/chrede88/home-ops
+    - name: Homepage
+      link: https://homepage.local.cjsolsen.com
 alerting:
   pushover:
     application-token: ${PUSHOVER_TOKEN}
