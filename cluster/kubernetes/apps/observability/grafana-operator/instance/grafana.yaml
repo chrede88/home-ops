@@ -18,8 +18,8 @@ spec:
       disable_login_form: "false"
     auth.anonymous:
       enabled: "false"
-    dashboards:
-      default_home_dashboard_path: /var/lib/grafana/dashboards/Kubernetes/kubernetes-global.json
+    users:
+      home_page: "Kubernetes/Kubernetes / Views / Global"
     log:
       mode: console
     metrics:
