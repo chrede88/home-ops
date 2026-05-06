@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafana_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: Grafana
 metadata:
@@ -16,7 +17,9 @@ spec:
     auth:
       disable_login_form: "false"
     auth.anonymous:
-      enabled: "true"
+      enabled: "false"
+    dashboards:
+      default_home_dashboard_path: /var/lib/grafana/dashboards/kubernetes/kubernetes-global.json
     log:
       mode: console
     metrics:

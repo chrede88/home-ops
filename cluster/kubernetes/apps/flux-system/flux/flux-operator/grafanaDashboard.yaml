@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
@@ -6,7 +7,7 @@ metadata:
   namespace: flux-system
 spec:
   allowCrossNamespaceImport: true
-  folder: flux-folder
+  folderRef: flux-folder
   instanceSelector:
     matchLabels:
       dashboards: grafana
@@ -16,6 +17,7 @@ spec:
   url:
     https://raw.githubusercontent.com/controlplaneio-fluxcd/flux-operator/refs/heads/main/config/monitoring/dashboards/flux-performance.json
 ---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
@@ -23,7 +25,7 @@ metadata:
   namespace: flux-system
 spec:
   allowCrossNamespaceImport: true
-  folder: flux-folder
+  folderRef: flux-folder
   instanceSelector:
     matchLabels:
       dashboards: grafana

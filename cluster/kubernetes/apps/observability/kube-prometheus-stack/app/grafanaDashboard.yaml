@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
@@ -6,12 +7,13 @@ metadata:
   namespace: observability
 spec:
   allowCrossNamespaceImport: true
-  folder: kubernetes-folder
+  folderRef: kubernetes-folder
   instanceSelector:
     matchLabels:
       dashboards: grafana
   url: https://grafana.com/api/dashboards/15761/revisions/21/download
 ---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
@@ -19,12 +21,13 @@ metadata:
   namespace: observability
 spec:
   allowCrossNamespaceImport: true
-  folder: kubernetes-folder
+  folderRef: kubernetes-folder
   instanceSelector:
     matchLabels:
       dashboards: grafana
   url: https://grafana.com/api/dashboards/15762/revisions/22/download
 ---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
@@ -32,12 +35,13 @@ metadata:
   namespace: observability
 spec:
   allowCrossNamespaceImport: true
-  folder: kubernetes-folder
+  folderRef: kubernetes-folder
   instanceSelector:
     matchLabels:
       dashboards: grafana
   url: https://grafana.com/api/dashboards/15757/revisions/43/download
 ---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
@@ -45,12 +49,13 @@ metadata:
   namespace: observability
 spec:
   allowCrossNamespaceImport: true
-  folder: kubernetes-folder
+  folderRef: kubernetes-folder
   instanceSelector:
     matchLabels:
       dashboards: grafana
   url: https://grafana.com/api/dashboards/15758/revisions/46/download
 ---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
@@ -58,12 +63,13 @@ metadata:
   namespace: observability
 spec:
   allowCrossNamespaceImport: true
-  folder: kubernetes-folder
+  folderRef: kubernetes-folder
   instanceSelector:
     matchLabels:
       dashboards: grafana
   url: https://grafana.com/api/dashboards/15759/revisions/40/download
 ---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
@@ -71,12 +77,13 @@ metadata:
   namespace: observability
 spec:
   allowCrossNamespaceImport: true
-  folder: kubernetes-folder
+  folderRef: kubernetes-folder
   instanceSelector:
     matchLabels:
       dashboards: grafana
   url: https://grafana.com/api/dashboards/15760/revisions/39/download
 ---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
@@ -84,12 +91,13 @@ metadata:
   namespace: observability
 spec:
   allowCrossNamespaceImport: true
-  folder: kubernetes-folder
+  folderRef: kubernetes-folder
   instanceSelector:
     matchLabels:
       dashboards: grafana
   url: https://grafana.com/api/dashboards/11454/revisions/14/download
 ---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
@@ -97,12 +105,13 @@ metadata:
   namespace: observability
 spec:
   allowCrossNamespaceImport: true
-  folder: kubernetes-folder
+  folderRef: kubernetes-folder
   instanceSelector:
     matchLabels:
       dashboards: grafana
   url: https://grafana.com/api/dashboards/22236/revisions/4/download
 ---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
@@ -110,7 +119,7 @@ metadata:
   namespace: observability
 spec:
   allowCrossNamespaceImport: true
-  folder: kubernetes-folder
+  folderRef: kubernetes-folder
   instanceSelector:
     matchLabels:
       dashboards: grafana
@@ -119,6 +128,7 @@ spec:
     inputName: DS_PROMETHEUS
   url: https://grafana.com/api/dashboards/23233/revisions/6/download
 ---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
@@ -126,7 +136,7 @@ metadata:
   namespace: observability
 spec:
   allowCrossNamespaceImport: true
-  folder: nodes-folder
+  folderRef: nodes-folder
   instanceSelector:
     matchLabels:
       dashboards: grafana
@@ -135,6 +145,7 @@ spec:
     inputName: DS_PROMETHEUS
   url: https://grafana.com/api/dashboards/1860/revisions/45/download
 ---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
@@ -142,6 +153,7 @@ metadata:
   namespace: observability
 spec:
   allowCrossNamespaceImport: true
+  folderRef: misc-folder
   instanceSelector:
     matchLabels:
       dashboards: grafana

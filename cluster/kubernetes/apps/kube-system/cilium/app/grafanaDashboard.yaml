@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
@@ -6,7 +7,7 @@ metadata:
   namespace: kube-system
 spec:
   allowCrossNamespaceImport: true
-  folder: cilium-folder
+  folderRef: cilium-folder
   instanceSelector:
     matchLabels:
       dashboards: grafana
@@ -17,6 +18,7 @@ spec:
     name: cilium-dashboard
     key: cilium-dashboard.json
 ---
+# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
@@ -24,7 +26,7 @@ metadata:
   namespace: kube-system
 spec:
   allowCrossNamespaceImport: true
-  folder: cilium-folder
+  folderRef: cilium-folder
   instanceSelector:
     matchLabels:
       dashboards: grafana
