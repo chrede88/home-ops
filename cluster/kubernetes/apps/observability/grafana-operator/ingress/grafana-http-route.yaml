@@ -22,5 +22,5 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: grafana-sevice
+        - name: grafana-service
           port: 3000
