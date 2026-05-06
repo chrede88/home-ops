@@ -3,8 +3,8 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
-  name: cert-manager
-  namespace: cert-manager
+  name: spegel-dashboard
+  namespace: kube-system
 spec:
   allowCrossNamespaceImport: true
   # folderRef: misc-folder
@@ -14,5 +14,7 @@ spec:
       dashboards: grafana
   datasources:
     - datasourceName: prometheus
-      inputName: DS_PROMETHEUS
-  url: https://grafana.com/api/dashboards/20842/revisions/3/download
+      inputName: datasource
+  configMapRef:
+    name: spegel-dashboard
+    key: spegel.json

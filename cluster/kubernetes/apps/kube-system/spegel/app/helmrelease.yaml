@@ -16,10 +16,7 @@ spec:
       enabled: true
     grafanaDashboard:
       enabled: true
-      mode: GrafanaOperator
-      grafanaOperator:
-        matchLabels:
-          dashboards: grafana
+      mode: Sidecar
     spegel:
       containerdSock: /run/containerd/containerd.sock
       containerdRegistryConfigPath: /etc/cri/conf.d/hosts
