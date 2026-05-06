@@ -12,6 +12,8 @@ spec:
     name: cilium
     namespace: flux-system
   values:
+    dashboards:
+      enabled: true
     hubble:
       enabled: true
       metrics:
@@ -34,6 +36,8 @@ spec:
         trustCRDsExist: true
     operator:
       rollOutPods: true
+      dashboards:
+        enabled: true
       prometheus:
         enabled: true
         serviceMonitor:
