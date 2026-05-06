@@ -19,7 +19,7 @@ spec:
     auth.anonymous:
       enabled: "false"
     users:
-      home_page: "/Kubernetes/Kubernetes / Views / Global"
+      home_page: "/d/k8s_views_global/kubernetes-views-global"
     log:
       mode: console
     metrics:
