@@ -6,3 +6,4 @@ resources:
   - ./helmrelease.yaml
   - ./clusterrolebinding-flux-web.yaml
   - ./httproute-flux-web.yaml
+  - ./grafanaDashboard.yaml

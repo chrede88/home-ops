@@ -1,0 +1,36 @@
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: cilium
+  namespace: kube-system
+spec:
+  allowCrossNamespaceImport: true
+  folder: cilium-folder
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  configMapRef:
+    name: cilium-dashboard
+    key: cilium-dashboard.json
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: cilium-operator
+  namespace: kube-system
+spec:
+  allowCrossNamespaceImport: true
+  folder: cilium-folder
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  configMapRef:
+    name: cilium-operator-dashboard
+    key: cilium-operator-dashboard.json
