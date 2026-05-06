@@ -1,0 +1,148 @@
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: kubernetes-api-server
+  namespace: observability
+spec:
+  allowCrossNamespaceImport: true
+  folder: kubernetes-folder
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: https://grafana.com/api/dashboards/15761/revisions/21/download
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: kubernetes-coredns
+  namespace: observability
+spec:
+  allowCrossNamespaceImport: true
+  folder: kubernetes-folder
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: https://grafana.com/api/dashboards/15762/revisions/22/download
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: kubernetes-global
+  namespace: observability
+spec:
+  allowCrossNamespaceImport: true
+  folder: kubernetes-folder
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: https://grafana.com/api/dashboards/15757/revisions/43/download
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: kubernetes-namespaces
+  namespace: observability
+spec:
+  allowCrossNamespaceImport: true
+  folder: kubernetes-folder
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: https://grafana.com/api/dashboards/15758/revisions/46/download
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: kubernetes-nodes
+  namespace: observability
+spec:
+  allowCrossNamespaceImport: true
+  folder: kubernetes-folder
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: https://grafana.com/api/dashboards/15759/revisions/40/download
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: kubernetes-pods
+  namespace: observability
+spec:
+  allowCrossNamespaceImport: true
+  folder: kubernetes-folder
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: https://grafana.com/api/dashboards/15760/revisions/39/download
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: kubernetes-volumes
+  namespace: observability
+spec:
+  allowCrossNamespaceImport: true
+  folder: kubernetes-folder
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: https://grafana.com/api/dashboards/11454/revisions/14/download
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: etcd
+  namespace: observability
+spec:
+  allowCrossNamespaceImport: true
+  folder: kubernetes-folder
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: https://grafana.com/api/dashboards/22236/revisions/4/download
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: kubernetes-pvc
+  namespace: observability
+spec:
+  allowCrossNamespaceImport: true
+  folder: kubernetes-folder
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  datasources:
+  - datasourceName: prometheus
+    inputName: DS_PROMETHEUS
+  url: https://grafana.com/api/dashboards/23233/revisions/6/download
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: node-exporter-full
+  namespace: observability
+spec:
+  allowCrossNamespaceImport: true
+  folder: nodes-folder
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  datasources:
+  - datasourceName: prometheus
+    inputName: DS_PROMETHEUS
+  url: https://grafana.com/api/dashboards/1860/revisions/45/download
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: prometheus
+  namespace: observability
+spec:
+  allowCrossNamespaceImport: true
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: https://grafana.com/api/dashboards/19105/revisions/9/download

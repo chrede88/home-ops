@@ -6,3 +6,4 @@ resources:
   - ./alertmanager-secret.yaml
   - ./alertmanagerconfig.yaml
   - ./helmrelease.yaml
+  - ./grafanaDashboard.yaml
