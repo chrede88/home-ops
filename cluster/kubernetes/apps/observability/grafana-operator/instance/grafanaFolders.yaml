@@ -48,3 +48,33 @@ spec:
     matchLabels:
       dashboards: "grafana"
   title: "Envoy"
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaFolder
+metadata:
+  name: nodes-folder
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  title: "Nodes & Drives"
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaFolder
+metadata:
+  name: cilium-folder
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  title: "Cilium"
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaFolder
+metadata:
+  name: database-folder
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  title: "Database"

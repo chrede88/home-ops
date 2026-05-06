@@ -25,3 +25,5 @@ spec:
           memory: 64Mi
     serviceMonitor:
       enabled: true
+    grafanaDashboard:
+      enabled: true
