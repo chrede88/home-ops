@@ -156,3 +156,11 @@ controlPlane:
             allowedRoles:
               - os:admin
             enabled: true
+
+    # kubelet configuration
+    - |-
+      machine:
+        kubelet:
+          extraConfig:
+            imageGCHighThresholdPercent: 70
+            imageGCLowThresholdPercent: 50
