@@ -54,6 +54,9 @@ I'm conteniusly changing my cluster. Some docs are therefore not relevant anymor
 ### Interacting with a Ceph cluster
 I'm keeping a short list of general commands that are good to know when interacting with a Ceph cluster. See more in [ceph-cluster.md](./ceph-cluster.md).
 
+### Debug containers
+There are a couple of different considerations that might be important when working with debug containers. See more in [debug-containers.md](./debug-containers.md)
+
 ### Updating cluster
 Keeping the cluster up-to-date is important. Both Talos Linux and Kubernetes itself should be kept up-to-date. See more in [update.md](./update.md).
 
