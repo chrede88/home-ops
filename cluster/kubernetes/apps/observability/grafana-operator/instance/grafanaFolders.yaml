@@ -39,8 +39,9 @@ spec:
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaFolder
 metadata:
-  name: misc-folder
+  name: &name misc-folder
 spec:
+  uid: *name
   allowCrossNamespaceImport: true
   instanceSelector:
     matchLabels:
