@@ -7,7 +7,7 @@ metadata:
   namespace: cert-manager
 spec:
   allowCrossNamespaceImport: true
-  folderUID: 020341d4-0a06-44a5-9bb4-f7c19f10e92e
+  folder: General
   instanceSelector:
     matchLabels:
       dashboards: grafana
