@@ -4,7 +4,7 @@ clusterName: metal
 endpoint: https://10.10.30.30:6443
 
 # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
-talosVersion: v1.13.0
+talosVersion: v1.13.2
 # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
 kubernetesVersion: v1.36.1
 
@@ -29,7 +29,7 @@ nodes:
       - "@./patches/dhcp.yaml"
       - "@./patches/l2vip.yaml"
       - "@./patches/thunderbolt-death.yaml"
-      - "@./patches/imageVerificationConfig.yaml"
+      # - "@./patches/imageVerificationConfig.yaml"
 
   - hostname: black
     ipAddress: 10.10.30.3
@@ -39,7 +39,7 @@ nodes:
       - "@./patches/dhcp.yaml"
       - "@./patches/l2vip.yaml"
       - "@./patches/thunderbolt-black.yaml"
-      - "@./patches/imageVerificationConfig.yaml"
+      # - "@./patches/imageVerificationConfig.yaml"
 
   - hostname: thrash
     ipAddress: 10.10.30.4
@@ -49,7 +49,7 @@ nodes:
       - "@./patches/dhcp.yaml"
       - "@./patches/l2vip.yaml"
       - "@./patches/thunderbolt-thrash.yaml"
-      - "@./patches/imageVerificationConfig.yaml"
+      # - "@./patches/imageVerificationConfig.yaml"
 
 controlPlane:
   schematic:
