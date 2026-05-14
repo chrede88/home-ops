@@ -17,11 +17,11 @@ prune-failed-pods:
 list-failed-pods:
     kubectl get pods -A --field-selector status.phase="Failed"
 
-[doc('list completed pods in a namespace')]
+[doc('list completed pods in a namespace [ns]')]
 list-completed-pods ns:
     kubectl get pods -n {{ ns }} --field-selector status.phase="Succeeded"
 
-[doc('prune completed pods in a namespace')]
+[doc('prune completed pods in a namespace [ns]')]
 prune-completed-pods ns:
     kubectl delete pods -n {{ ns }} --field-selector status.phase="Succeeded"
 
