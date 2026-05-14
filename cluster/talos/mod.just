@@ -1,5 +1,6 @@
 set quiet
 set shell := ['bash', '-euo', 'pipefail', '-c']
+set script-interpreter := ['bash', '-euo', 'pipefail']
 
 all-nodes := `talosctl config info -o yaml | yq -e '.endpoints | join(",")'`
 talhelper_path := module_directory() + '/config'
@@ -7,39 +8,45 @@ talhelper_path := module_directory() + '/config'
 _default:
     just --list talos
 
-# reboot node [node]
+[confirm('Reboot node [y|N] ?')]
+[doc('reboot node [node]')]
 reboot-node node:
-    gum confirm "Reboot node {{ node }}?" --default="No" && \
-        talosctl -n {{ node }} reboot -m powercycle || exit 0
+    talosctl -n {{ node }} reboot -m powercycle
 
-# shutdown node [node]
+[confirm('Shutdown node [y|N] ?')]
+[doc('shutdown node [node]')]
 shutdown-node node:
-    gum confirm "Shutdown node {{ node }}?" --default="No" && \
-        talosctl -n {{ node }} shutdown || exit 0
+    talosctl -n {{ node }} shutdown
 
-# shutdown cluster
+[confirm('Shutdown cluster [y|N] ?')]
+[doc('shutdown cluster')]
 shutdown-cluster:
-    gum confirm "Shutdown cluster?" --default="No" && \
-        talosctl -n {{ all-nodes }} shutdown --force || exit 0
+    talosctl -n {{ all-nodes }} shutdown --force
 
-# get thunderbolt status on node [node]
+[doc('get thunderbolt status on node [node]')]
 tb-status node:
     talosctl -n {{ node }} get links | grep thunderbolt
 
-# get thunderbolt statuses from all nodes
+[doc('get thunderbolt statuses from all nodes')]
 tb-status-all:
     talosctl -n {{ all-nodes }} get links | grep thunderbolt
 
-# validate talhelper configuration file
+[doc('validate talhelper configuration file')]
 validate-config:
     talhelper validate talconfig {{ talhelper_path }}/talconfig.yaml
 
-# generate talos node configuration files
+[doc('generate talos node configuration files')]
 generate-config: validate-config
     talhelper genconfig -c {{ talhelper_path }}/talconfig.yaml \
     -o {{ talhelper_path }}/clusterconfig \
     -s {{ talhelper_path }}/talsecret.sops.yaml
 
-# apply talos configuration to node [node] [node-name] [--dry-run]
-apply-config node node-name *args: generate-config
-    talosctl -n {{ node }} apply-config -f {{ talhelper_path }}/clusterconfig/metal-{{ node-name }}.yaml {{ args }}
+[doc('apply talos configuration to node [node] [--dry-run]')]
+[script]
+apply-config node *args: generate-config
+    node_name="$(just talos render-node {{ node }})"
+    talosctl -n {{ node }} apply-config -f {{ talhelper_path }}/clusterconfig/metal-${node_name}.yaml {{ args }}
+
+[private]
+render-node node:
+    yq '.servers[] | select(.ip == "{{ node }}") | .name' {{ justfile_directory() }}/network/overview.yaml
