@@ -20,7 +20,7 @@ spec:
           app:
             image:
               repository: ghcr.io/kashalls/kromgo
-              tag: pr-179
+              tag: v0.10.0
             env:
               PROMETHEUS_URL: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
               SERVER_HOST: 0.0.0.0
