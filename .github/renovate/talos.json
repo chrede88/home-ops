@@ -10,7 +10,10 @@
       ],
       "matchStrings": [
         "depName=(?<depName>.*?) datasource=(?<datasource>.*?)\\n.*?: (?<currentValue>.*)"
-      ]
+      ],
+      "datasourceTemplate": "custom.talos-factory",
+      "versioningTemplate": "semver",
+      "depNameTemplate": "siderolabs/talos"
     }
   ]
 }

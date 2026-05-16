@@ -3,7 +3,7 @@
 clusterName: metal
 endpoint: https://10.10.30.30:6443
 
-# renovate: depName=ghcr.io/siderolabs/installer datasource=docker
+# renovate: depName=siderolabs/talos datasource=custom.talos-factory
 talosVersion: v1.13.2
 # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
 kubernetesVersion: v1.36.1

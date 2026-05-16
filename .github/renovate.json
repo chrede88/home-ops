@@ -11,7 +11,8 @@
     "github>chrede88/home-ops//.github/renovate/talos.json",
     "github>chrede88/home-ops//.github/renovate/allowedVersions.json",
     "github>chrede88/home-ops//.github/renovate/semanticCommits.json",
-    "github>chrede88/home-ops//.github/renovate/flux-operator-manifests.json"
+    "github>chrede88/home-ops//.github/renovate/flux-operator-manifests.json",
+    "github>chrede88/home-ops//.github/renovate/talos-factory-datasource.json"
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "reviewers": ["chrede88"],

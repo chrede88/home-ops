@@ -34,6 +34,11 @@
     {
       "matchManagers": ["github-actions"],
       "addLabels": ["renovate/github-action"]
+    },
+    {
+      "matchDatasources": ["custom.talos-factory"],
+      "addLabels": ["renovate/talos"],
+      "commitMessageTopic": "image {{depName}}"
     }
   ]
 }

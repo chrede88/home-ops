@@ -1,0 +1,10 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "customDatasources": {
+    "talos-factory": {
+      "defaultRegistryUrlTemplate": "https://factory.talos.dev/versions",
+      "format": "json",
+      "transformTemplates": ["{\"releases\": [$.{\"version\": $}]}"]
+    }
+  }
+}
