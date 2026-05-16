@@ -3,7 +3,9 @@ debug: false
 
 templates:
   clusterAge: "{{ . | simplifyDays }}"
-  uptime:     "{{ . | humanDuration }}"
+  uptime:     "{{ . | simplifyDays }}"
+  humanSIBytes: "{{ . | humanSIBytes }}"
+  humanBytes: "{{ . | humanBytes }}"
 
 metrics:
   - name: talos_version
@@ -40,8 +42,16 @@ metrics:
       - { color: fab387, min: 21, max: 75.9 }
       - { color: f38ba8, min: 76, max: 9999 }
 
+  - name: cluster_memory_usage_si
+    query: avg(node_memory_MemTotal_bytes)-avg(node_memory_MemAvailable_bytes)
+    valueTemplate: humanSIBytes
+
+  - name: cluster_memory_usage_base2
+    query: avg(node_memory_MemTotal_bytes)-avg(node_memory_MemAvailable_bytes)
+    valueTemplate: humanBytes
+
   - name: cluster_uptime_days
-    query: node_time_seconds - node_boot_time_seconds
+    query: round((node_time_seconds - node_boot_time_seconds) / 86400)
     valueTemplate: uptime
 
   - name: cluster_age_days
