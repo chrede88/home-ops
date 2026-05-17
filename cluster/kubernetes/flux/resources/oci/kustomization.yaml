@@ -27,4 +27,3 @@ resources:
   - ./tuppr.yaml
   - ./envoy-gateway.yaml
   - ./renovate-operator.yaml
-  - ./crd-schema-publisher.yaml
