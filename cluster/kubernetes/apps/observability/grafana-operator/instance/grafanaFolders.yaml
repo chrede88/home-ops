@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanafolder_v1beta1.json
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/grafana.integreatly.org/grafanafolder_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaFolder
 metadata:
@@ -11,7 +11,7 @@ spec:
       dashboards: "grafana"
   title: "Kubernetes"
 ---
-# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanafolder_v1beta1.json
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/grafana.integreatly.org/grafanafolder_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaFolder
 metadata:
@@ -23,7 +23,7 @@ spec:
       dashboards: "grafana"
   title: "Unifi"
 ---
-# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanafolder_v1beta1.json
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/grafana.integreatly.org/grafanafolder_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaFolder
 metadata:
@@ -35,7 +35,7 @@ spec:
       dashboards: "grafana"
   title: "Nodes & Drives"
 ---
-# yaml-language-server: $schema=https://k8s-schemas-cjso.pages.dev/grafana.integreatly.org/grafanafolder_v1beta1.json
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/grafana.integreatly.org/grafanafolder_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaFolder
 metadata:
