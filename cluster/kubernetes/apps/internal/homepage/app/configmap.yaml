@@ -137,8 +137,8 @@ data:
             description: It Tools
         - K8s-schemas:
             icon: kubernetes.svg
-            href: https://k8s-schemas-cjso.pages.dev
-            description: K8s Schema Store
+            href: https://k8s-schemas.home-operations.com
+            description: Home-operations K8s Schema Store
   widgets.yaml: |
     - logo:
         icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/app/resources/cjso.svg
