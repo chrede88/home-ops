@@ -6,7 +6,7 @@ metadata:
   name: talos
 spec:
   talos:
-    # renovate: depName=siderolabs/talos datasource=custom.talos-factory
+    # renovate: datasource=custom.talos-factory depName=siderolabs/talos
     version: v1.13.2
   policy:
     debug: true
