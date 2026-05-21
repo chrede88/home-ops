@@ -3,36 +3,34 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
-  name: cilium
-  namespace: kube-system
+  name: flux-operator
+  namespace: flux-system
 spec:
   allowCrossNamespaceImport: true
-  folderRef: cilium-folder
+  folderRef: flux-folder
   instanceSelector:
     matchLabels:
       dashboards: grafana
   datasources:
-    - datasourceName: prometheus
-      inputName: DS_PROMETHEUS
-  configMapRef:
-    name: cilium-dashboard
-    key: cilium-dashboard.json
+  - datasourceName: prometheus
+    inputName: DS_PROMETHEUS
+  url:
+    https://raw.githubusercontent.com/controlplaneio-fluxcd/flux-operator/refs/heads/main/config/monitoring/dashboards/flux-performance.json
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
-  name: cilium-operator
-  namespace: kube-system
+  name: flux
+  namespace: flux-system
 spec:
   allowCrossNamespaceImport: true
-  folderRef: cilium-folder
+  folderRef: flux-folder
   instanceSelector:
     matchLabels:
       dashboards: grafana
   datasources:
-    - datasourceName: prometheus
-      inputName: DS_PROMETHEUS
-  configMapRef:
-    name: cilium-operator-dashboard
-    key: cilium-operator-dashboard.json
+  - datasourceName: prometheus
+    inputName: DS_PROMETHEUS
+  url:
+    https://raw.githubusercontent.com/controlplaneio-fluxcd/flux-operator/refs/heads/main/config/monitoring/dashboards/flux-k8s-api-performance.json

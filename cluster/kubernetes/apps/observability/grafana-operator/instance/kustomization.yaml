@@ -7,4 +7,4 @@ resources:
   - ./grafana.yaml
   - ./grafanaDatasource.yaml
   - ./grafanaFolders.yaml
-  - ./grafanaDashboard.yaml
+  - ./grafanadashboard.yaml

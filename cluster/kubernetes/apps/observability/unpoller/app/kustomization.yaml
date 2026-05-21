@@ -5,4 +5,4 @@ kind: Kustomization
 resources:
   - ./unpoller-secret.yaml
   - ./helmrelease.yaml
-  - ./grafanaDashboard.yaml
+  - ./grafanadashboard.yaml
