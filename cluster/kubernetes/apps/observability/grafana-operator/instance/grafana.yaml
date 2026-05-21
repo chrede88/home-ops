@@ -33,7 +33,7 @@ spec:
     server:
       enable_gzip: "true"
   # renovate: datasource=docker depName=grafana/grafana
-  version: 13.0.1
+  version: docker.io/grafana/grafana:13.0.1
   deployment:
     spec:
       strategy:
