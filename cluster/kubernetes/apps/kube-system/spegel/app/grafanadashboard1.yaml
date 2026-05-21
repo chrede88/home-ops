@@ -3,17 +3,17 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
-  name: cloudnative-pg
-  namespace: database
+  name: spegel-dashboard
+  namespace: kube-system
 spec:
   allowCrossNamespaceImport: true
-  folderRef: database-folder
+  folder: General
   instanceSelector:
     matchLabels:
       dashboards: grafana
   datasources:
     - datasourceName: prometheus
-      inputName: DS_PROMETHEUS
+      inputName: datasource
   configMapRef:
-    name: cnpg-grafana-dashboard
-    key: cnp.json
+    name: spegel-dashboard
+    key: spegel.json

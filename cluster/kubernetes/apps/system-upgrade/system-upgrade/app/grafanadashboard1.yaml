@@ -3,8 +3,8 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
-  name: spegel-dashboard
-  namespace: kube-system
+  name: tuppr-dashboard
+  namespace: system-upgrade
 spec:
   allowCrossNamespaceImport: true
   folder: General
@@ -15,5 +15,5 @@ spec:
     - datasourceName: prometheus
       inputName: datasource
   configMapRef:
-    name: spegel-dashboard
-    key: spegel.json
+    name: tuppr-dashboard
+    key: tuppr.json
