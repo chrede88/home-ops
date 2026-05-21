@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Get Changed Files
         id: changed-files
-        uses: bjw-s-labs/action-changed-files@v0.6.0
+        uses: bjw-s-labs/action-changed-files@a9a36fb08ce06db9b02fbd8026cc2c0945eb9841 # v0.6.0
         with:
           patterns: cluster/kubernetes/**/*
 
@@ -45,14 +45,14 @@ jobs:
       pull: ${{ steps.extract.outputs.pull }}
     steps:
       - name: Generate Token
-        uses: actions/create-github-app-token@v3.2.0
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         id: app-token
         with:
           app-id: ${{ secrets.BOT_APP_ID }}
           private-key: ${{ secrets.BOT_PRIVATE_KEY }}
 
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
           ref: ${{ matrix.branch == 'default' && github.event.repository.default_branch || '' }}
