@@ -23,7 +23,7 @@ jobs:
     steps:
       - name: Get Changed Files
         id: changed-files
-        uses: bjw-s-labs/action-changed-files@v0.6.0
+        uses: bjw-s-labs/action-changed-files@a9a36fb08ce06db9b02fbd8026cc2c0945eb9841 # v0.6.0
         with:
           patterns: cluster/kubernetes/**/*
 
@@ -35,12 +35,12 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Checkout files
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Setup Flux CLI
-        uses: fluxcd/flux2/action@v2.8.8
+        uses: fluxcd/flux2/action@1fd61a06264d71cf445ed55c4f14d401d26a1c64 # v2.8.8
 
-      - uses: allenporter/flux-local/action/test@8.2.0
+      - uses: allenporter/flux-local/action/test@4d666add25002f550dc0dbe8b2b2f25859169b34 # 8.2.0
         with:
           path: cluster/kubernetes/flux/main
           enable-helm: true
@@ -62,10 +62,10 @@ jobs:
           - kustomization
     steps:
       - name: Setup Flux CLI
-        uses: fluxcd/flux2/action@v2.8.8
+        uses: fluxcd/flux2/action@1fd61a06264d71cf445ed55c4f14d401d26a1c64 # v2.8.8
 
       - name: Run diff
-        uses: allenporter/flux-local/action/diff@8.2.0
+        uses: allenporter/flux-local/action/diff@4d666add25002f550dc0dbe8b2b2f25859169b34 # 8.2.0
         id: diff
         with:
           live-branch: main
@@ -74,7 +74,7 @@ jobs:
           debug: false
 
       - name: PR Comments
-        uses: mshick/add-pr-comment@v3.11
+        uses: mshick/add-pr-comment@8e4927817251f1ff60c001f04568532b38e0b4a0 # v3.11
         if: ${{ steps.diff.outputs.diff != '' }}
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
