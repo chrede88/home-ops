@@ -7,4 +7,4 @@ resources:
   - ./clusterrolebinding-flux-web.yaml
   - ./httproute-flux-web.yaml
   - ./grafanaFolder.yaml
-  - ./grafanaDashboard.yaml
+  - ./grafanadashboard.yaml
