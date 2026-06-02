@@ -1,66 +1,71 @@
 ---
-debug: false
+# yaml-language-server: $schema=https://raw.githubusercontent.com/home-operations/kromgo/refs/heads/main/config.schema.json
 
-templates:
-  clusterAge: "{{ . | simplifyDays }}"
-  uptime:     "{{ . | simplifyDays }}"
-  humanSIBytes: "{{ . | humanSIBytes }}"
-  humanBytes: "{{ . | humanBytes }}"
+gallery:
+    enabled: true
 
-metrics:
-  - name: talos_version
+badges:
+  - id: talos_version
     query: node_os_info{name="Talos"}
-    label: version_id
+    value: labels["version_id"]
+    title: Talos version
 
-  - name: kubernetes_version
+  - id: kubernetes_version
     query: kubernetes_build_info{service="kubernetes"}
-    label: git_version
+    value: labels["git_version"]
+    title: Kubernetes version
 
-  - name: flux_version
+  - id: flux_version
     query: label_replace(flux_instance_info, "revision", "$1", "revision", "(.+)@sha256:.+")
-    label: revision
+    value: labels["revision"]
+    title: Flux version
 
-  - name: cluster_node_count
+  - id: cluster_node_count
     query: count(count by (node) (kube_node_status_condition{condition="Ready"}))
+    title: Node count
 
-  - name: cluster_pod_count
+  - id: cluster_pod_count
     query: sum(kube_pod_status_phase{phase="Running"})
+    title: Pod count
 
-  - name: cluster_cpu_usage
+  - id: cluster_cpu_usage
     query: round(avg(instance:node_cpu_utilisation:rate5m) * 100, 0.1)
-    suffix: '%'
-    colors:
-      - { color: a6e3a1, min: 0, max: 20.9 }
-      - { color: fab387, min: 21, max: 75.9 }
-      - { color: f38ba8, min: 76, max: 9999 }
+    value: string(result) + "%"
+    color: 'result <= 20.9 ? "green" : result <= 75.9 ? "orange" : "red"'
+    title: CPU usage
 
-  - name: cluster_memory_usage
+  - id: cluster_memory_usage
     query: round(avg(instance:node_memory_utilisation:ratio) * 100, 0.1)
-    suffix: '%'
-    colors:
-      - { color: a6e3a1, min: 0, max: 20.9 }
-      - { color: fab387, min: 21, max: 75.9 }
-      - { color: f38ba8, min: 76, max: 9999 }
+    value: string(result) + "%"
+    color: 'result <= 20.9 ? "green" : result <= 75.9 ? "orange" : "red"'
+    title: Memory usage
 
-  - name: cluster_memory_usage_si
+  - id: cluster_memory_usage_si
     query: avg(node_memory_MemTotal_bytes)-avg(node_memory_MemAvailable_bytes)
-    valueTemplate: humanSIBytes
+    value: humanSIBytes(result)
+    title: Memory usage (SI)
 
-  - name: cluster_memory_usage_base2
+  - id: cluster_memory_usage_base2
     query: avg(node_memory_MemTotal_bytes)-avg(node_memory_MemAvailable_bytes)
-    valueTemplate: humanBytes
+    value: humanBytes(result)
+    title: Memory usage (base2)
 
-  - name: cluster_uptime_days
+  - id: cluster_uptime_days
     query: round((node_time_seconds - node_boot_time_seconds) / 86400)
-    valueTemplate: uptime
+    value: simplifyDays(result)
+    title: Cluster Up Time
 
-  - name: cluster_age_days
+  - id: cluster_age_days
     query: round((time() - min(kube_node_created) ) / 86400)
-    valueTemplate: clusterAge
+    value: simplifyDays(result)
+    title: Cluster age
 
-  - name: ceph_health_status
+  - id: ceph_health_status
     query: ceph_health_status
-    colors:
-      - { valueOverride: 'Healthy', color: a6e3a1, min: 0, max: 0 }
-      - { valueOverride: 'Warning', color: fab387, min: 1, max: 1 }
-      - { valueOverride: 'Error', color: f38ba8, min: 2, max: 2 }
+    value: 'result == 0.0 ? "Healthy" : result == 1.0 ? "Warning" : "Critical"'
+    color: 'result == 0.0 ? "green" : result == 1.0 ? "orange" : "red"'
+
+  - id: cluster_alert_count
+    query: alertmanager_alerts{state="active"} - 1 # Ignore Watchdog
+    color: 'result < 1 ? "green" : "red"'
+    title: Alerts
