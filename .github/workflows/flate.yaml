@@ -1,0 +1,93 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Flate
+
+on:
+  pull_request:
+    branches: ['main']
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  filter:
+    name: Flate - Filter
+    runs-on: ubuntu-slim
+    timeout-minutes: 5
+    outputs:
+      changed-files: ${{ steps.changed-files.outputs.changed_files }}
+    steps:
+      - name: Get Changed Files
+        id: changed-files
+        uses: bjw-s-labs/action-changed-files@a9a36fb08ce06db9b02fbd8026cc2c0945eb9841 # v0.6.0
+        with:
+          patterns: cluster/kubernetes/**/*
+
+  flate:
+    if: ${{ needs.filter.outputs.changed-files != '[]' }}
+    needs: filter
+    name: Flate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write
+    strategy:
+      matrix:
+        resource:
+          - helmrelease
+          - kustomization
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+
+      - name: Install Flate
+        uses: home-operations/flate/action@2df8349356dd1b40a56be5bce8bc4b2b4a951962 # 0.1.38
+
+      - name: Run Flate
+        id: flate
+        env:
+          FLATE_PATH: ./cluster/kubernetes/flux/main
+        run: |-
+          echo 'diff<<EOF' >> $GITHUB_OUTPUT
+          flate diff ${{ matrix.resource }} >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
+
+      - if: ${{ steps.flate.outputs.diff != '' }}
+        name: Generate Token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: app-token
+        with:
+          app-id: ${{ secrets.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
+
+      - if: ${{ steps.flate.outputs.diff != '' }}
+        name: Add Comment
+        uses: mshick/add-pr-comment@8e4927817251f1ff60c001f04568532b38e0b4a0 # v3.11.0
+        with:
+          repo-token: ${{ steps.app-token.outputs.token }}
+          message-id: ${{ github.event.pull_request.number }}/kubernetes/${{ matrix.resource }}
+          message-failure: Unable to post diff
+          message: |-
+            ```diff
+            ${{ steps.flate.outputs.diff }}
+            ```
+
+  success:
+    if: ${{ !cancelled() }}
+    needs: flate
+    name: Flate - Success
+    runs-on: ubuntu-slim
+    timeout-minutes: 5
+    steps:
+      - name: Any jobs failed?
+        if: ${{ contains(needs.*.result, 'failure') }}
+        run: exit 1
+
+      - name: All jobs passed or skipped?
+        if: ${{ !(contains(needs.*.result, 'failure')) }}
+        run: echo "All jobs passed or skipped" && echo "${{ toJSON(needs.*.result) }}"
