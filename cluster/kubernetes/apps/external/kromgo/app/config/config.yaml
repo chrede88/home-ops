@@ -42,22 +42,22 @@ badges:
 
   - id: cluster_memory_usage_si
     query: avg(node_memory_MemTotal_bytes)-avg(node_memory_MemAvailable_bytes)
-    value: humanSIBytes(result)
+    value: humanizeSIBytes(result)
     title: Memory usage (SI)
 
   - id: cluster_memory_usage_base2
     query: avg(node_memory_MemTotal_bytes)-avg(node_memory_MemAvailable_bytes)
-    value: humanBytes(result)
+    value: humanizeBytes(result)
     title: Memory usage (base2)
 
   - id: cluster_uptime_days
     query: round((node_time_seconds - node_boot_time_seconds) / 86400)
-    value: simplifyDays(result)
+    value: humanizeDays(result)
     title: Cluster Up Time
 
   - id: cluster_age_days
     query: round((time() - min(kube_node_created) ) / 86400)
-    value: simplifyDays(result)
+    value: humanizeDays(result)
     title: Cluster age
 
   - id: ceph_health_status
