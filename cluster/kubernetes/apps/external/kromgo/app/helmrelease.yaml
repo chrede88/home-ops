@@ -19,14 +19,13 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/kashalls/kromgo
-              tag: v0.10.0
+              repository: ghcr.io/home-operations/kromgo
+              tag: 0.12.2@sha256:33a15e6087ecfbbf9cf39f24ca418ca30738dddd5af5ec9efee1e99742f49e57
             env:
               PROMETHEUS_URL: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
-              SERVER_HOST: 0.0.0.0
               SERVER_PORT: &serverPort 8080
-              HEALTH_HOST: 0.0.0.0
               HEALTH_PORT: &healthPort 8888
+              LOG_LEVEL: debug
             probes:
               liveness: &probes
                 enabled: true
@@ -49,11 +48,11 @@ spec:
                 cpu: 10m
               limits:
                 memory: 64Mi
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            runAsNonRoot: true
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        runAsNonRoot: true
     service:
       app:
         controller: kromgo
