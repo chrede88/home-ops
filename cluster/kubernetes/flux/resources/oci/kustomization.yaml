@@ -11,6 +11,7 @@ resources:
   - ./cert-manager.yaml
   - ./rook-ceph.yaml
   - ./rook-ceph-cluster.yaml
+  - ./rook-ceph-csi.yaml
   - ./external-dns.yaml
   - ./grafana-operator.yaml
   - ./kube-prometheus-stack.yaml
