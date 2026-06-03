@@ -33,9 +33,6 @@ jobs:
     name: Flate
     runs-on: ubuntu-24.04
     timeout-minutes: 15
-    permissions:
-      contents: read
-      pull-requests: write
     strategy:
       matrix:
         resource:
@@ -49,15 +46,17 @@ jobs:
           fetch-depth: 0
 
       - name: Install Flate
-        uses: home-operations/flate/action@2df8349356dd1b40a56be5bce8bc4b2b4a951962 # 0.1.38
+        uses: home-operations/flate/action@ff3803f19b3e933da5a90085e275def2d89ef17e # 0.2.6
 
       - name: Run Flate
         id: flate
         env:
           FLATE_PATH: ./cluster/kubernetes/flux/main
+          FLATE_OUTPUT: github
+          KIND: ${{ matrix.resource }}
         run: |-
           echo 'diff<<EOF' >> $GITHUB_OUTPUT
-          flate diff ${{ matrix.resource }} >> $GITHUB_OUTPUT
+          flate diff $KIND >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
 
       - if: ${{ steps.flate.outputs.diff != '' }}
@@ -67,6 +66,7 @@ jobs:
         with:
           app-id: ${{ secrets.BOT_APP_ID }}
           private-key: ${{ secrets.BOT_PRIVATE_KEY }}
+          permission-pull-requests: write
 
       - if: ${{ steps.flate.outputs.diff != '' }}
         name: Add Comment
