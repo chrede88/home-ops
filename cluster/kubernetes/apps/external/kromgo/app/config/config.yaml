@@ -56,7 +56,7 @@ badges:
     colorExpr: 'colorScale(result, [20.9, 75.9], ["green", "orange", "red"])'
     title: Memory
 
-  - id: cluster_memory_usage
+  - id: cluster_memory_usage_bytes
     query: avg(node_memory_MemTotal_bytes)-avg(node_memory_MemAvailable_bytes)
     valueExpr: humanizeBytes(result)
     colorExpr: '"#cba6f7"'
