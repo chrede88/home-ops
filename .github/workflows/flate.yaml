@@ -33,9 +33,6 @@ jobs:
     name: Flate
     runs-on: ubuntu-24.04
     timeout-minutes: 15
-    permissions:
-      contents: read
-      pull-requests: write
     strategy:
       matrix:
         resource:
@@ -55,9 +52,11 @@ jobs:
         id: flate
         env:
           FLATE_PATH: ./cluster/kubernetes/flux/main
+          FLATE_OUTPUT: github
+          KIND: ${{ matrix.resource }}
         run: |-
           echo 'diff<<EOF' >> $GITHUB_OUTPUT
-          flate diff ${{ matrix.resource }} >> $GITHUB_OUTPUT
+          flate diff $KIND >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
 
       - if: ${{ steps.flate.outputs.diff != '' }}
@@ -67,6 +66,7 @@ jobs:
         with:
           app-id: ${{ secrets.BOT_APP_ID }}
           private-key: ${{ secrets.BOT_PRIVATE_KEY }}
+          permission-pull-requests: write
 
       - if: ${{ steps.flate.outputs.diff != '' }}
         name: Add Comment
