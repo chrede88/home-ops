@@ -13,9 +13,7 @@ spec:
     force: false
     rebootMode: powercycle
   drain:
-    deleteLocalData: true
-    ignoreDaemonSets: true
-    force: true
+    enabled: true
   healthChecks:
     # Check all nodes are ready
     - apiVersion: v1
