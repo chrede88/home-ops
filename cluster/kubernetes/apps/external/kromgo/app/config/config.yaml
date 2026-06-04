@@ -63,13 +63,13 @@ badges:
     title: Memory
 
   - id: cluster_uptime_days
-    query: round((node_time_seconds - node_boot_time_seconds) / 86400)
+    query: round(node_time_seconds - node_boot_time_seconds)
     valueExpr: humanizeDurationDays(result)
     colorExpr: '"#cba6f7"'
     title: Up Time
 
   - id: cluster_age_days
-    query: round((time() - min(kube_node_created) ) / 86400)
+    query: round(time() - min(kube_node_created))
     valueExpr: humanizeDurationDays(result)
     colorExpr: '"#cba6f7"'
     title: Age
