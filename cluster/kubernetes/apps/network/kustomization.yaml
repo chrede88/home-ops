@@ -8,7 +8,6 @@ resources:
   # Flux-Kustomizations
   - ./envoy-gateway/ks.yaml
   - ./gateways/ks.yaml
-  - ./cloudflare-ddns/ks.yaml
   - ./external-dns/ks.yaml
   - ./towonel/ks.yaml
 components:
