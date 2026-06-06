@@ -1,0 +1,100 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}-anubis
+spec:
+  interval: 30m
+  timeout: 15m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  values:
+    configMaps:
+      policy:
+        suffix: policy
+        data:
+          policy.yaml: |-
+            bots:
+              - import: (data)/meta/default-config.yaml
+    controllers:
+      anubis:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/techarohq/anubis
+              tag: v1.25.0
+            env:
+              BIND: ":8080"
+              DIFFICULTY: 4
+              ED25519_PRIVATE_KEY_HEX:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-anubis-key-secret
+                    key: ED25519_PRIVATE_KEY_HEX
+              METRICS_BIND: ":9090"
+              OG_EXPIRY_TIME: "24h"
+              OG_PASSTHROUGH: "true"
+              POLICY_FNAME: "/etc/anubis/policy.yaml"
+              SERVE_ROBOTS_TXT: "true"
+              TARGET: "${ANUBIS_TARGET}"
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - "anubis"
+                      - "--healthcheck"
+                  initialDelaySeconds: 1
+                  periodSeconds: 10
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - "anubis"
+                      - "--healthcheck"
+                  initialDelaySeconds: 1
+                  periodSeconds: 5
+            resources:
+              requests:
+                memory: 64Mi
+              limits:
+                memory: 256Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              runAsGroup: 1000
+              runAsNonRoot: true
+              runAsUser: 1000
+              seccompProfile:
+                type: RuntimeDefault
+    persistence:
+      policy:
+        type: configMap
+        identifier: policy
+        globalMounts:
+          - path: /etc/anubis
+            readOnly: true
+    service:
+      anubis:
+        controller: anubis
+        ports:
+          http:
+            port: 8080
+            protocol: HTTP
+          metrics:
+            port: 9090
+            protocol: HTTP
+    serviceMonitor:
+      app:
+        endpoints:
+          - port: metrics
+            interval: 30s

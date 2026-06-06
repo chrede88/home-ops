@@ -10,12 +10,18 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../flux/components/anubis
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       name: *app
       namespace: *namespace
   path: ./cluster/kubernetes/apps/external/qubt/app
+  postBuild:
+      substitute:
+        APP: *app
+        ANUBIS_TARGET: http://qubt.external.svc.cluster.local:8080
   prune: true
   sourceRef:
     kind: GitRepository
