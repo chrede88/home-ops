@@ -1,0 +1,34 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/grafana.integreatly.org/grafanadashboard_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: towonel-agent
+  namespace: network
+spec:
+  allowCrossNamespaceImport: true
+  folderRef: towonel-folder
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  url: https://codeberg.org/towonel/towonel/raw/branch/main/deploy/grafana/towonel-agent.json
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/grafana.integreatly.org/grafanadashboard_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: towonel-hub
+  namespace: network
+spec:
+  allowCrossNamespaceImport: true
+  folderRef: towonel-folder
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  url: https://codeberg.org/towonel/towonel/raw/branch/main/deploy/grafana/towonel-hub.json
