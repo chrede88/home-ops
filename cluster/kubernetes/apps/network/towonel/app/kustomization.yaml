@@ -6,3 +6,5 @@ resources:
   - ./towonel-agent-secret.yaml
   - ./envoy-client-traffic-policy.yaml
   - ./helmrelease.yaml
+  - ./grafanafolder.yaml
+  - ./grafanadashboard.yaml
