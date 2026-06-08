@@ -21,7 +21,7 @@ spec:
       services:
         - hostname: cjsolsen.com
           origin: external-gateway.network.svc.cluster.local:443
-        - homename: "*.cjsolsen.com"
+        - hostname: "*.cjsolsen.com"
           origin: external-gateway.network.svc.cluster.local:443
       inviteTokenSecret:
           name: towonel-agent-secret
