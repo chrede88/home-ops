@@ -18,6 +18,11 @@ spec:
       create: true
     agent:
       logLevel: info
+      services:
+        - hostname: cjsolsen.com
+          origin: external-gateway.network.svc.cluster.local:443
+        - homename: "*.cjsolsen.com"
+          origin: external-gateway.network.svc.cluster.local:443
       inviteTokenSecret:
           name: towonel-agent-secret
           # -- Key inside the Secret.
