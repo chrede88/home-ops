@@ -29,3 +29,4 @@ resources:
   - ./envoy-gateway.yaml
   - ./renovate-operator.yaml
   - ./towonel-agent.yaml
+  - ./kromgo.yaml

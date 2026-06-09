@@ -1,6 +1,8 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/home-operations/kromgo/refs/heads/main/config.schema.json
 
+prometheus: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
+
 gallery:
     enabled: true
 
