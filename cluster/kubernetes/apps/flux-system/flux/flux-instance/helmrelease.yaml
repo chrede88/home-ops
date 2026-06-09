@@ -13,9 +13,6 @@ spec:
     namespace: flux-system
   values:
     instance:
-      distribution:
-        artifact: oci://ghcr.io/controlplaneio-fluxcd/flux-operator-manifests:v0.51.0
-        version: 2.x
       cluster:
         type: kubernetes
         multitenant: false
