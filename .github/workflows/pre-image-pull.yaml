@@ -34,104 +34,52 @@ jobs:
     name: Pre Image Pull - Extract Images
     runs-on: ubuntu-24.04
     timeout-minutes: 5
-    strategy:
-      matrix:
-        branch:
-          - default
-          - pull
-      fail-fast: false
     outputs:
-      default: ${{ steps.extract.outputs.default }}
-      pull: ${{ steps.extract.outputs.pull }}
+      images: ${{ steps.extract.outputs.images }}
     steps:
-      - name: Generate Token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        id: app-token
-        with:
-          app-id: ${{ secrets.BOT_APP_ID }}
-          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
-
       - name: Checkout
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           persist-credentials: false
-          ref: ${{ matrix.branch == 'default' && github.event.repository.default_branch || '' }}
-          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 0
 
-      - name: Gather Images
-        uses: docker://ghcr.io/allenporter/flux-local:v8.2.0
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+      - name: Install Flate
+        uses: home-operations/flate/action@39f44bd8bc9f11ba5321cecbdfc04398a568f4d0 # v0.3.3
         with:
-          args: >-
-            get cluster
-            --all-namespaces
-            --path /github/workspace/cluster/kubernetes/flux/main
-            --enable-images
-            --only-images
-            --output json
-            --output-file images.json
+          cache: true
 
       - name: Extract Images
         id: extract
         run: |-
-          echo "${{ matrix.branch }}=$(jq --compact-output '.' images.json)" >> $GITHUB_OUTPUT
-
-          echo '## Branch ${{ matrix.branch }} images' >> $GITHUB_STEP_SUMMARY
-          echo '```json' >> $GITHUB_STEP_SUMMARY
-          jq '.' images.json >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-
-  diff:
-    if: ${{ needs.extract.outputs.default != needs.extract.outputs.pull }}
-    needs: extract
-    name: Pre Image Pull - Diff Images
-    runs-on: ubuntu-slim
-    timeout-minutes: 5
-    outputs:
-      images: ${{ steps.diff.outputs.images }}
-    steps:
-      - name: Diff Images
-        id: diff
-        run: |-
-          images=$(jq --compact-output --null-input \
-              --argjson f1 '${{ needs.extract.outputs.default }}' \
-              --argjson f2 '${{ needs.extract.outputs.pull }}' \
-              '$f2 - $f1' \
-          )
-          echo "images=${images}" >> $GITHUB_OUTPUT
-
-          echo '## New images to Pull' >> $GITHUB_STEP_SUMMARY
-          echo '```json' >> $GITHUB_STEP_SUMMARY
-          echo $images | jq >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo 'images<<EOF' >> $GITHUB_OUTPUT
+          flate diff images -p ./kubernetes/flux/cluster -o json >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
 
   pull:
     if: ${{ needs.diff.outputs.images != '[]' }}
-    needs: diff
+    needs: extract
     name: Pre Image Pull - Pull Images
     runs-on: k8s-runner
     timeout-minutes: 15
     strategy:
       matrix:
-        image: ${{ fromJSON(needs.diff.outputs.images) }}
+        image: ${{ fromJSON(needs.extract.outputs.images) }}
       max-parallel: 2
       fail-fast: false
-    env:
-      MATRIX_IMAGE: ${{ matrix.image }}
     steps:
       - name: Install talosctl
         run: curl -fsSL https://raw.githubusercontent.com/siderolabs/talos/b412ffdbc29d77a81aed88be62f21bc2999afcde/website/static/install | sh
 
       - name: Pull Image
-        run: talosctl --nodes $NODE image pull "${MATRIX_IMAGE}"
+        env:
+          IMAGE: ${{ matrix.image }}
+        run: talosctl --nodes "$NODE" image pull "$IMAGE"
 
   success:
     if: ${{ !cancelled() }}
     needs: pull
-    name: Pre Image Pull - Success
-    runs-on: ubuntu-slim
-    timeout-minutes: 5
+    name: Image Pull - Success
+    runs-on: ubuntu-latest
     steps:
       - name: Any jobs failed?
         if: ${{ contains(needs.*.result, 'failure') }}
@@ -139,4 +87,6 @@ jobs:
 
       - name: All jobs passed or skipped?
         if: ${{ !(contains(needs.*.result, 'failure')) }}
-        run: echo "All jobs passed or skipped" && echo "${{ toJSON(needs.*.result) }}"
+        env:
+          RESULTS: ${{ toJSON(needs.*.result) }}
+        run: echo "All jobs passed or skipped" && echo "$RESULTS"
