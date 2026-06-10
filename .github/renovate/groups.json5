@@ -39,14 +39,13 @@
       matchDatasources: ["docker"],
       matchPackageNames: [
         "/flux-operator/",
-        "/flux-instance/",
-        "/flux-operator-manifests"
+        "/flux-instance/"
       ],
       group: {
         commitMessageTopic: "{{{groupName}}} group"
       },
       separateMinorPatch: true,
-      minimumGroupSize: 3
+      minimumGroupSize: 2
     },
     {
       description: ["Actions Runner Controller Group"],
