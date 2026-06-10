@@ -19,12 +19,15 @@ _... powered by Talos Linux and Kubernetes_
   <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.cjsolsen.com%2Fbadges%2Ftalos_version%3Fformat=shields&style=for-the-badge&logo=talos&logoColor=fff&label=Talos&labelColor=302d41&color=cba6f7" alt="Talos version">
   <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.cjsolsen.com%2Fbadges%2Fkubernetes_version%3Fformat=shields&style=for-the-badge&logo=kubernetes&logoColor=fff&label=Kubernetes&labelColor=302d41&color=cba6f7" alt="Kubernetes version">
   <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.cjsolsen.com%2Fbadges%2Fflux_version%3Fformat=shields&style=for-the-badge&logo=flux&logoColor=fff&label=Fluxcd&labelColor=302d41&color=cba6f7" alt="Fluxcd version">
-  <img src="https://img.shields.io/github/issues-pr/chrede88/home-ops?logo=github&color=f2cdcd&logoColor=fff&style=for-the-badge&labelColor=302d41" alt="Open Pull Requests">
 </div>
 
 <div align="center">
   <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.cjsolsen.com%2Fbadges%2Fcluster_age_days%3Fformat=shields&style=for-the-badge&label=Age&labelColor=302d41&color=cba6f7" alt="Cluster Age">
   <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.cjsolsen.com%2Fbadges%2Fcluster_uptime_days%3Fformat=shields&style=for-the-badge&label=Up&labelColor=302d41&color=cba6f7" alt="Cluster Up Time">
+  <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.cjsolsen.com%2Fbadges%2Fcluster_alert_count%3Fformat=shields&style=for-the-badge&label=Alerts&labelColor=302d41" alt="Alerts">
+</div>
+
+<div align="center">
   <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.cjsolsen.com%2Fbadges%2Fcluster_node_count%3Fformat=shields&style=for-the-badge&label=Nodes&labelColor=302d41&color=cba6f7" alt="Cluster Nodes">
   <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.cjsolsen.com%2Fbadges%2Fcluster_pod_count%3Fformat=shields&style=for-the-badge&label=Pods&labelColor=302d41&color=cba6f7" alt="Cluster Pods">
   <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.cjsolsen.com%2Fbadges%2Fcluster_cpu_usage%3Fformat=shields&style=for-the-badge&label=Cpu&labelColor=302d41" alt="Cluster CPU">
