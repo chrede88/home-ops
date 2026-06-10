@@ -6,7 +6,7 @@ metadata:
   name: github-auth-token
   namespace: renovate
 spec:
-  appID: "1021022"
+  appID: "Iv23liBaQhjBsXToh3WZ"
   installID: "55829102"
   auth:
     privateKey:
