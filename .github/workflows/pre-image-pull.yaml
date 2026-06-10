@@ -81,7 +81,7 @@ jobs:
   success:
     if: ${{ !cancelled() }}
     needs: pull
-    name: Image Pull - Success
+    name: Pre Image Pull - Success
     runs-on: ubuntu-latest
     steps:
       - name: Any jobs failed?
