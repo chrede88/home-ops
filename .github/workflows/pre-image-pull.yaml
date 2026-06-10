@@ -50,9 +50,12 @@ jobs:
 
       - name: Extract Images
         id: extract
+        env:
+          FLATE_PATH: ./cluster/kubernetes/flux/main
+          FLATE_OUTPUT: json
         run: |-
           echo 'images<<EOF' >> $GITHUB_OUTPUT
-          flate diff images -p ./kubernetes/flux/cluster -o json >> $GITHUB_OUTPUT
+          flate diff images >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
 
   pull:
