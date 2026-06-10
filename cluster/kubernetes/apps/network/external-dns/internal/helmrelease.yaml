@@ -28,22 +28,32 @@ spec:
     sources:
       - gateway-httproute
     policy: sync
+    triggerLoopOnEvent: true
+    txtOwnerId: main
+    txtPrefix: k8s.main.%{record_type}-
+    domainFilters:
+      - cjsolsen.com
+    env:
+      - name: EXTERNAL_DNS_GATEWAY_LABEL_FILTER
+        value: gateway-label==internal-gateway
+      - name: EXTERNAL_DNS_LABEL_FILTER
+        value: route-label==external-dns-internal
     provider:
       name: webhook
       webhook:
         image:
-          repository: ghcr.io/kashalls/external-dns-unifi-webhook
-          tag: v0.9.0
+          repository: ghcr.io/home-operations/external-dns-unifi-webhook
+          tag: 0.10.4
         env:
           - name: UNIFI_HOST
             value: https://10.10.0.252
-          - name: UNIFI_EXTERNAL_CONTROLLER
-            value: 'false'
           - name: UNIFI_API_KEY
             valueFrom:
               secretKeyRef:
                 name: external-dns-unifi-secret
                 key: api-key
+          - name: UNIFI_SKIP_TLS_VERIFY
+            value: true
           - name: LOG_LEVEL
             value: *logLevel
         livenessProbe:
@@ -58,8 +68,3 @@ spec:
             port: http-webhook
           initialDelaySeconds: 10
           timeoutSeconds: 5
-    env:
-      - name: EXTERNAL_DNS_GATEWAY_LABEL_FILTER
-        value: gateway-label==internal-gateway
-      - name: EXTERNAL_DNS_LABEL_FILTER
-        value: route-label==external-dns-internal
