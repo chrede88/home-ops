@@ -44,7 +44,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install Flate
-        uses: home-operations/flate/action@cb51c417b0ff69e73e0569fdb4f95defd9efa90f # v0.4.1
+        uses: home-operations/flate/action@dead45661b4ba1bec3fd47c3ca5ce43c7cccdc6b # v0.4.2
         with:
           cache: true
 
@@ -59,7 +59,7 @@ jobs:
           echo 'EOF' >> $GITHUB_OUTPUT
 
   pull:
-    if: ${{ needs.diff.outputs.images != '[]' }}
+    if: ${{ needs.extract.outputs.images != '[]' }}
     needs: extract
     name: Pre Image Pull - Pull Images
     runs-on: k8s-runner
@@ -82,7 +82,8 @@ jobs:
     if: ${{ !cancelled() }}
     needs: pull
     name: Pre Image Pull - Success
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
+    timeout-minutes: 5
     steps:
       - name: Any jobs failed?
         if: ${{ contains(needs.*.result, 'failure') }}
