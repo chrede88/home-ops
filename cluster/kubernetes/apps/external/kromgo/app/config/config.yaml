@@ -46,6 +46,11 @@ badges:
     colorExpr: '"#cba6f7"'
     title: Pods
 
+  - id: cluster_contianer_count
+    query: sum(kube_pod_container_status_running)
+    colorExpr: '"#cba6f7"'
+    title: Containers
+
   - id: cluster_cpu_usage
     query: round(avg(instance:node_cpu_utilisation:rate5m) * 100, 0.1)
     valueExpr: string(result) + "%"

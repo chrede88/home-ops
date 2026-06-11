@@ -26,6 +26,7 @@ _... powered by Talos Linux and Kubernetes_
   <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.cjsolsen.com%2Fbadges%2Fcluster_uptime_days%3Fformat=shields&style=for-the-badge&label=Up&labelColor=302d41&color=cba6f7" alt="Cluster Up Time">
   <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.cjsolsen.com%2Fbadges%2Fcluster_node_count%3Fformat=shields&style=for-the-badge&label=Nodes&labelColor=302d41&color=cba6f7" alt="Cluster Nodes">
   <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.cjsolsen.com%2Fbadges%2Fcluster_pod_count%3Fformat=shields&style=for-the-badge&label=Pods&labelColor=302d41&color=cba6f7" alt="Cluster Pods">
+  <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.cjsolsen.com%2Fbadges%2Fcluster_container_count%3Fformat=shields&style=for-the-badge&label=Pods&labelColor=302d41&color=cba6f7" alt="Cluster Containers">
 </div>
 
 <div align="center">
