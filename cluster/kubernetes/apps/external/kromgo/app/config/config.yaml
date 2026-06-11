@@ -46,7 +46,7 @@ badges:
     colorExpr: '"#cba6f7"'
     title: Pods
 
-  - id: cluster_contianer_count
+  - id: cluster_container_count
     query: sum(kube_pod_container_status_running)
     colorExpr: '"#cba6f7"'
     title: Containers
