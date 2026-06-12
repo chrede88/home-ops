@@ -12,6 +12,7 @@ resources:
   - ./irqbalance/ks.yaml
   - ./spegel/ks.yaml
   - ./k8tz/ks.yaml
+  - ./reloader/ks.yaml
 components:
   - ../../flux/components/alerts
 transformers:
