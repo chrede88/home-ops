@@ -15,7 +15,7 @@ spec:
     fullnameOverride: *name
     logLevel: &logLevel debug
     deploymentAnnotations:
-      - reloader.stakater.com/auto: "true"
+      reloader.stakater.com/auto: "true"
     serviceMonitor:
       enabled: true
     rbac:
