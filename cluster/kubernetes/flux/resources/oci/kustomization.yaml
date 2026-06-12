@@ -30,3 +30,4 @@ resources:
   - ./renovate-operator.yaml
   - ./towonel-agent.yaml
   - ./kromgo.yaml
+  - ./reloader.yaml

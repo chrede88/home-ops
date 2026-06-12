@@ -16,6 +16,8 @@ spec:
       app:
         replicas: 1
         strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
