@@ -13,11 +13,11 @@ spec:
     name: towonel-agent
     namespace: flux-system
   values:
-    replicaCount: 2
-    deploymentAnnotations:
-      reloader.stakater.com/auto: "true"
-    serviceAccount:
-      create: true
+    controllers:
+      main:
+        replicas: 2
+        annotations:
+          reloader.stakater.com/auto: "true"
     agent:
       logLevel: info
       services:
@@ -29,9 +29,15 @@ spec:
           name: towonel-agent-secret
           # -- Key inside the Secret.
           key: agent-invite-token
-    monitoring:
-      serviceMonitor:
+    serviceMonitor:
+      main:
         enabled: true
+        endpoints:
+          - port: metrics
+            interval: 1m
+            scrapeTimeout: 10s
+            path: /metrics
+    monitoring:
       prometheusRule:
         enabled: true
       dashboards:
