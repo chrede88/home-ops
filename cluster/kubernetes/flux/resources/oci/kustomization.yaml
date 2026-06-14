@@ -31,3 +31,4 @@ resources:
   - ./towonel-agent.yaml
   - ./kromgo.yaml
   - ./reloader.yaml
+  - ./gatus-sidecar.yaml
