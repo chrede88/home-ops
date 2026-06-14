@@ -46,16 +46,6 @@ spec:
     rbac:
       create: true
       type: ClusterRole
-      extraRules:
-        - apiGroups:
-            - gateway.networking.k8s.io
-          resources:
-            - gateways
-            - httproutes
-          verbs:
-            - get
-            - list
-            - watch
     persistence:
       enabled: false
     resources:
