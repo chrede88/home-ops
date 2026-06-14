@@ -19,7 +19,7 @@ spec:
       configPath: /config
       port: 8080
       logLevel: INFO
-      delayStartSeconds: 5
+      delayStartSeconds: "5"
       envFrom:
         - secretRef:
             name: gatus-secret
