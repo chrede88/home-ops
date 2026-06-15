@@ -33,3 +33,4 @@ resources:
   - ./reloader.yaml
   - ./gatus-sidecar.yaml
   - ./konflate.yaml
+  - ./webhook-ovh.yaml

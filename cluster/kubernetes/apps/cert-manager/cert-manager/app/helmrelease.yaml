@@ -15,17 +15,14 @@ spec:
     crds:
       enabled: true
     replicaCount: 1
-    dns01RecursiveNameservers: 1.1.1.1:53,1.0.0.1:53
+    dns01RecursiveNameservers: https://1.1.1.1:443/dns-query,https://1.0.0.1:443/dns-query
     dns01RecursiveNameserversOnly: true
-    podDnsPolicy: None
-    podDnsConfig:
-      nameservers:
-        - 1.1.1.1
-        - 1.0.0.1
     prometheus:
       enabled: true
       servicemonitor:
         enabled: true
+    webhook:
+      replicaCount: 1
     config:
       apiVersion: controller.config.cert-manager.io/v1alpha1
       kind: ControllerConfiguration
