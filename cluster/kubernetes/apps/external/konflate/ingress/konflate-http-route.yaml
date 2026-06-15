@@ -15,7 +15,7 @@ spec:
   parentRefs:
     - name: external-gateway
       namespace: network
-      sectionName: konfalte-ingress
+      sectionName: konflate-ingress
   rules:
     - matches:
         - path:
