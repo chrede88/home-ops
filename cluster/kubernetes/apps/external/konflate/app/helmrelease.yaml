@@ -8,7 +8,7 @@ spec:
   timeout: 15m
   chartRef:
     kind: OCIRepository
-    name: app-template
+    name: konflate
     namespace: flux-system
   values:
     config:
