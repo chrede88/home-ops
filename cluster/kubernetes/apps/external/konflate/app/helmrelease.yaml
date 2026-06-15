@@ -13,7 +13,7 @@ spec:
   values:
     config:
       repo: github://chrede88/home-ops
-      clusterPath:
+      clusterPath: ./cluster/kubernetes/flux/main
       refreshInterval: 30m
       renderForkPrs: false
       mcp: false
