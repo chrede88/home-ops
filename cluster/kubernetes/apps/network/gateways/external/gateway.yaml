@@ -88,18 +88,18 @@ spec:
         mode: Terminate
         certificateRefs:
           - name: webhook-cjsolsen-com
-    # catch traffic for konfalte
-    - name: konflate-ingress
-      hostname: konflate.cjsolsen.com
-      protocol: HTTPS
-      port: 443
-      allowedRoutes:
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              external-gateway-access: 'true'
-      tls:
-        mode: Terminate
-        certificateRefs:
-          - name: konflate-cjsolsen-com
+    # # catch traffic for konfalte
+    # - name: konflate-ingress
+    #   hostname: konflate.cjsolsen.com
+    #   protocol: HTTPS
+    #   port: 443
+    #   allowedRoutes:
+    #     namespaces:
+    #       from: Selector
+    #       selector:
+    #         matchLabels:
+    #           external-gateway-access: 'true'
+    #   tls:
+    #     mode: Terminate
+    #     certificateRefs:
+    #       - name: konflate-cjsolsen-com
