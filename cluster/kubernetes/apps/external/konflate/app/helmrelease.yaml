@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: konflate
+spec:
+  interval: 30m
+  timeout: 15m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  values:
+    config:
+      repo: github://chrede88/home-ops
+      clusterPath:
+      refreshInterval: 30m
+      renderForkPrs: false
+      mcp: false
+      statusChecks: true
+      prComments: true
+      publicUrl: https://konflate.cjsolsen.com
+    secret:
+      existingSecret: konflate-webhook-token-secret
+    deploymentAnnotations:
+      reloader.stakater.com/auto: "true"
+    monitoring:
+      serviceMonitor:
+        enabled: true
+    persistence:
+      enabled: false

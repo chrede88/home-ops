@@ -32,3 +32,4 @@ resources:
   - ./kromgo.yaml
   - ./reloader.yaml
   - ./gatus-sidecar.yaml
+  - ./konflate.yaml
