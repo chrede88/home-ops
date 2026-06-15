@@ -33,12 +33,6 @@ jobs:
     name: Flate
     runs-on: ubuntu-24.04
     timeout-minutes: 15
-    strategy:
-      matrix:
-        resource:
-          - helmrelease
-          - kustomization
-      fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
@@ -52,35 +46,7 @@ jobs:
 
       - name: Run Flate
         id: flate
-        env:
-          FLATE_PATH: ./cluster/kubernetes/flux/main
-          FLATE_OUTPUT: github
-          KIND: ${{ matrix.resource }}
-        run: |-
-          echo 'diff<<EOF' >> $GITHUB_OUTPUT
-          flate diff $KIND >> $GITHUB_OUTPUT
-          echo 'EOF' >> $GITHUB_OUTPUT
-
-      - if: ${{ steps.flate.outputs.diff != '' }}
-        name: Generate Token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        id: app-token
-        with:
-          client-id: ${{ secrets.BOT_CLIENT_ID }}
-          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
-          permission-pull-requests: write
-
-      - if: ${{ steps.flate.outputs.diff != '' }}
-        name: Add Comment
-        uses: mshick/add-pr-comment@8e4927817251f1ff60c001f04568532b38e0b4a0 # v3.11.0
-        with:
-          repo-token: ${{ steps.app-token.outputs.token }}
-          message-id: ${{ github.event.pull_request.number }}/kubernetes/${{ matrix.resource }}
-          message-failure: Unable to post diff
-          message: |-
-            ```diff
-            ${{ steps.flate.outputs.diff }}
-            ```
+        run: flate test all -p ./cluster/kubernetes/flux/main
 
   success:
     if: ${{ !cancelled() }}
