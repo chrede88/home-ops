@@ -10,6 +10,7 @@ resources:
   - ./l1nkr/ks.yaml
   - ./kromgo/ks.yaml
   - ./webhook/ks.yaml
+  - ./konflate/ks.yaml
 components:
   - ../../flux/components/alerts
 transformers:
