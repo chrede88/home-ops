@@ -39,7 +39,7 @@ spec:
   healthChecks:
     - apiVersion: gateway.networking.k8s.io/v1
       kind: HTTPRoute
-      name: *app
+      name: konflate
       namespace: *namespace
   healthCheckExprs:
     - apiVersion: gateway.networking.k8s.io/v1
