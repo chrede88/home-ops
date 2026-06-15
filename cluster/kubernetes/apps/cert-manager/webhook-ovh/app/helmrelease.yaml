@@ -1,0 +1,34 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cert-manager-webhook-ovh
+spec:
+  interval: 30m
+  timeout: 15m
+  chartRef:
+    kind: OCIRepository
+    name: webhook-ovh
+    namespace: flux-system
+  values:
+    groupName: acme.cjsolsen.com
+    issuers:
+      - name: letsencrypt-production
+        create: true
+        kind: ClusterIssuer
+        acmeServerUrl: https://acme-v02.api.letsencrypt.org/directory
+        email: admin@cjsolsen.com
+        ovhEndpointName: ovh-ca
+        ovhAuthenticationMethod: application
+        ovhAuthenticationRef:
+          applicationKeyRef:
+            name: ovh-issuer-secret
+            key: applicationKey
+          applicationSecretRef:
+            name: ovh-issuer-secret
+            key: applicationSecret
+          applicationConsumerKeyRef:
+            name: ovh-issuer-secret
+            key: consumerKey
+        profile: shortlived
