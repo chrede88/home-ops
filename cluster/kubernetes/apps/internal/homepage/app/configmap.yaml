@@ -26,7 +26,7 @@ data:
       Services:
         header: true
         style: row
-        columns: 6
+        columns: 7
       Observability:
         header: false
         style: row
@@ -139,6 +139,10 @@ data:
             icon: kubernetes.svg
             href: https://k8s-schemas.home-operations.com
             description: Home-operations K8s Schema Store
+        - Konflate:
+            icon: kubernetes.svg
+            href: https://konflate.cjsolsen.com
+            description: Konflate
   widgets.yaml: |
     - logo:
         icon: https://raw.githubusercontent.com/chrede88/home-ops/main/cluster/kubernetes/apps/internal/homepage/app/resources/cjso.svg
