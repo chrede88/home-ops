@@ -16,7 +16,7 @@ spec:
       name: *app
       namespace: *namespace
   dependsOn:
-    - name: dragonfly-clusters
+    - name: dragonfly-cluster
   path: ./cluster/kubernetes/apps/internal/searxng/app
   prune: true
   sourceRef:

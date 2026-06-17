@@ -19,7 +19,7 @@ spec:
       namespace: *namespace
   dependsOn:
     - name: cloudnative-pg-clusters
-    - name: dragonfly-clusters
+    - name: dragonfly-cluster
   path: ./cluster/kubernetes/apps/forgejo/forgejo/app
   prune: true
   postBuild:
