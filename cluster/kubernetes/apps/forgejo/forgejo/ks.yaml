@@ -55,7 +55,7 @@ spec:
       kind: HTTPRoute
       failed: status.parents[0].conditions.filter(e, e.type == 'Accepted').all(e, e.status == 'False')
       current: status.parents[0].conditions.filter(e, e.type == 'Accepted').all(e, e.status == 'True')
-  path: ./cluster/kubernetes/apps/internal/forgejo/ingress
+  path: ./cluster/kubernetes/apps/forgejo/forgejo/ingress
   prune: true
   sourceRef:
     kind: GitRepository
