@@ -15,5 +15,5 @@ transformers:
     kind: NamespaceTransformer
     metadata:
       name: not-used
-      namespace: internal
+      namespace: forgejo
     unsetOnly: true
