@@ -38,7 +38,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app forgejoe-ingress
+  name: &app forgejo-ingress
   namespace: flux-system
 spec:
   targetNamespace: &namespace forgejo
@@ -55,7 +55,7 @@ spec:
       kind: HTTPRoute
       failed: status.parents[0].conditions.filter(e, e.type == 'Accepted').all(e, e.status == 'False')
       current: status.parents[0].conditions.filter(e, e.type == 'Accepted').all(e, e.status == 'True')
-  path: ./cluster/kubernetes/apps/internal/homepage/ingress
+  path: ./cluster/kubernetes/apps/internal/forgejo/ingress
   prune: true
   sourceRef:
     kind: GitRepository
