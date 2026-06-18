@@ -67,7 +67,7 @@ data:
     - Misc:
         - Unifi:
             icon: unifi.svg
-            href: https://10.10.0.252/
+            href: https://unifi.local.cjsolsen.com
             description: Unifi Network Application
             widget:
               type: unifi
