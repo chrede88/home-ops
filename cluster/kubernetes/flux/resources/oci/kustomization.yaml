@@ -34,3 +34,4 @@ resources:
   - ./gatus-sidecar.yaml
   - ./konflate.yaml
   - ./webhook-ovh.yaml
+  - ./forgejo.yaml

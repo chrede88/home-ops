@@ -25,6 +25,10 @@ spec:
           origin: external-gateway.network.svc.cluster.local:443
         - hostname: "*.cjsolsen.com"
           origin: external-gateway.network.svc.cluster.local:443
+      tcpServices:
+        - name: forgejo-ssh
+          origin: external-gateway.network.svc.cluster.local:2222
+          listen_port: 2576
       inviteTokenSecret:
           name: towonel-agent-secret
           # -- Key inside the Secret.

@@ -1,0 +1,36 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: forgejo-cluster
+  namespace: database
+spec:
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.4-standard-trixie
+  bootstrap:
+    initdb:
+      database: forgejo
+      owner: forgejo
+      secret:
+        name: forgejo-cluster-user-secret
+  primaryUpdateStrategy: unsupervised
+  enableSuperuserAccess: true
+  superuserSecret:
+    name: forgejo-cluster-superuser-secret
+  resources:
+    requests:
+      cpu: 100m
+      memory: 500Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+  postgresql:
+    parameters:
+      shared_buffers: 128MB
+      timezone: 'Europe/Zurich'
+  storage:
+    size: 10Gi
+    storageClass: ceph-block
+  monitoring:
+    enablePodMonitor: true
