@@ -11,7 +11,7 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 0.14.10
+    tag: 0.14.11
   url: oci://ghcr.io/home-operations/charts/kromgo
   verify:
     provider: cosign
