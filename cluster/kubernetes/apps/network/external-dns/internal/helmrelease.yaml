@@ -45,7 +45,7 @@ spec:
       webhook:
         image:
           repository: ghcr.io/home-operations/external-dns-unifi-webhook
-          tag: 0.10.6
+          tag: 0.10.7
         env:
           - name: UNIFI_HOST
             value: https://10.10.0.252
