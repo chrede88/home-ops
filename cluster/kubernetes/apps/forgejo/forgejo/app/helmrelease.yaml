@@ -1,0 +1,144 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app forgejo
+  annotations:
+    anubis.home/skip-route-patch: "true"
+spec:
+  interval: 30m
+  timeout: 15m
+  chartRef:
+    kind: OCIRepository
+    name: forgejo
+    namespace: flux-system
+  values:
+    httpRoute:
+      enabled: false
+    tcpRoute:
+      enabled: false
+    image:
+      rootless: true
+      registry: code.forgejo.org
+      repository: forgejo/forgejo
+      tag: 15.0.3-rootless
+    podSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 65532
+      runAsGroup: 65532
+      fsGroup: 65532
+      fsGroupChangePolicy: OnRootMismatch
+      seccompProfile:
+        type: RuntimeDefault
+    gitea:
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+      admin:
+        existingSecret: forgejo-secret
+      config:
+        APP_NAME: "Christian's Forge"
+        ui:
+          THEMES: forgejo-auto,forgejo-light,forgejo-dark
+          DEFAULT_THEME: forgejo-dark
+        ui.meta:
+          AUTHOR: Christian Olsen
+          DESCRIPTION: "Christian's Forge"
+        database:
+          DB_TYPE: postgres
+          HOST: forgejo-cluster-rw.database.svc.cluster.local:5432
+          USER: forgejo
+          PASSWD_URI: file:/data/forgejo/db_passwd
+          NAME: forgejo-cluster
+          SSL_MODE: disable
+        lfs:
+          PATH: /data/git/lfs
+        security:
+          REVERSE_PROXY_TRUSTED_PROXIES: 10.244.0.0/16
+        server:
+          APP_DATA_PATH: /data/gitea
+          ROOT_URL: https://git.cjsolsen.com
+          SSH_DOMAIN: git.cjsolsen.com
+          SSH_PORT: 2222
+          SSH_SERVER_HOST_KEYS: ssh/ssh_host_ed25519_key
+          START_SSH_SERVER: true
+        indexer:
+          ISSUE_INDEXER_TYPE: bleve
+          REPO_INDEXER_ENABLED: true
+        service:
+          ALLOW_ONLY_EXTERNAL_REGISTRATION: true
+          ENABLE_INTERNAL_SIGNIN: false
+          SHOW_REGISTRATION_BUTTON: false
+          ENABLE_PASSWORD_SIGNIN_FORM: false
+        repository:
+          DISABLED_REPO_UNITS: repo.ext_wiki,repo.ext_issues
+          DISABLE_DOWNLOAD_SOURCE_ARCHIVES: true
+        repository.signing:
+          FORMAT: ssh
+          SIGNING_KEY: /data/signing/ed25519.pub
+          SIGNING_NAME: git.cjsolsen.com Instance
+          SIGNING_EMAIL: noreply@git.cjsolsen.com
+          INITIAL_COMMIT: pubkey
+          CRUD_ACTIONS: pubkey, parentsigned
+          WIKI: never
+          MERGES: pubkey
+        metrics:
+          ENABLED: true
+        openid:
+          ENABLE_OPENID_SIGNIN: false
+          ENABLE_OPENID_SIGNUP: false
+        queue:
+          TYPE: redis
+          CONN_STR: redis://dragonfly-forgejo.database.svc:6379
+        session:
+          PROVIDER: redis
+          PROVIDER_CONFIG: redis://dragonfly-forgejo.database.svc:6379
+          SESSION_LIFE_TIME: "1209600"
+        cache:
+          ENABLED: true
+          ADAPTER: redis
+          HOST: redis://dragonfly-forgejo.database.svc:6379
+        actions:
+          ENABLED: true
+        mailer:
+          ENABLED: false
+        webhook:
+          ALLOWED_HOST_LIST: "*"
+    service:
+      http:
+        type: ClusterIP
+        port: 3000
+      ssh:
+        type: ClusterIP
+        port: 2222
+    valkey-cluster:
+      enabled: false
+    postgresql-ha:
+      enabled: false
+    persistence:
+      create: false
+
+    extraVolumes:
+      - name: signing-key
+        secret:
+          secretName: forgejo-signing-key
+          defaultMode: 0o400
+      - name: forgejo-ssh
+        secret:
+          secretName: forgejo-secret
+          defaultMode: 0o400
+      - name: forgejo-db-passwd
+        secret:
+          secretName: forgejo-db-passwd
+    extraContainerVolumeMounts:
+      - name: forgejo-ssh
+        mountPath: "/data/gitea/ssh/ssh_host_ed25519_key"
+        subPath: ssh_host_ed25519_key
+      - name: signing-key
+        mountPath: /data/signing
+        readOnly: true
+      - name: forgejo-db-passwd
+        mountPath: /data/forgejo
+        readOnly: true

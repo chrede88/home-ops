@@ -103,3 +103,31 @@ spec:
         mode: Terminate
         certificateRefs:
           - name: konflate-cjsolsen-com
+    # catch http traffic for forgejo
+    - name: forgejo
+      hostname: git.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              external-gateway-access: 'true'
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: konflate-cjsolsen-com
+    # catch tcp traffic for forgejo
+    - name: forgejo-tcp
+      hostname: git.cjsolsen.com
+      protocol: TCP
+      port: 2222
+      allowedRoutes:
+        kinds:
+          - kind: TCPRoute
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              external-gateway-access: 'true'
