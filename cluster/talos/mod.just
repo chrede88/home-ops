@@ -9,12 +9,12 @@ _default:
     just --list talos
 
 [confirm('Reboot node [y|N] ?')]
-[doc('reboot node [node]')]
+[doc('reboot node [node ip]')]
 reboot-node node:
     talosctl -n {{ node }} reboot -m powercycle
 
 [confirm('Shutdown node [y|N] ?')]
-[doc('shutdown node [node]')]
+[doc('shutdown node [node ip]')]
 shutdown-node node:
     talosctl -n {{ node }} shutdown
 
@@ -23,7 +23,7 @@ shutdown-node node:
 shutdown-cluster:
     talosctl -n {{ all-nodes }} shutdown --force
 
-[doc('get thunderbolt status on node [node]')]
+[doc('get thunderbolt status on node [node ip]')]
 tb-status node:
     talosctl -n {{ node }} get links | grep thunderbolt
 
@@ -41,7 +41,7 @@ generate-config: validate-config
     -o {{ talhelper_path }}/clusterconfig \
     -s {{ talhelper_path }}/talsecret.sops.yaml
 
-[doc('apply talos configuration to node [node] [--dry-run]')]
+[doc('apply talos configuration to node [node ip] [--dry-run]')]
 [script]
 apply-config node *args: generate-config
     node_name="$(just talos render-node {{ node }})"
