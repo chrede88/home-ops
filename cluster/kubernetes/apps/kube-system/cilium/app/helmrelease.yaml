@@ -15,20 +15,7 @@ spec:
     dashboards:
       enabled: true
     hubble:
-      enabled: true
-      metrics:
-        enabled:
-          - dns:query
-          - drop
-          - tcp
-          - flow
-          - port-distribution
-          - icmp
-          - http
-      relay:
-        enabled: true
-      ui:
-        enabled: true
+      enabled: false
     prometheus:
       enabled: true
       serviceMonitor:
