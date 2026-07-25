@@ -30,7 +30,7 @@ spec:
       cleanupPolicy:
         wipeDevicesFromOtherClusters: true
       dashboard:
-        enabled: false
+        enabled: true
         urlPrefix: /
         port: 8080
         ssl: false
