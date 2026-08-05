@@ -20,6 +20,7 @@ spec:
       kind: Node
       expr: |
         status.conditions.filter(c, c.type == "Ready").all(c, c.status == "True")
+      timeout: 10m
     # Check if ceph cluster is healthy
     - apiVersion: ceph.rook.io/v1
       kind: CephCluster
