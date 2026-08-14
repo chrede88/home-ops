@@ -15,3 +15,5 @@ spec:
     fullnameOverride: renovate-operator
     webhook:
       enabled: true
+    authorization:
+      enabled: false
