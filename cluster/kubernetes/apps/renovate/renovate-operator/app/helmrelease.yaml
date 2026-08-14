@@ -16,4 +16,4 @@ spec:
     webhook:
       enabled: true
     authorization:
-      enabled: true
+      enabled: false
