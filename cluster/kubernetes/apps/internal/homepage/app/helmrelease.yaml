@@ -71,7 +71,14 @@ spec:
               - secretRef:
                   name: homepage-secret
             env:
-              LOG_LEVEL: debug
+              - name: LOG_LEVEL
+                value: debug
+              - name: MY_POD_IP
+                valueFrom:
+                  fieldRef:
+                    fieldPath: status.podIP
+              - name: HOMEPAGE_ALLOWED_HOSTS
+                value: "$(MY_POD_IP):3000"
     service:
       app:
         controller: *name
