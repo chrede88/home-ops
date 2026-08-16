@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - ./gateway.yaml
   - ./http-redirect.yaml
+  - ./eep-internal.yaml
