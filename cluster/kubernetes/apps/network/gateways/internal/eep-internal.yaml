@@ -5,7 +5,7 @@ metadata:
   name: eep-internal
   namespace: network
 spec:
-  targetSelectors:
+  targetRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
       name: internal-gateway
