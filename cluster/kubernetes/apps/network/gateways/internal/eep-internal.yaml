@@ -18,7 +18,7 @@ spec:
           url: oci://ghcr.io/ishioni/eep:0.2.0
       config:
         theme: app-down
-        showDetails: true
+        showDetails: false
         locale: auto
         logLevel: debug
       failOpen: false
