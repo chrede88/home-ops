@@ -21,6 +21,4 @@ spec:
         showDetails: true
         locale: auto
         logLevel: debug
-        filterCodes: []
-        excludeDomains: []
       failOpen: false
