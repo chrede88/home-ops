@@ -6,3 +6,4 @@ resources:
   - ./gateway.yaml
   - ./http-redirect.yaml
   - ./eep-internal.yaml
+  - ./backendtrafficpolicy.yaml
