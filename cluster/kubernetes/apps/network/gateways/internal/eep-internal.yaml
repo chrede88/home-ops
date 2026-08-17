@@ -20,6 +20,7 @@ spec:
         theme: app-down
         showDetails: true
         locale: auto
+        logLevel: debug
         filterCodes: []
         excludeDomains: []
       failOpen: false
