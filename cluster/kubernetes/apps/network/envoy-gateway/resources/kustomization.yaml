@@ -6,3 +6,5 @@ resources:
   - ./envoyproxy.yaml
   - ./gatewayclass.yaml
   - ./monitoring.yaml
+  - ./backendtrafficpolicy.yaml
+  - ./clienttrafficpolicy.yaml

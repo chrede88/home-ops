@@ -1,14 +1,14 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/backendtrafficpolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: BackendTrafficPolicy
 metadata:
-  name: envoy-internal
+  name: envoy
   namespace: network
 spec:
-  targetRefs:
+  targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
-      name: internal-gateway
   compression:
     - type: Brotli
       brotli: {}
