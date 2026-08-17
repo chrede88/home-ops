@@ -6,8 +6,10 @@ metadata:
   name: envoy
   namespace: network
 spec:
+  proxyProtocol:
+    optional: true # needed for towonel
   connection:
-    bufferLimit: 64Mi
+    bufferLimit: 64Mi # increase buffer from 32ki
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
