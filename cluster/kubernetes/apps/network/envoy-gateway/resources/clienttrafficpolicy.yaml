@@ -10,6 +10,20 @@ spec:
     optional: true # needed for towonel
   connection:
     bufferLimit: 64Mi # increase buffer from 32ki
+  path:
+    escapedSlashesAction: KeepUnchanged
+  http2:
+    onInvalidMessage: TerminateStream
+  http3: {}
+  tcpKeepalive: {}
+  timeout:
+    http:
+      requestReceivedTimeout: 0s
+  tls:
+    minVersion: "1.2"
+    alpnProtocols:
+      - h2
+      - http/1.1
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
