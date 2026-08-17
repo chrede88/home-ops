@@ -10,6 +10,7 @@ spec:
     optional: true # needed for towonel
   connection:
     bufferLimit: 64Mi # increase buffer from 32ki
+    maxAcceptPerSocketEvent: 0
   path:
     escapedSlashesAction: KeepUnchanged
   http2:
