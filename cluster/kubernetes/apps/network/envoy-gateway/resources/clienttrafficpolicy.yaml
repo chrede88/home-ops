@@ -3,7 +3,7 @@
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: ClientTrafficPolicy
 metadata:
-  name: envoy
+  name: envoy-external
   namespace: network
 spec:
   proxyProtocol:
@@ -25,6 +25,36 @@ spec:
     alpnProtocols:
       - h2
       - http/1.1
-  targetSelectors:
+  targetRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
+      name: external-gateway
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/clienttrafficpolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: ClientTrafficPolicy
+metadata:
+  name: envoy-internal
+  namespace: network
+spec:
+  connection:
+    bufferLimit: 64Mi # increase buffer from 32ki
+    maxAcceptPerSocketEvent: 0
+  path:
+    escapedSlashesAction: KeepUnchanged
+  http2:
+    onInvalidMessage: TerminateStream
+  http3: {}
+  tcpKeepalive: {}
+  timeout:
+    http:
+      requestReceivedTimeout: 0s
+  tls:
+    minVersion: "1.2"
+    alpnProtocols:
+      - h2
+      - http/1.1
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: external-gateway
