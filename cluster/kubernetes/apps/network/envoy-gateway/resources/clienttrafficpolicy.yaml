@@ -37,12 +37,18 @@ metadata:
   name: envoy-internal
   namespace: network
 spec:
+  clientIPDetection:
+    xForwardedFor:
+      numTrustedHops: 1
   connection:
     bufferLimit: 64Mi # increase buffer from 32ki
     maxAcceptPerSocketEvent: 0
   path:
+    disableMergeSlashes: true
     escapedSlashesAction: KeepUnchanged
   http2:
+    initialStreamWindowSize: 2Mi
+    initialConnectionWindowSize: 32Mi
     onInvalidMessage: TerminateStream
   http3: {}
   tcpKeepalive: {}
