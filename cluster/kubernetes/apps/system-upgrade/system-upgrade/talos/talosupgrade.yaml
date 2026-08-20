@@ -11,7 +11,7 @@ spec:
   policy:
     debug: true
     force: false
-    rebootMode: powercycle
+    rebootMode: default
   drain:
     enabled: true
   healthChecks:
