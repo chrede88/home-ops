@@ -62,3 +62,7 @@ cnpg-status ns db:
 [doc('get status of rook-ceph cluster')]
 rook-status:
     kubectl rook-ceph -n rook-ceph ceph status
+
+[doc('get detailed health of rook-ceph cluster')]
+rook-health:
+    kubectl rook-ceph -n rook-ceph ceph health detail
