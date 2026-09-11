@@ -7,7 +7,7 @@ metadata:
   namespace: network
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
-    external-dns.alpha.kubernetes.io/target: &addr 10.10.30.71
+    external-dns.kubernetes.io/target: &addr 10.10.30.71
     gatus.home-operations.com/endpoint: |
       interval: 1m
       alerts:
