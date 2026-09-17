@@ -1,0 +1,12 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
+    {
+      "description": "Point towonel chart to its upstream repo for changelogs",
+      "matchPackageNames": [
+        "/towonel/"
+      ],
+      "sourceUrl": "https://git.ow-ops.eu/towonel/towonel"
+    }
+  ]
+}
