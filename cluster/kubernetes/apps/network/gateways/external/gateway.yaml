@@ -103,3 +103,18 @@ spec:
         mode: Terminate
         certificateRefs:
           - name: konflate-cjsolsen-com
+    # catch traffic for printdigfattig website
+    - name: printdigfattig-ingress
+      hostname: printdigfattig.cjsolsen.com
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              external-gateway-access: 'true'
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: printdigfattig-cjsolsen-com
