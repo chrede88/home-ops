@@ -11,6 +11,7 @@ resources:
   - ./kromgo/ks.yaml
   - ./webhook/ks.yaml
   - ./konflate/ks.yaml
+  - ./printdigfattig/ks.yaml
 components:
   - ../../flux/components/alerts
 transformers:

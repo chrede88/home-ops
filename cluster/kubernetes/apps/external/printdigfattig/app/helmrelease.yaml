@@ -1,0 +1,59 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: printdigfattig
+spec:
+  interval: 30m
+  timeout: 15m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  values:
+    controllers:
+      app:
+        replicas: 1
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/chrede88/printdigfattig
+              tag: 0.0.2
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ['ALL'] }
+              seccompProfile:
+                type: RuntimeDefault
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 64Mi
+            ports:
+              - name: web
+                containerPort: &port 8080
+              - name: metrics
+                containerPort: 2019
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+    defaultPodOptions:
+      imagePullSecrets:
+        - name: ghcr-pull-secret
+    service:
+      app:
+        controller: app
+        ports:
+          http:
+            port: *port
